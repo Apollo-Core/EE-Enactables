@@ -8,7 +8,7 @@ import org.opt4j.core.start.Constant;
 
 /**
  * The {@link DecoratorEnactmentLogFactory} decorates functions by wrapping them in
- * {@link }s.
+ * {@link DecoratorEnactmentLog}s.
  *
  * @author Markus Moosbrugger
  */
@@ -20,7 +20,7 @@ public class DecoratorEnactmentLogFactory extends FunctionDecoratorFactory {
   /**
    * The injection constructor.
    *
-   * @param priority The priority of the decorator (see parent class comments)
+   * @param priority the priority of the decorator (see parent class comments)
    */
   @Inject public DecoratorEnactmentLogFactory(
       @Constant(value = "prio", namespace = DecoratorEnactmentLogFactory.class) final int priority,

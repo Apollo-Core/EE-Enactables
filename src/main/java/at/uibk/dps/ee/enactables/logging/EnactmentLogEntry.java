@@ -3,6 +3,10 @@ package at.uibk.dps.ee.enactables.logging;
 import java.time.Instant;
 import java.util.Objects;
 
+/**
+ * The {@link EnactmentLogEntry} contains the relevant information about an enactment which may
+ * be logged.
+ */
 public class EnactmentLogEntry {
 
   protected String id;
@@ -12,6 +16,13 @@ public class EnactmentLogEntry {
   protected double inputComplexity;
   protected double executionTime;
 
+  /**
+   * The standard constructor containing only function id, function type and the execution time.
+   *
+   * @param id            the function id
+   * @param type          the function type
+   * @param executionTime the execution time
+   */
   public EnactmentLogEntry(String id, String type, double executionTime) {
     this.id = id;
     this.type = type;
@@ -19,6 +30,15 @@ public class EnactmentLogEntry {
     this.timestamp = Instant.now();
   }
 
+  /**
+   * Additional constructor containing all object attributes except the timestamp.
+   *
+   * @param id              the function id
+   * @param type            the function type
+   * @param executionTime   the execution time
+   * @param success         the success status
+   * @param inputComplexity the complexity of the input values
+   */
   public EnactmentLogEntry(String id, String type, double executionTime, boolean success,
       double inputComplexity) {
     this(id, type, executionTime);
