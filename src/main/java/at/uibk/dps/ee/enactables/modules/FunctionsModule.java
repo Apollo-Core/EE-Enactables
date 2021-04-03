@@ -32,7 +32,7 @@ public class FunctionsModule extends FunctionModule {
   public String pathToLoggingConfiguration = "./logging/config/logback.xml";
 
   @Order(3)
-  @Constant(value = "prio", namespace = DecoratorTimingLogFactory.class)
+  @Constant(value = "prio", namespace = DecoratorEnactmentLogFactory.class)
   @Required(property = "logTime")
   @Info("Decorators with lower prio are applied later.")
   public int timeLoggingDecoratorPriority = 10;
