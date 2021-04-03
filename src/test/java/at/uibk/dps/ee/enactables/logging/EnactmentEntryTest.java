@@ -13,6 +13,7 @@ public class EnactmentEntryTest {
     String id = "id1";
     String type = "type1";
     double executionTime = 110.1;
+    Instant timestamp = Instant.now();
 
     EnactmentLogEntry entry = new EnactmentLogEntry(id, type, executionTime);
     assertEquals(id, entry.getId());
@@ -26,7 +27,8 @@ public class EnactmentEntryTest {
     double inputComplexity = 0.8;
 
     EnactmentLogEntry entryComplete =
-        new EnactmentLogEntry(id, type, executionTime, success, inputComplexity);
+        new EnactmentLogEntry(timestamp, id, type, executionTime, success, inputComplexity);
+    assertEquals(timestamp, entryComplete.getTimestamp());
     assertEquals(id, entryComplete.getId());
     assertEquals(type, entryComplete.getType());
     assertEquals(executionTime, entryComplete.getExecutionTime(), 0.001);

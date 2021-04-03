@@ -1,11 +1,16 @@
 package at.uibk.dps.ee.enactables.logging;
 
+import com.influxdb.annotations.Measurement;
+
 import java.time.Instant;
 import java.util.Objects;
 
 /**
  * The {@link EnactmentLogEntry} contains the relevant information about an enactment which may
  * be logged.
+ *
+ * @author Markus Moosbrugger
+ *
  */
 public class EnactmentLogEntry {
 
@@ -31,19 +36,28 @@ public class EnactmentLogEntry {
   }
 
   /**
-   * Additional constructor containing all object attributes except the timestamp.
+   * Additional constructor containing all object attributes.
    *
+   * @param timestamp       the timestamp of the enactment
    * @param id              the function id
    * @param type            the function type
    * @param executionTime   the execution time
    * @param success         the success status
    * @param inputComplexity the complexity of the input values
    */
-  public EnactmentLogEntry(String id, String type, double executionTime, boolean success,
+  public EnactmentLogEntry(Instant timestamp, String id, String type, double executionTime,
+      boolean success,
       double inputComplexity) {
     this(id, type, executionTime);
+    this.timestamp = timestamp;
     this.success = success;
     this.inputComplexity = inputComplexity;
+  }
+
+  /**
+   * Additional no-argument constructor.
+   */
+  public EnactmentLogEntry() {
   }
 
   public String getId() {

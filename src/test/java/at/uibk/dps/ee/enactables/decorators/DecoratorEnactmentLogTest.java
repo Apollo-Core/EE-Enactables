@@ -17,39 +17,6 @@ import static org.mockito.Mockito.verify;
 
 public class DecoratorEnactmentLogTest {
 
-  protected static class MockFunction implements EnactmentFunction {
-
-    protected final String id;
-    protected final String type;
-    protected final int timeMillisecs;
-
-    public MockFunction(String id, String type, int timeMillisecs) {
-      this.id = id;
-      this.type = type;
-      this.timeMillisecs = timeMillisecs;
-    }
-
-    @Override
-    public JsonObject processInput(JsonObject input) throws StopException {
-      try {
-        Thread.sleep(timeMillisecs);
-      } catch (InterruptedException e) {
-        fail();
-      }
-      return input;
-    }
-
-    @Override
-    public String getId() {
-      return id;
-    }
-
-    @Override
-    public String getType() {
-      return type;
-    }
-  }
-
   @Test
   public void testPreprocess() {
     String id = "id";

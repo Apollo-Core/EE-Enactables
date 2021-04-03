@@ -1,22 +1,19 @@
-package at.uibk.dps.ee.enactables.logging;
+package at.uibk.dps.ee.enactables.logging.logback;
 
-import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.enactables.decorators.DecoratorTimingLog;
-import at.uibk.dps.ee.enactables.decorators.DecoratorTimingLogTest;
+import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
-import com.google.gson.JsonObject;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class LogbackEnactmentLoggerTest {
 
-  @Test public void test() {
+  @Test public void testLogEnactment() {
     String id = "id";
     String type = "type";
     double executionTime = 1.12;
