@@ -1,5 +1,9 @@
 package at.uibk.dps.ee.enactables.modules;
 
+import at.uibk.dps.ee.enactables.decorators.DecoratorEnactmentLog;
+import at.uibk.dps.ee.enactables.decorators.DecoratorEnactmentLogFactory;
+import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
+import at.uibk.dps.ee.enactables.logging.LogbackEnactmentLogger;
 import org.opt4j.core.config.annotations.File;
 import org.opt4j.core.config.annotations.Info;
 import org.opt4j.core.config.annotations.Order;
@@ -37,10 +41,11 @@ public class FunctionsModule extends FunctionModule {
   protected void config() {
 
     if (logTime) {
+      bind(EnactmentLogger.class).to(LogbackEnactmentLogger.class);
       // configure the location of the logback config file
       System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, pathToLoggingConfiguration);
       // add the function wrapper
-      addFunctionDecoratorFactory(DecoratorTimingLogFactory.class);
+      addFunctionDecoratorFactory(DecoratorEnactmentLogFactory.class);
     }
 
   }
