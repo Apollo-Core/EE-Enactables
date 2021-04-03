@@ -1,15 +1,13 @@
 package at.uibk.dps.ee.enactables.modules;
 
-import at.uibk.dps.ee.enactables.decorators.DecoratorEnactmentLog;
 import at.uibk.dps.ee.enactables.decorators.DecoratorEnactmentLogFactory;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
-import at.uibk.dps.ee.enactables.logging.LogbackEnactmentLogger;
+import at.uibk.dps.ee.enactables.logging.influxdb.InfluxDBEnactmentLogger;
 import org.opt4j.core.config.annotations.File;
 import org.opt4j.core.config.annotations.Info;
 import org.opt4j.core.config.annotations.Order;
 import org.opt4j.core.config.annotations.Required;
 import org.opt4j.core.start.Constant;
-import at.uibk.dps.ee.enactables.decorators.DecoratorTimingLogFactory;
 import at.uibk.dps.ee.guice.modules.FunctionModule;
 import ch.qos.logback.classic.util.ContextInitializer;
 
@@ -41,7 +39,7 @@ public class FunctionsModule extends FunctionModule {
   protected void config() {
 
     if (logTime) {
-      bind(EnactmentLogger.class).to(LogbackEnactmentLogger.class);
+      bind(EnactmentLogger.class).to(InfluxDBEnactmentLogger.class);
       // configure the location of the logback config file
       System.setProperty(ContextInitializer.CONFIG_FILE_PROPERTY, pathToLoggingConfiguration);
       // add the function wrapper
