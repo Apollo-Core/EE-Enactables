@@ -1,5 +1,6 @@
 package at.uibk.dps.ee.enactables.logging.influxdb;
 
+import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.WriteApi;
 import com.influxdb.client.domain.WritePrecision;
@@ -26,25 +27,26 @@ public class InfluxDBEnactmentLoggerTest {
 
     InfluxDBClient clientMock = mock(InfluxDBClient.class);
     WriteApi writeApiMock = mock(WriteApi.class);
-    InfluxDBEnactmentLogger influxDBLogger = new InfluxDBEnactmentLogger(clientMock);
-    influxDBLogger.bucket = "testbucket";
-    influxDBLogger.org = "testorg";
+    InfluxDBEnactmentLogger influxDBLogger =
+        new InfluxDBEnactmentLogger(clientMock, "testbucket", "testorg");
 
-    InfluxDBEnactmentLogEntry entry =
-        new InfluxDBEnactmentLogEntry(timestamp, id, type, executionTime, success, inputComplexity);
+    EnactmentLogEntry entry =
+        new EnactmentLogEntry(timestamp, id, type, executionTime, success, inputComplexity);
 
     when(clientMock.getWriteApi()).thenReturn(writeApiMock);
     influxDBLogger.logEnactment(entry);
 
-    verify(writeApiMock).writeMeasurement("testbucket", "testorg", WritePrecision.NS, entry);
+    InfluxDBEnactmentLogEntry influxDBEntry = new InfluxDBEnactmentLogEntry(entry);
+    verify(writeApiMock).writeMeasurement("testbucket", "testorg", WritePrecision.NS, influxDBEntry);
   }
 
   @Test public void testReadProperties() {
     InfluxDBClient clientMock = mock(InfluxDBClient.class);
-    InfluxDBEnactmentLogger influxDBLogger = new InfluxDBEnactmentLogger(clientMock);
+    InfluxDBEnactmentLogger influxDBLogger =
+        new InfluxDBEnactmentLogger(clientMock, "bucket", "org");
 
-    assertNull(influxDBLogger.bucket);
-    assertNull(influxDBLogger.org);
+    assertEquals("bucket", influxDBLogger.bucket);
+    assertEquals("org", influxDBLogger.org);
     assertNull(influxDBLogger.url);
 
     influxDBLogger.pathToPropertiesFile = testPropertiesPath;

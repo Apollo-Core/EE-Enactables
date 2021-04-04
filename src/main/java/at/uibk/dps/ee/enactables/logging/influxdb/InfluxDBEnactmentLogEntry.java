@@ -5,6 +5,7 @@ import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
 
 import java.time.Instant;
+import java.util.Objects;
 
 /**
  * The {@link InfluxDBEnactmentLogEntry} is a POJO which contains all the required annotations
@@ -13,8 +14,7 @@ import java.time.Instant;
  * @author Markus Moosbrugger
  */
 
-@Measurement(name = "EnactmentEntry") public class InfluxDBEnactmentLogEntry
-    extends EnactmentLogEntry {
+@Measurement(name = "EnactmentEntry") public class InfluxDBEnactmentLogEntry {
 
   @Column(name = "functionId", tag = true) protected String id;
 
@@ -30,13 +30,13 @@ import java.time.Instant;
 
 
   /**
-   * The constructor which takes an instance of the parent class {@link EnactmentLogEntry} and
-   * creates a more specific entry for InfluxDB.
+   * The constructor which takes an instance of the class {@link EnactmentLogEntry} and
+   * creates a log entry for InfluxDB.
    *
    * @param entry the general enactment log entry
    */
   public InfluxDBEnactmentLogEntry(EnactmentLogEntry entry) {
-    super(entry.getTimestamp(), entry.getId(), entry.getType(), entry.getExecutionTime(),
+    this(entry.getTimestamp(), entry.getId(), entry.getType(), entry.getExecutionTime(),
         entry.isSuccess(), entry.getInputComplexity());
   }
 
@@ -53,8 +53,24 @@ import java.time.Instant;
    */
   public InfluxDBEnactmentLogEntry(Instant timestamp, String id, String type, double executionTime,
       boolean success, double inputComplexity) {
-    super(timestamp, id, type, executionTime, success, inputComplexity);
+    this.id = id;
+    this.type = type;
+    this.timestamp = timestamp;
+    this.success = success;
+    this.executionTime = executionTime;
+    this.inputComplexity = inputComplexity;
   }
 
+  @Override public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    InfluxDBEnactmentLogEntry that = (InfluxDBEnactmentLogEntry) o;
+    return id.equals(that.id) && type.equals(that.type) && timestamp.equals(that.timestamp);
+  }
 
+  @Override public int hashCode() {
+    return Objects.hash(id, type, timestamp);
+  }
 }

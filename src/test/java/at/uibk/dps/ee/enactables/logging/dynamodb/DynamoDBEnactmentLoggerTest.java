@@ -27,9 +27,9 @@ public class DynamoDBEnactmentLoggerTest {
 
     Table tableMock = mock(Table.class);
     DynamoDB dynamoDBMock = mock(DynamoDB.class);
-    DynamoDBEnactmentLogger dynamoDBLogger = new DynamoDBEnactmentLogger(dynamoDBMock);
+    DynamoDBEnactmentLogger dynamoDBLogger = new DynamoDBEnactmentLogger(dynamoDBMock, "testtable");
 
-    when(dynamoDBMock.getTable(any())).thenReturn(tableMock);
+    when(dynamoDBMock.getTable("testtable")).thenReturn(tableMock);
 
     EnactmentLogEntry entry =
         new EnactmentLogEntry(timestamp, id, type, executionTime, success, inputComplexity);
@@ -45,12 +45,12 @@ public class DynamoDBEnactmentLoggerTest {
 
   @Test public void readProperties() {
     DynamoDB dynamoDBMock = mock(DynamoDB.class);
-    DynamoDBEnactmentLogger dynamoDBLogger = new DynamoDBEnactmentLogger(dynamoDBMock);
+    DynamoDBEnactmentLogger dynamoDBLogger = new DynamoDBEnactmentLogger(dynamoDBMock, "tablename");
 
     assertNull(dynamoDBLogger.accessKeyId);
     assertNull(dynamoDBLogger.secretAccessKey);
     assertNull(dynamoDBLogger.region);
-    assertNull(dynamoDBLogger.tableName);
+    assertEquals("tablename", dynamoDBLogger.tableName);
 
     dynamoDBLogger.pathToPropertiesFile = testPropertiesPath;
     dynamoDBLogger.readProperties();

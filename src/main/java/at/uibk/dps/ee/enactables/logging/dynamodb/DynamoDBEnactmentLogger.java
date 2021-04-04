@@ -9,6 +9,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.google.inject.Inject;
+import org.opt4j.core.start.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,10 +27,8 @@ import java.util.Properties;
  * @author Markus Moosbrugger
  */
 public class DynamoDBEnactmentLogger implements EnactmentLogger {
-  protected final String pathToPropertiesFile = "./logging/config/database/dynamodb/dynamodb"
-      + ".properties";
   protected final Logger logger = LoggerFactory.getLogger(DynamoDBEnactmentLogger.class);
-
+  protected String pathToPropertiesFile;
   protected String accessKeyId;
   protected String secretAccessKey;
   protected String tableName;
@@ -39,19 +39,25 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
    * Default constructor. Reads the database configuration properties from the specified
    * properties file and creates a DynamoDB object used to access the database.
    */
-  public DynamoDBEnactmentLogger() {
+  @Inject
+  public DynamoDBEnactmentLogger(
+      @Constant(value = "pathToDynamoDBProperties", namespace = DynamoDBEnactmentLogger.class)
+      final String pathToPropertiesFile) {
+    this.pathToPropertiesFile = pathToPropertiesFile;
     readProperties();
     initDynamoDB();
   }
 
   /**
-   * Additional constructor which can be used to provide a DynamoDB object.
+   * Additional constructor which can be used to provide a DynamoDB object combined with a name
+   * for the table.
    *
    * @param dynamoDB the DynamoDB object
+   * @param tableName the name of the database table
    */
-  public DynamoDBEnactmentLogger(DynamoDB dynamoDB) {
-    readProperties();
+  public DynamoDBEnactmentLogger(DynamoDB dynamoDB, String tableName) {
     this.dynamoDB = dynamoDB;
+    this.tableName = tableName;
   }
 
 

@@ -7,6 +7,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 import org.junit.Test;
 
+import java.time.Instant;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -18,6 +19,7 @@ public class LogbackEnactmentLoggerTest {
     String type = "type";
     double executionTime = 1.12;
     boolean success = true;
+    double inputComplexity = 0.8;
 
     LogbackEnactmentLogger logbackEnactmentLogger = new LogbackEnactmentLogger();
     Logger logger = (Logger) logbackEnactmentLogger.logger;
@@ -26,10 +28,11 @@ public class LogbackEnactmentLoggerTest {
     listAppender.start();
     logger.addAppender(listAppender);
 
-    String expectedLogEntry = "TYPE " + type + " ID " + id + " EXEC TIME " + executionTime + " ms SUCCESS " + success +".";
+    String expectedLogEntry = "TYPE " + type + " ID " + id + " EXEC TIME " + executionTime + " ms"
+        + " SUCCESS " + success + " INPUT COMPLEXITY "+ inputComplexity + ".";
 
-    EnactmentLogEntry entry = new EnactmentLogEntry(id, type, executionTime);
-    entry.setSuccess(true);
+    EnactmentLogEntry entry = new EnactmentLogEntry(Instant.now(), id, type, executionTime, success,
+        inputComplexity);
     logbackEnactmentLogger.logEnactment(entry);
 
 

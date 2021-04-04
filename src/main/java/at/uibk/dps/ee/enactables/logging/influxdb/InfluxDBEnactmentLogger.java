@@ -3,10 +3,13 @@ package at.uibk.dps.ee.enactables.logging.influxdb;
 
 import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
+import com.google.inject.Inject;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.WriteApi;
 import com.influxdb.client.domain.WritePrecision;
+import org.checkerframework.checker.units.qual.C;
+import org.opt4j.core.start.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +26,8 @@ import java.util.Properties;
  * @author Markus Moosbrugger
  */
 public class InfluxDBEnactmentLogger implements EnactmentLogger {
-
-  // TODO should we hardcode the path to the properties file here
-  protected final String pathToPropertiesFile = "./logging/config/database/influxdb/influxdb"
-      + ".properties";
   protected final Logger logger = LoggerFactory.getLogger(InfluxDBEnactmentLogger.class);
-
+  protected String pathToPropertiesFile;
   protected InfluxDBClient client;
   protected String bucket;
   protected String org;
@@ -40,18 +39,26 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
    * Default constructor. Reads the database configuration properties from the specified
    * properties file and creates an InfluxDB client.
    */
-  public InfluxDBEnactmentLogger() {
+  @Inject
+  public InfluxDBEnactmentLogger(@Constant(value= "pathToInfluxDBProperties", namespace =
+      InfluxDBEnactmentLogger.class) final String pathToPropertiesFile) {
+    this.pathToPropertiesFile = pathToPropertiesFile;
     readProperties();
     this.client = InfluxDBClientFactory.create(this.url, this.token.toCharArray());
   }
 
   /**
-   * Additional constructor which can be used to provide a client.
+   * Additional constructor which can be used to provide a client in combination with the bucket
+   * name and the organization.
+   *
    * @param client an InfluxDB client
+   * @param bucket the bucket name
+   * @param org the organization
    */
-  public InfluxDBEnactmentLogger(InfluxDBClient client){
-    readProperties();
+  public InfluxDBEnactmentLogger(InfluxDBClient client, String bucket, String org){
     this.client = client;
+    this.bucket = bucket;
+    this.org = org;
   }
 
   @Override public void logEnactment(EnactmentLogEntry entry) {
