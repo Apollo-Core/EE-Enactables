@@ -25,7 +25,8 @@ import java.util.Properties;
  * @author Markus Moosbrugger
  */
 public class DynamoDBEnactmentLogger implements EnactmentLogger {
-  protected String pathToPropertiesFile = "./logging/config/database/dynamodb/dynamodb.properties";
+  protected final String pathToPropertiesFile = "./logging/config/database/dynamodb/dynamodb"
+      + ".properties";
   protected final Logger logger = LoggerFactory.getLogger(DynamoDBEnactmentLogger.class);
 
   protected String accessKeyId;
