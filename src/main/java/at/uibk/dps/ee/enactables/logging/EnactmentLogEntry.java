@@ -1,7 +1,5 @@
 package at.uibk.dps.ee.enactables.logging;
 
-import com.influxdb.annotations.Measurement;
-
 import java.time.Instant;
 import java.util.Objects;
 
