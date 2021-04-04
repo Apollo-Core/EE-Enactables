@@ -54,6 +54,9 @@ dependencies {
   // dependency to java client for influxdb time-series database
   compile "com.influxdb:influxdb-client-java:2.0.0"
 
+  // dependency to AWS SDK for dynamo db
+  compile 'com.amazonaws:aws-java-sdk-dynamodb:1.11.983'
+
   // test dependencies
   testCompile group: 'junit', 		name: 'junit', 					version: '4.+'
   testCompile group: 'org.mockito',     name: 'mockito-core',     version: '3.4.4'
