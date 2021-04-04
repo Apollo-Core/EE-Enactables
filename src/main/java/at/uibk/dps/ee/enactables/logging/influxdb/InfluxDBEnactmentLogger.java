@@ -25,7 +25,7 @@ import java.util.Properties;
 public class InfluxDBEnactmentLogger implements EnactmentLogger {
 
   // TODO should we hardcode the path to the properties file here
-  public String pathToPropertiesFile = "./logging/config/database/influxdb/influxdb.properties";
+  protected String pathToPropertiesFile = "./logging/config/database/influxdb/influxdb.properties";
   protected final Logger logger = LoggerFactory.getLogger(InfluxDBEnactmentLogger.class);
 
   protected InfluxDBClient client;
