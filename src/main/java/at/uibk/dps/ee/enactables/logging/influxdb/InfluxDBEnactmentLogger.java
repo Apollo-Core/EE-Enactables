@@ -8,7 +8,7 @@ import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.InfluxDBClientFactory;
 import com.influxdb.client.WriteApi;
 import com.influxdb.client.domain.WritePrecision;
-import org.checkerframework.checker.units.qual.C;
+import com.influxdb.client.write.Point;
 import org.opt4j.core.start.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,9 +39,9 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
    * Default constructor. Reads the database configuration properties from the specified
    * properties file and creates an InfluxDB client.
    */
-  @Inject
-  public InfluxDBEnactmentLogger(@Constant(value= "pathToInfluxDBProperties", namespace =
-      InfluxDBEnactmentLogger.class) final String pathToPropertiesFile) {
+  @Inject public InfluxDBEnactmentLogger(
+      @Constant(value = "pathToInfluxDBProperties", namespace = InfluxDBEnactmentLogger.class)
+      final String pathToPropertiesFile) {
     this.pathToPropertiesFile = pathToPropertiesFile;
     readProperties();
     this.client = InfluxDBClientFactory.create(this.url, this.token.toCharArray());
@@ -53,25 +53,27 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
    *
    * @param client an InfluxDB client
    * @param bucket the bucket name
-   * @param org the organization
+   * @param org    the organization
    */
-  public InfluxDBEnactmentLogger(InfluxDBClient client, String bucket, String org){
+  public InfluxDBEnactmentLogger(InfluxDBClient client, String bucket, String org) {
     this.client = client;
     this.bucket = bucket;
     this.org = org;
   }
 
   @Override public void logEnactment(EnactmentLogEntry entry) {
-    /* TODO check if better to write point or use custom class
-    Point point = Point.measurement("enactment").addTag("functionId", entry.getId())
-        .addTag("functionType", entry.getType()).addField("executionTime",
-        entry.getExecutionTime())
-        .addField("success", entry.isSuccess()).time(entry.getTimestamp(), WritePrecision.NS);
-     */
+    Point point = Point.measurement("Enactment").addTag("functionId", entry.getId())
+        .addTag("functionType", entry.getType()).addField("executionTime", entry.getExecutionTime())
+        .addField("success", entry.isSuccess()).time(entry.getTimestamp(), WritePrecision.NS)
+        .addField("inputComplexity", entry.getInputComplexity());
 
+    //TODO check if better to write point or use custom POJO class
+    /*
     InfluxDBEnactmentLogEntry influxDBEntry = new InfluxDBEnactmentLogEntry(entry);
+    writeApi.writeMeasurement(bucket, org, WritePrecision.NS, influxDBEntry);
+     */
     try (WriteApi writeApi = client.getWriteApi()) {
-      writeApi.writeMeasurement(bucket, org, WritePrecision.NS, influxDBEntry);
+      writeApi.writePoint(bucket, org, point);
     }
   }
 

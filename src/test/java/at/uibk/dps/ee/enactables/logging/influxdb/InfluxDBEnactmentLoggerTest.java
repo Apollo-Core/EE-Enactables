@@ -3,7 +3,7 @@ package at.uibk.dps.ee.enactables.logging.influxdb;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.WriteApi;
-import com.influxdb.client.domain.WritePrecision;
+import com.influxdb.client.write.Point;
 import org.junit.Test;
 
 import java.time.Instant;
@@ -36,8 +36,8 @@ public class InfluxDBEnactmentLoggerTest {
     when(clientMock.getWriteApi()).thenReturn(writeApiMock);
     influxDBLogger.logEnactment(entry);
 
-    InfluxDBEnactmentLogEntry influxDBEntry = new InfluxDBEnactmentLogEntry(entry);
-    verify(writeApiMock).writeMeasurement("testbucket", "testorg", WritePrecision.NS, influxDBEntry);
+    // TODO: how to check attributes of Point
+    verify(writeApiMock).writePoint(eq("testbucket"), eq("testorg"), any(Point.class));
   }
 
   @Test public void testReadProperties() {
