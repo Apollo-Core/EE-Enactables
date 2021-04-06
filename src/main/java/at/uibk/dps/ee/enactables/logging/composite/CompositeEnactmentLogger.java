@@ -10,11 +10,11 @@ public class CompositeEnactmentLogger implements EnactmentLogger {
 
   protected Set<EnactmentLogger> enactmentLoggers;
 
-  @Inject public CompositeEnactmentLogger(Set<EnactmentLogger> enactmentLoggers) {
+  @Inject public CompositeEnactmentLogger(final Set<EnactmentLogger> enactmentLoggers) {
     this.enactmentLoggers = enactmentLoggers;
   }
 
-  @Override public void logEnactment(EnactmentLogEntry entry) {
+  @Override public void logEnactment(final EnactmentLogEntry entry) {
     enactmentLoggers.stream().forEach(logger -> logger.logEnactment(entry));
   }
 }

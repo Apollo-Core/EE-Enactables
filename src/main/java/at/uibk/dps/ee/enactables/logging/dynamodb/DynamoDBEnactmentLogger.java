@@ -61,8 +61,8 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
   }
 
 
-  @Override public void logEnactment(EnactmentLogEntry entry) {
-    Table table = dynamoDB.getTable(tableName);
+  @Override public void logEnactment(final EnactmentLogEntry entry) {
+    final Table table = dynamoDB.getTable(tableName);
 
     table.putItem(new Item().withPrimaryKey("functionId", entry.getId(), "timestamp",
         entry.getTimestamp().toEpochMilli()).withBoolean("success", entry.isSuccess())
@@ -75,8 +75,9 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
    * Initializes the connection to DynamoDB and loads the specified table.
    */
   protected void initDynamoDB() {
-    BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKeyId, secretAccessKey);
-    AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
+    final BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKeyId,
+        secretAccessKey);
+    final AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
         .withCredentials(new AWSStaticCredentialsProvider(awsCredentials)).withRegion(region)
         .build();
     this.dynamoDB = new DynamoDB(amazonDynamoDB);
@@ -87,7 +88,7 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
    */
   protected void readProperties() {
     try (InputStream input = new FileInputStream(pathToPropertiesFile)) {
-      Properties properties = new Properties();
+      final Properties properties = new Properties();
       properties.load(input);
 
       this.accessKeyId = (String) properties.get("aws_access_key_id");

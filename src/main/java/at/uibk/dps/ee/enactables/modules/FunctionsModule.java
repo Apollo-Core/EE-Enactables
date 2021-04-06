@@ -60,7 +60,7 @@ public class FunctionsModule extends FunctionModule {
 
   @Override protected void config() {
     if (logFunctionProperties) {
-      long loggerCount =
+      final long loggerCount =
           getLoggerCount(Arrays.asList(new Boolean[] {useLogback, useInfluxDB, useDynamoDB}));
 
       if (loggerCount == 0) {
@@ -81,7 +81,7 @@ public class FunctionsModule extends FunctionModule {
    */
   protected void bindCompositeLogger() {
     bind(EnactmentLogger.class).to(CompositeEnactmentLogger.class);
-    Multibinder<EnactmentLogger> multibinder =
+    final Multibinder<EnactmentLogger> multibinder =
         Multibinder.newSetBinder(binder(), EnactmentLogger.class);
 
     if (useLogback) {
@@ -119,7 +119,7 @@ public class FunctionsModule extends FunctionModule {
    *                           respective logger is to be used
    * @return the total number of loggers that are to be used
    */
-  protected long getLoggerCount(List<Boolean> useLoggerFlagsList) {
+  protected long getLoggerCount(final List<Boolean> useLoggerFlagsList) {
     return useLoggerFlagsList.stream().filter(flag -> flag.booleanValue()).count();
   }
 
@@ -135,7 +135,7 @@ public class FunctionsModule extends FunctionModule {
     return pathToInfluxDBProperties;
   }
 
-  public void setPathToInfluxDBProperties(String pathToInfluxDBProperties) {
+  public void setPathToInfluxDBProperties(final String pathToInfluxDBProperties) {
     this.pathToInfluxDBProperties = pathToInfluxDBProperties;
   }
 
@@ -143,7 +143,7 @@ public class FunctionsModule extends FunctionModule {
     return pathToDynamoDBProperties;
   }
 
-  public void setPathToDynamoDBProperties(String pathToDynamoDBProperties) {
+  public void setPathToDynamoDBProperties(final String pathToDynamoDBProperties) {
     this.pathToDynamoDBProperties = pathToDynamoDBProperties;
   }
 
@@ -167,7 +167,7 @@ public class FunctionsModule extends FunctionModule {
     return useLogback;
   }
 
-  public void setUseLogback(boolean useLogback) {
+  public void setUseLogback(final boolean useLogback) {
     this.useLogback = useLogback;
   }
 
@@ -175,7 +175,7 @@ public class FunctionsModule extends FunctionModule {
     return useInfluxDB;
   }
 
-  public void setUseInfluxDB(boolean useInfluxDB) {
+  public void setUseInfluxDB(final boolean useInfluxDB) {
     this.useInfluxDB = useInfluxDB;
   }
 
@@ -183,7 +183,7 @@ public class FunctionsModule extends FunctionModule {
     return useDynamoDB;
   }
 
-  public void setUseDynamoDB(boolean useDynamoDB) {
+  public void setUseDynamoDB(final boolean useDynamoDB) {
     this.useDynamoDB = useDynamoDB;
   }
 }

@@ -8,7 +8,6 @@ import java.util.Objects;
  * be logged.
  *
  * @author Markus Moosbrugger
- *
  */
 public class EnactmentLogEntry {
 
@@ -20,13 +19,13 @@ public class EnactmentLogEntry {
   protected double executionTime;
 
   /**
-   * The standard constructor containing only function id, function type and the execution time.
+   * Constructor containing only function id, function type and the execution time.
    *
    * @param id            the function id
    * @param type          the function type
    * @param executionTime the execution time
    */
-  public EnactmentLogEntry(String id, String type, double executionTime) {
+  public EnactmentLogEntry(final String id, final String type, final double executionTime) {
     this.id = id;
     this.type = type;
     this.executionTime = executionTime;
@@ -43,26 +42,19 @@ public class EnactmentLogEntry {
    * @param success         the success status
    * @param inputComplexity the complexity of the input values
    */
-  public EnactmentLogEntry(Instant timestamp, String id, String type, double executionTime,
-      boolean success,
-      double inputComplexity) {
+  public EnactmentLogEntry(final Instant timestamp, final String id, final String type,
+      final double executionTime, final boolean success, final double inputComplexity) {
     this(id, type, executionTime);
     this.timestamp = timestamp;
     this.success = success;
     this.inputComplexity = inputComplexity;
   }
 
-  /**
-   * Additional no-argument constructor.
-   */
-  public EnactmentLogEntry() {
-  }
-
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(final String id) {
     this.id = id;
   }
 
@@ -70,7 +62,7 @@ public class EnactmentLogEntry {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(final String type) {
     this.type = type;
   }
 
@@ -78,7 +70,7 @@ public class EnactmentLogEntry {
     return timestamp;
   }
 
-  public void setTimestamp(Instant timestamp) {
+  public void setTimestamp(final Instant timestamp) {
     this.timestamp = timestamp;
   }
 
@@ -86,7 +78,7 @@ public class EnactmentLogEntry {
     return success;
   }
 
-  public void setSuccess(boolean success) {
+  public void setSuccess(final boolean success) {
     this.success = success;
   }
 
@@ -94,7 +86,7 @@ public class EnactmentLogEntry {
     return inputComplexity;
   }
 
-  public void setInputComplexity(double inputComplexity) {
+  public void setInputComplexity(final double inputComplexity) {
     this.inputComplexity = inputComplexity;
   }
 
@@ -102,16 +94,16 @@ public class EnactmentLogEntry {
     return executionTime;
   }
 
-  public void setExecutionTime(double executionTime) {
+  public void setExecutionTime(final double executionTime) {
     this.executionTime = executionTime;
   }
 
-  @Override public boolean equals(Object o) {
-    if (this == o)
+  @Override public boolean equals(Object obj) {
+    if (this == obj)
       return true;
-    if (o == null || getClass() != o.getClass())
+    if (obj == null || getClass() != obj.getClass())
       return false;
-    EnactmentLogEntry that = (EnactmentLogEntry) o;
+    final EnactmentLogEntry that = (EnactmentLogEntry) obj;
     return id.equals(that.id) && type.equals(that.type) && timestamp.equals(that.timestamp);
   }
 

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class LogbackEnactmentLogger implements EnactmentLogger {
   protected final Logger logger = LoggerFactory.getLogger(LogbackEnactmentLogger.class);
 
-  @Override public void logEnactment(EnactmentLogEntry entry) {
+  @Override public void logEnactment(final EnactmentLogEntry entry) {
     logger
         .info("TYPE {} ID {} EXEC TIME {} ms SUCCESS {} INPUT COMPLEXITY {}.", entry.getType(),
             entry.getId(),

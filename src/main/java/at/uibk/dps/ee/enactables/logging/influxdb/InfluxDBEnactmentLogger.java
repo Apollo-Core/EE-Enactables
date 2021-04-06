@@ -55,23 +55,19 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
    * @param bucket the bucket name
    * @param org    the organization
    */
-  public InfluxDBEnactmentLogger(InfluxDBClient client, String bucket, String org) {
+  public InfluxDBEnactmentLogger(final InfluxDBClient client, final String bucket,
+      final String org) {
     this.client = client;
     this.bucket = bucket;
     this.org = org;
   }
 
-  @Override public void logEnactment(EnactmentLogEntry entry) {
-    Point point = Point.measurement("Enactment").addTag("functionId", entry.getId())
+  @Override public void logEnactment(final EnactmentLogEntry entry) {
+    final Point point = Point.measurement("Enactment").addTag("functionId", entry.getId())
         .addTag("functionType", entry.getType()).addField("executionTime", entry.getExecutionTime())
         .addField("success", entry.isSuccess()).time(entry.getTimestamp(), WritePrecision.NS)
         .addField("inputComplexity", entry.getInputComplexity());
 
-    //TODO check if better to write point or use custom POJO class
-    /*
-    InfluxDBEnactmentLogEntry influxDBEntry = new InfluxDBEnactmentLogEntry(entry);
-    writeApi.writeMeasurement(bucket, org, WritePrecision.NS, influxDBEntry);
-     */
     try (WriteApi writeApi = client.getWriteApi()) {
       writeApi.writePoint(bucket, org, point);
     }
@@ -82,7 +78,7 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
    */
   protected void readProperties() {
     try (InputStream input = new FileInputStream(pathToPropertiesFile)) {
-      Properties properties = new Properties();
+      final Properties properties = new Properties();
       properties.load(input);
 
       this.bucket = (String) properties.get("bucket");
@@ -91,11 +87,10 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
       this.token = (String) properties.get("token");
 
     } catch (FileNotFoundException e) {
-      logger.error("Properties file not found at given location: " + pathToPropertiesFile, e);
+      logger.error("Properties file not found at given location {}.", pathToPropertiesFile, e);
     } catch (IOException e) {
-      logger.error(
-          "IO Exception while reading properties file at given location: " + pathToPropertiesFile,
-          e);
+      logger.error("IO Exception while reading properties file at given location {}.",
+          pathToPropertiesFile, e);
     }
   }
 }
