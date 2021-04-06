@@ -13,6 +13,7 @@ import java.time.Instant;
  * The {@link DecoratorEnactmentLog} is used to log information about the enactment of the
  * function it decorates.
  *
+ * @author Fedor Smirnov
  * @author Markus Moosbrugger
  */
 public class DecoratorEnactmentLog extends EnactmentFunctionDecorator {
@@ -26,20 +27,19 @@ public class DecoratorEnactmentLog extends EnactmentFunctionDecorator {
    * @param decoratedFunction the function whose execution properties are logged.
    */
   public DecoratorEnactmentLog(final EnactmentFunction decoratedFunction,
-      EnactmentLogger enactmentLogger) {
+      final EnactmentLogger enactmentLogger) {
     super(decoratedFunction);
     this.enactmentLogger = enactmentLogger;
   }
 
-  @Override protected JsonObject preprocess(JsonObject input) {
+  @Override protected JsonObject preprocess(final JsonObject input) {
     start = Instant.now();
 
     return input;
   }
 
-  @Override protected JsonObject postprocess(JsonObject result) {
-    // TODO set success in entry
-    EnactmentLogEntry entry =
+  @Override protected JsonObject postprocess(final JsonObject result) {
+    final EnactmentLogEntry entry =
         new EnactmentLogEntry(decoratedFunction.getId(), decoratedFunction.getType(),
             Duration.between(start, Instant.now()).toMillis());
     enactmentLogger.logEnactment(entry);

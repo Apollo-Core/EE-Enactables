@@ -24,12 +24,12 @@ public class DecoratorEnactmentLogFactory extends FunctionDecoratorFactory {
    */
   @Inject public DecoratorEnactmentLogFactory(
       @Constant(value = "prio", namespace = DecoratorEnactmentLogFactory.class) final int priority,
-      EnactmentLogger enactmentLogger) {
+      final EnactmentLogger enactmentLogger) {
     this.priority = priority;
     this.enactmentLogger = enactmentLogger;
   }
 
-  @Override public EnactmentFunction decorateFunction(EnactmentFunction function) {
+  @Override public EnactmentFunction decorateFunction(final EnactmentFunction function) {
     return new DecoratorEnactmentLog(function, this.enactmentLogger);
   }
 
