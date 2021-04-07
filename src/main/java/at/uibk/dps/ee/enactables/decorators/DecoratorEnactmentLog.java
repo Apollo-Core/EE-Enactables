@@ -41,9 +41,10 @@ public class DecoratorEnactmentLog extends EnactmentFunctionDecorator {
 
   @Override
   protected JsonObject postprocess(final JsonObject result) {
+    Instant now = Instant.now();
     final EnactmentLogEntry entry =
-        new EnactmentLogEntry(decoratedFunction.getId(), decoratedFunction.getType(),
-            Duration.between(start, Instant.now()).toMillis());
+        new EnactmentLogEntry(now, decoratedFunction.getId(), decoratedFunction.getType(),
+            Duration.between(start, now).toMillis(), true, 0);
     enactmentLogger.logEnactment(entry);
 
     return result;
