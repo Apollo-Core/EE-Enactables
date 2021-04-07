@@ -39,7 +39,8 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
    * Default constructor. Reads the database configuration properties from the specified
    * properties file and creates an InfluxDB client.
    */
-  @Inject public InfluxDBEnactmentLogger(
+  @Inject
+  public InfluxDBEnactmentLogger(
       @Constant(value = "pathToInfluxDBProperties", namespace = InfluxDBEnactmentLogger.class)
       final String pathToPropertiesFile) {
     this.pathToPropertiesFile = pathToPropertiesFile;
@@ -62,7 +63,8 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
     this.org = org;
   }
 
-  @Override public void logEnactment(final EnactmentLogEntry entry) {
+  @Override
+  public void logEnactment(final EnactmentLogEntry entry) {
     final Point point = Point.measurement("Enactment").addTag("functionId", entry.getId())
         .addTag("functionType", entry.getType()).addField("executionTime", entry.getExecutionTime())
         .addField("success", entry.isSuccess()).time(entry.getTimestamp(), WritePrecision.NS)

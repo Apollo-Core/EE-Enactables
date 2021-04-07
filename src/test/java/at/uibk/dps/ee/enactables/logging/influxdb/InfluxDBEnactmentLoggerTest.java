@@ -17,7 +17,8 @@ public class InfluxDBEnactmentLoggerTest {
   public static String testPropertiesPath = "./src/test/resources/influxdb-test.properties";
 
 
-  @Test public void testLogEnactment() {
+  @Test
+  public void testLogEnactment() {
     String id = "id";
     String type = "type";
     double executionTime = 1.12;
@@ -40,7 +41,8 @@ public class InfluxDBEnactmentLoggerTest {
     verify(writeApiMock).writePoint(eq("testbucket"), eq("testorg"), any(Point.class));
   }
 
-  @Test public void testReadProperties() {
+  @Test
+  public void testReadProperties() {
     InfluxDBClient clientMock = mock(InfluxDBClient.class);
     InfluxDBEnactmentLogger influxDBLogger =
         new InfluxDBEnactmentLogger(clientMock, "bucket", "org");

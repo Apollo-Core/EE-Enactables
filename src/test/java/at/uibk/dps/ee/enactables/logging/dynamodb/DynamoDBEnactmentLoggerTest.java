@@ -10,14 +10,14 @@ import java.time.Instant;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class DynamoDBEnactmentLoggerTest {
   public static String testPropertiesPath = "./src/test/resources/dynamodb-test.properties";
 
 
-  @Test public void testLogEnactment() {
+  @Test
+  public void testLogEnactment() {
     String id = "id";
     String type = "type";
     double executionTime = 1.12;
@@ -43,7 +43,8 @@ public class DynamoDBEnactmentLoggerTest {
     verify(tableMock).putItem(item);
   }
 
-  @Test public void readProperties() {
+  @Test
+  public void readProperties() {
     DynamoDB dynamoDBMock = mock(DynamoDB.class);
     DynamoDBEnactmentLogger dynamoDBLogger = new DynamoDBEnactmentLogger(dynamoDBMock, "tablename");
 

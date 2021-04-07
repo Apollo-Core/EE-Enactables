@@ -98,7 +98,8 @@ public class EnactmentLogEntry {
     this.executionTime = executionTime;
   }
 
-  @Override public boolean equals(Object obj) {
+  @Override
+  public boolean equals(Object obj) {
     if (this == obj)
       return true;
     if (obj == null || getClass() != obj.getClass())
@@ -107,7 +108,8 @@ public class EnactmentLogEntry {
     return id.equals(that.id) && type.equals(that.type) && timestamp.equals(that.timestamp);
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     return Objects.hash(id, type, timestamp);
   }
 }

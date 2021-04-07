@@ -32,13 +32,15 @@ public class DecoratorEnactmentLog extends EnactmentFunctionDecorator {
     this.enactmentLogger = enactmentLogger;
   }
 
-  @Override protected JsonObject preprocess(final JsonObject input) {
+  @Override
+  protected JsonObject preprocess(final JsonObject input) {
     start = Instant.now();
 
     return input;
   }
 
-  @Override protected JsonObject postprocess(final JsonObject result) {
+  @Override
+  protected JsonObject postprocess(final JsonObject result) {
     final EnactmentLogEntry entry =
         new EnactmentLogEntry(decoratedFunction.getId(), decoratedFunction.getType(),
             Duration.between(start, Instant.now()).toMillis());

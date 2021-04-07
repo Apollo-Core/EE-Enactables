@@ -16,7 +16,8 @@ import static org.mockito.Mockito.verify;
 
 public class CompositeEnactmentLoggerTest {
 
-  @Test public void testLogEnactment() {
+  @Test
+  public void testLogEnactment() {
     String id = "id";
     String type = "type";
     double executionTime = 1.12;

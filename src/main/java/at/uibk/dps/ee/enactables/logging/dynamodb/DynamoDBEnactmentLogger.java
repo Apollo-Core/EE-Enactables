@@ -52,7 +52,7 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
    * Additional constructor which can be used to provide a DynamoDB object combined with a name
    * for the table.
    *
-   * @param dynamoDB the DynamoDB object
+   * @param dynamoDB  the DynamoDB object
    * @param tableName the name of the database table
    */
   public DynamoDBEnactmentLogger(DynamoDB dynamoDB, String tableName) {
@@ -61,7 +61,8 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
   }
 
 
-  @Override public void logEnactment(final EnactmentLogEntry entry) {
+  @Override
+  public void logEnactment(final EnactmentLogEntry entry) {
     final Table table = dynamoDB.getTable(tableName);
 
     table.putItem(new Item().withPrimaryKey("functionId", entry.getId(), "timestamp",
@@ -75,8 +76,8 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
    * Initializes the connection to DynamoDB and loads the specified table.
    */
   protected void initDynamoDB() {
-    final BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKeyId,
-        secretAccessKey);
+    final BasicAWSCredentials awsCredentials =
+        new BasicAWSCredentials(accessKeyId, secretAccessKey);
     final AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
         .withCredentials(new AWSStaticCredentialsProvider(awsCredentials)).withRegion(region)
         .build();

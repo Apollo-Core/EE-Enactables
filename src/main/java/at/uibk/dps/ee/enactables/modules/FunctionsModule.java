@@ -27,38 +27,53 @@ import java.util.List;
  */
 public class FunctionsModule extends FunctionModule {
 
-  @Order(1) @Info("If checked, the execution properties of functions will be logged.")
+  @Order(1)
+  @Info("If checked, the execution properties of functions will be logged.")
   public boolean logFunctionProperties;
 
-  @Order(2) @Constant(value = "prio", namespace = DecoratorEnactmentLogFactory.class)
+  @Order(2)
+  @Constant(value = "prio", namespace = DecoratorEnactmentLogFactory.class)
   @Required(property = "logFunctionProperties")
-  @Info("Decorators with lower prio are applied later.") public int
-      enactmentLoggingDecoratorPriority = 10;
+  @Info("Decorators with lower prio are applied later.")
+  public int enactmentLoggingDecoratorPriority = 10;
 
-  @Order(3) @Info("If checked, the execution properties are logged with Logback.")
-  @Required(property = "logFunctionProperties") public boolean useLogback;
+  @Order(3)
+  @Info("If checked, the execution properties are logged with Logback.")
+  @Required(property = "logFunctionProperties")
+  public boolean useLogback;
 
-  @Order(4) @Info("The path to the logback configuration file.") @File
-  @Required(property = "useLogback") public String pathToLogbackConfiguration =
-      "./logging/config/logback.xml";
+  @Order(4)
+  @Info("The path to the logback configuration file.")
+  @File
+  @Required(property = "useLogback")
+  public String pathToLogbackConfiguration = "./logging/config/logback.xml";
 
-  @Order(5) @Info("If checked, the execution properties are logged to InfluxDB.")
-  @Required(property = "logFunctionProperties") public boolean useInfluxDB;
+  @Order(5)
+  @Info("If checked, the execution properties are logged to InfluxDB.")
+  @Required(property = "logFunctionProperties")
+  public boolean useInfluxDB;
 
-  @Order(6) @Info("The path to the InfluxDB properties file.") @File
+  @Order(6)
+  @Info("The path to the InfluxDB properties file.")
+  @File
   @Required(property = "useInfluxDB")
   @Constant(value = "pathToInfluxDBProperties", namespace = InfluxDBEnactmentLogger.class)
   public String pathToInfluxDBProperties = "./logging/config/database/influxdb/influxdb.properties";
 
-  @Order(7) @Info("If checked, the execution properties are logged to DynamoDB.")
-  @Required(property = "logFunctionProperties") public boolean useDynamoDB;
+  @Order(7)
+  @Info("If checked, the execution properties are logged to DynamoDB.")
+  @Required(property = "logFunctionProperties")
+  public boolean useDynamoDB;
 
-  @Order(8) @Info("The path to the DynamoDB properties file.") @File
+  @Order(8)
+  @Info("The path to the DynamoDB properties file.")
+  @File
   @Required(property = "useDynamoDB")
   @Constant(value = "pathToDynamoDBProperties", namespace = DynamoDBEnactmentLogger.class)
   public String pathToDynamoDBProperties = "./logging/config/database/dynamodb/dynamodb.properties";
 
-  @Override protected void config() {
+  @Override
+  protected void config() {
     if (logFunctionProperties) {
       final long loggerCount =
           getLoggerCount(Arrays.asList(new Boolean[] {useLogback, useInfluxDB, useDynamoDB}));

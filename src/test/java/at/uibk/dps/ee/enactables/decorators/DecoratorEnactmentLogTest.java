@@ -1,7 +1,5 @@
 package at.uibk.dps.ee.enactables.decorators;
 
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
 import com.google.gson.JsonObject;
@@ -23,8 +21,8 @@ public class DecoratorEnactmentLogTest {
     String type = "type";
     int waitTime = 50;
 
-    DecoratorTimingLogTest.MockFunction
-        original = new DecoratorTimingLogTest.MockFunction(id, type, waitTime);
+    DecoratorTimingLogTest.MockFunction original =
+        new DecoratorTimingLogTest.MockFunction(id, type, waitTime);
     EnactmentLogger enactmentLogger = mock(EnactmentLogger.class);
 
     DecoratorEnactmentLog enactmentLog = new DecoratorEnactmentLog(original, enactmentLogger);
@@ -45,8 +43,8 @@ public class DecoratorEnactmentLogTest {
     String type = "type";
     int waitTime = 50;
 
-    DecoratorTimingLogTest.MockFunction
-        original = new DecoratorTimingLogTest.MockFunction(id, type, waitTime);
+    DecoratorTimingLogTest.MockFunction original =
+        new DecoratorTimingLogTest.MockFunction(id, type, waitTime);
     EnactmentLogger enactmentLogger = mock(EnactmentLogger.class);
 
     DecoratorEnactmentLog enactmentLog = new DecoratorEnactmentLog(original, enactmentLogger);

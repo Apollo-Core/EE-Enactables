@@ -22,18 +22,21 @@ public class DecoratorEnactmentLogFactory extends FunctionDecoratorFactory {
    *
    * @param priority the priority of the decorator (see parent class comments)
    */
-  @Inject public DecoratorEnactmentLogFactory(
+  @Inject
+  public DecoratorEnactmentLogFactory(
       @Constant(value = "prio", namespace = DecoratorEnactmentLogFactory.class) final int priority,
       final EnactmentLogger enactmentLogger) {
     this.priority = priority;
     this.enactmentLogger = enactmentLogger;
   }
 
-  @Override public EnactmentFunction decorateFunction(final EnactmentFunction function) {
+  @Override
+  public EnactmentFunction decorateFunction(final EnactmentFunction function) {
     return new DecoratorEnactmentLog(function, this.enactmentLogger);
   }
 
-  @Override public int getPriority() {
+  @Override
+  public int getPriority() {
     return priority;
   }
 }

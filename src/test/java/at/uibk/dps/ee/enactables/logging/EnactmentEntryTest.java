@@ -1,6 +1,5 @@
 package at.uibk.dps.ee.enactables.logging;
 
-import at.uibk.dps.ee.model.objects.Condition;
 import org.junit.Test;
 
 import java.time.Instant;
@@ -9,7 +8,8 @@ import static org.junit.Assert.*;
 
 public class EnactmentEntryTest {
 
-  @Test public void test() {
+  @Test
+  public void test() {
     String id = "id1";
     String type = "type1";
     double executionTime = 110.1;
@@ -37,7 +37,8 @@ public class EnactmentEntryTest {
     assertEquals(success, entryComplete.isSuccess());
   }
 
-  @Test public void testEquals() {
+  @Test
+  public void testEquals() {
     String id = "id1";
     String type = "type1";
     double executionTime = 9.99;
@@ -46,7 +47,7 @@ public class EnactmentEntryTest {
     EnactmentLogEntry entry1 = new EnactmentLogEntry(id, type, executionTime);
     entry1.setTimestamp(instant);
 
-    EnactmentLogEntry entry2 = new EnactmentLogEntry(id, type,executionTime);
+    EnactmentLogEntry entry2 = new EnactmentLogEntry(id, type, executionTime);
     entry2.setTimestamp(instant);
 
     assertEquals(entry1.hashCode(), entry2.hashCode());
