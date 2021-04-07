@@ -70,8 +70,8 @@ public class DecoratorEnactmentLogTest {
     verify(enactmentLogger).logEnactment((EnactmentLogEntry) acEntry.capture());
 
     EnactmentLogEntry capturedEntry = (EnactmentLogEntry) acEntry.getAllValues().get(0);
-    assertEquals("id", capturedEntry.getId());
-    assertEquals("type", capturedEntry.getType());
+    assertEquals("id", capturedEntry.getFunctionId());
+    assertEquals("type", capturedEntry.getFunctionType());
     assertEquals(50, capturedEntry.getExecutionTime(), 1);
   }
 

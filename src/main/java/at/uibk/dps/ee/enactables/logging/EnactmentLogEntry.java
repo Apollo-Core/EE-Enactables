@@ -4,15 +4,15 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * The {@link EnactmentLogEntry} contains the relevant information about an enactment which may
- * be logged.
+ * The {@link EnactmentLogEntry} contains the relevant information about an enactment which may be
+ * logged.
  *
  * @author Markus Moosbrugger
  */
 public class EnactmentLogEntry {
 
-  protected String id;
-  protected String type;
+  protected String functionId;
+  protected String functionType;
   protected Instant timestamp;
   protected boolean success;
   protected double inputComplexity;
@@ -21,13 +21,14 @@ public class EnactmentLogEntry {
   /**
    * Constructor containing only function id, function type and the execution time.
    *
-   * @param id            the function id
-   * @param type          the function type
+   * @param functionId    the function id
+   * @param functionType  the function type
    * @param executionTime the execution time
    */
-  public EnactmentLogEntry(final String id, final String type, final double executionTime) {
-    this.id = id;
-    this.type = type;
+  public EnactmentLogEntry(final String functionId, final String functionType,
+      final double executionTime) {
+    this.functionId = functionId;
+    this.functionType = functionType;
     this.executionTime = executionTime;
     this.timestamp = Instant.now();
   }
@@ -36,34 +37,35 @@ public class EnactmentLogEntry {
    * Additional constructor containing all object attributes.
    *
    * @param timestamp       the timestamp of the enactment
-   * @param id              the function id
-   * @param type            the function type
+   * @param functionId      the function id
+   * @param functionType    the function type
    * @param executionTime   the execution time
    * @param success         the success status
    * @param inputComplexity the complexity of the input values
    */
-  public EnactmentLogEntry(final Instant timestamp, final String id, final String type,
-      final double executionTime, final boolean success, final double inputComplexity) {
-    this(id, type, executionTime);
+  public EnactmentLogEntry(final Instant timestamp, final String functionId,
+      final String functionType, final double executionTime, final boolean success,
+      final double inputComplexity) {
+    this(functionId, functionType, executionTime);
     this.timestamp = timestamp;
     this.success = success;
     this.inputComplexity = inputComplexity;
   }
 
-  public String getId() {
-    return id;
+  public String getFunctionId() {
+    return functionId;
   }
 
-  public void setId(final String id) {
-    this.id = id;
+  public void setFunctionId(final String functionId) {
+    this.functionId = functionId;
   }
 
-  public String getType() {
-    return type;
+  public String getFunctionType() {
+    return functionType;
   }
 
-  public void setType(final String type) {
-    this.type = type;
+  public void setFunctionType(final String functionType) {
+    this.functionType = functionType;
   }
 
   public Instant getTimestamp() {
@@ -100,16 +102,19 @@ public class EnactmentLogEntry {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null || getClass() != obj.getClass())
+    }
+    if (obj == null || getClass() != obj.getClass()) {
       return false;
+    }
     final EnactmentLogEntry that = (EnactmentLogEntry) obj;
-    return id.equals(that.id) && type.equals(that.type) && timestamp.equals(that.timestamp);
+    return functionId.equals(that.functionId) && functionType.equals(that.functionType) && timestamp
+        .equals(that.timestamp);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, timestamp);
+    return Objects.hash(functionId, functionType, timestamp);
   }
 }

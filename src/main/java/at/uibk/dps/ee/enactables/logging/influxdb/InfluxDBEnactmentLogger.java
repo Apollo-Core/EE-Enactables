@@ -65,8 +65,8 @@ public class InfluxDBEnactmentLogger implements EnactmentLogger {
 
   @Override
   public void logEnactment(final EnactmentLogEntry entry) {
-    final Point point = Point.measurement("Enactment").addTag("functionId", entry.getId())
-        .addTag("functionType", entry.getType()).addField("executionTime", entry.getExecutionTime())
+    final Point point = Point.measurement("Enactment").addTag("functionId", entry.getFunctionId())
+        .addTag("functionType", entry.getFunctionType()).addField("executionTime", entry.getExecutionTime())
         .addField("success", entry.isSuccess()).time(entry.getTimestamp(), WritePrecision.NS)
         .addField("inputComplexity", entry.getInputComplexity());
 

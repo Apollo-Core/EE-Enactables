@@ -55,7 +55,7 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
    * @param dynamoDB  the DynamoDB object
    * @param tableName the name of the database table
    */
-  public DynamoDBEnactmentLogger(DynamoDB dynamoDB, String tableName) {
+  public DynamoDBEnactmentLogger(final DynamoDB dynamoDB, final String tableName) {
     this.dynamoDB = dynamoDB;
     this.tableName = tableName;
   }
@@ -65,9 +65,9 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
   public void logEnactment(final EnactmentLogEntry entry) {
     final Table table = dynamoDB.getTable(tableName);
 
-    table.putItem(new Item().withPrimaryKey("functionId", entry.getId(), "timestamp",
+    table.putItem(new Item().withPrimaryKey("functionId", entry.getFunctionId(), "timestamp",
         entry.getTimestamp().toEpochMilli()).withBoolean("success", entry.isSuccess())
-        .withString("functionType", entry.getType())
+        .withString("functionType", entry.getFunctionType())
         .withDouble("executionTime", entry.getExecutionTime())
         .withDouble("inputComplexity", entry.getInputComplexity()));
   }
@@ -98,11 +98,10 @@ public class DynamoDBEnactmentLogger implements EnactmentLogger {
       this.region = (String) properties.get("region");
 
     } catch (FileNotFoundException e) {
-      logger.error("Properties file not found at given location: " + pathToPropertiesFile, e);
+      logger.error("Properties file not found at given location {}", pathToPropertiesFile, e);
     } catch (IOException e) {
-      logger.error(
-          "IO Exception while reading properties file at given location: " + pathToPropertiesFile,
-          e);
+      logger.error("IO Exception while reading properties file at given location {}.",
+          pathToPropertiesFile, e);
     }
   }
 }

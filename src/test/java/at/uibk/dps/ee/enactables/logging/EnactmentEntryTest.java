@@ -16,8 +16,8 @@ public class EnactmentEntryTest {
     Instant timestamp = Instant.now();
 
     EnactmentLogEntry entry = new EnactmentLogEntry(id, type, executionTime);
-    assertEquals(id, entry.getId());
-    assertEquals(type, entry.getType());
+    assertEquals(id, entry.getFunctionId());
+    assertEquals(type, entry.getFunctionType());
     assertEquals(executionTime, entry.getExecutionTime(), 0.001);
     assertNotNull(entry.getTimestamp());
     assertEquals(0.0, entry.getInputComplexity(), 0.001);
@@ -29,8 +29,8 @@ public class EnactmentEntryTest {
     EnactmentLogEntry entryComplete =
         new EnactmentLogEntry(timestamp, id, type, executionTime, success, inputComplexity);
     assertEquals(timestamp, entryComplete.getTimestamp());
-    assertEquals(id, entryComplete.getId());
-    assertEquals(type, entryComplete.getType());
+    assertEquals(id, entryComplete.getFunctionId());
+    assertEquals(type, entryComplete.getFunctionType());
     assertEquals(executionTime, entryComplete.getExecutionTime(), 0.001);
     assertNotNull(entry.getTimestamp());
     assertEquals(inputComplexity, entryComplete.getInputComplexity(), 0.001);

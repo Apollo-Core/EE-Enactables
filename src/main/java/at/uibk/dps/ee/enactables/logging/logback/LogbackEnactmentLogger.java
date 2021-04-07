@@ -17,7 +17,7 @@ public class LogbackEnactmentLogger implements EnactmentLogger {
 
   @Override
   public void logEnactment(final EnactmentLogEntry entry) {
-    logger.info("TYPE {} ID {} EXEC TIME {} ms SUCCESS {} INPUT COMPLEXITY {}.", entry.getType(),
-        entry.getId(), entry.getExecutionTime(), entry.isSuccess(), entry.getInputComplexity());
+    logger.info("TYPE {} ID {} EXEC TIME {} ms SUCCESS {} INPUT COMPLEXITY {}.", entry.getFunctionType(),
+        entry.getFunctionId(), entry.getExecutionTime(), entry.isSuccess(), entry.getInputComplexity());
   }
 }
