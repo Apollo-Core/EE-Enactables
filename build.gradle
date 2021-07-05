@@ -53,7 +53,10 @@ dependencies {
   // dependency to the lib for http requests
   implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
-
+  // VertX
+  implementation 'io.vertx:vertx-core:4.1.0'
+  
+  
   // test dependencies
   testCompile group: 'junit', 		name: 'junit', 					version: '4.+'
   testCompile group: 'org.mockito',     name: 'mockito-core',     version: '3.4.4'

@@ -6,9 +6,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
+import io.vertx.core.Future;
 
 /**
  * Performs the operation of aggregating multiple elements into a single
@@ -30,7 +30,7 @@ public class Aggregation extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
+  public Future<JsonObject> processInput(final JsonObject input){
     final JsonArray array = new JsonArray();
     // fill the array, so that we can set indices
     for (int i = 0; i < input.size(); i++) {
@@ -48,6 +48,6 @@ public class Aggregation extends LocalFunctionAbstract {
     }
     final JsonObject result = new JsonObject();
     result.add(ConstantsEEModel.JsonKeyAggregation, array);
-    return result;
+    return Future.succeededFuture(result);
   }
 }

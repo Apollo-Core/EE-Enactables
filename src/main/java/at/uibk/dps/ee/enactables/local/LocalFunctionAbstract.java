@@ -7,9 +7,7 @@ import java.util.concurrent.TimeUnit;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping.EnactmentMode;
 
 /**
@@ -64,8 +62,7 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @param memberName the String key for the json int element
    * @return the integer value stored with the provided key
    */
-  protected int readIntInput(final JsonObject jsonInput, final String memberName)
-      throws StopException {
+  protected int readIntInput(final JsonObject jsonInput, final String memberName) {
     checkInputEntry(jsonInput, memberName);
     return jsonInput.get(memberName).getAsInt();
   }
@@ -78,8 +75,7 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @return the json arry
    * @throws StopException
    */
-  protected JsonArray readCollectionInput(final JsonObject jsonInput, final String memberName)
-      throws StopException {
+  protected JsonArray readCollectionInput(final JsonObject jsonInput, final String memberName) {
     checkInputEntry(jsonInput, memberName);
     try {
       return jsonInput.getAsJsonArray(memberName);
@@ -110,8 +106,7 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @return the Json entry specified by the given key
    * @throws StopException thrown if the entry is not found
    */
-  protected JsonElement readEntry(final JsonObject jsonInput, final String key)
-      throws StopException {
+  protected JsonElement readEntry(final JsonObject jsonInput, final String key) {
     checkInputEntry(jsonInput, key);
     return jsonInput.get(key);
   }
@@ -123,11 +118,10 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @param jsonInput the input of the local operation
    * @param key the key to check
    */
-  protected void checkInputEntry(final JsonObject jsonInput, final String key)
-      throws StopException {
+  protected void checkInputEntry(final JsonObject jsonInput, final String key) {
     if (jsonInput.get(key) == null) {
       final String message = "The key " + key + " is not part of the provided JsonObject";
-      throw new StopException(message);
+      throw new IllegalArgumentException(message);
     }
   }
 }

@@ -6,9 +6,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import io.vertx.core.Future;
 
 /**
  * Processes a number collection by adding up all the numbers.
@@ -28,7 +28,7 @@ public class SumCollection extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
+  public Future<JsonObject> processInput(final JsonObject input) {
     final JsonArray jsonArray = readCollectionInput(input, ConstantsLocal.inputSumCollection);
     final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
     int result = 0;
@@ -38,6 +38,6 @@ public class SumCollection extends LocalFunctionAbstract {
     final JsonObject jsonResult = new JsonObject();
     jsonResult.add(ConstantsLocal.outputSumCollection, new JsonPrimitive(result));
     waitMilliseconds(waitTime);
-    return jsonResult;
+    return Future.succeededFuture(jsonResult);
   }
 }

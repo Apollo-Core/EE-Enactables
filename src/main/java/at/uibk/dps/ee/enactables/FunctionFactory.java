@@ -3,8 +3,8 @@ package at.uibk.dps.ee.enactables;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
+import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 
 /**
  * The {@link FunctionFactory} enables the injection of function decorators to

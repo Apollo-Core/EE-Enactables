@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.decorators;
 
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
+import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

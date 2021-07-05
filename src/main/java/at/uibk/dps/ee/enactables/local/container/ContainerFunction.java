@@ -3,11 +3,12 @@ package at.uibk.dps.ee.enactables.local.container;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Set;
 import com.google.gson.JsonObject;
-import com.google.inject.Inject;
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.docker.manager.ContainerManager;
 import at.uibk.dps.ee.enactables.EnactmentMode;
+import io.vertx.core.Future;
+import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
 
 /**
  * The {@link ContainerFunction} is used to execute function within local Docker
@@ -24,6 +25,8 @@ public class ContainerFunction implements EnactmentFunction {
 
   protected final ContainerManager containerManager;
   protected final String imageName;
+  
+  protected final Vertx vertx;
 
   /**
    * Injection constructor.
@@ -35,21 +38,28 @@ public class ContainerFunction implements EnactmentFunction {
    * @param containerManager the class managing the containers
    * @param imageName the Docker image of the function
    */
-  @Inject
   public ContainerFunction(final String typeId, final String implId,
-      final Set<SimpleEntry<String, String>> additionalAttrubutes, final ContainerManager containerManager,
-      final String imageName) {
+      final Set<SimpleEntry<String, String>> additionalAttrubutes,
+      final ContainerManager containerManager, final String imageName, Vertx vertx) {
     this.typeId = typeId;
     this.implId = implId;
     this.additionalAttributes = additionalAttrubutes;
     this.enactmentMode = EnactmentMode.Local.name();
     this.containerManager = containerManager;
     this.imageName = imageName;
+    this.vertx = vertx;
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
-    return containerManager.runImage(imageName, input);
+  public Future<JsonObject> processInput(final JsonObject input) {
+    Promise<JsonObject> containerResult = Promise.promise();
+    vertx.executeBlocking(promise -> {
+      JsonObject result = containerManager.runImage(imageName, input);
+      promise.complete(result);
+    }, false, asyncResult ->{
+      containerResult.complete((JsonObject) asyncResult.result());
+    });
+    return containerResult.future();
   }
 
   @Override

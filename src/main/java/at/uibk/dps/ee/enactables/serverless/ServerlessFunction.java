@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
 import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
+import io.vertx.core.Future;
 import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
 import net.sf.opendse.model.Task;
@@ -60,8 +60,8 @@ public class ServerlessFunction implements EnactmentFunction {
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
-    return enactServerlessFunction(url, input);
+  public Future<JsonObject> processInput(final JsonObject input) {
+    return Future.succeededFuture(enactServerlessFunction(url, input));
   }
 
 

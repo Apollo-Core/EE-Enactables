@@ -11,10 +11,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
+import io.vertx.core.Future;
 import net.sf.opendse.model.Task;
 
 /**
@@ -39,7 +39,7 @@ public class Distribution extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
+  public Future<JsonObject> processInput(final JsonObject input) {
     Optional<JsonObject> operationResult;
     if (input.size() == 1) {
       final String key = input.keySet().iterator().next();
@@ -54,7 +54,8 @@ public class Distribution extends LocalFunctionAbstract {
       // multiple collections
       operationResult = Optional.of(processMultipleCollections(input));
     }
-    return operationResult.orElseThrow(() -> new IllegalArgumentException("Incorrect Iterator"));
+    return Future.succeededFuture(
+        operationResult.orElseThrow(() -> new IllegalArgumentException("Incorrect Iterator")));
   }
 
   /**

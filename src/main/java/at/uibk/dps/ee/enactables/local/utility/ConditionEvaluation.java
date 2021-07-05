@@ -4,12 +4,12 @@ import java.util.HashSet;
 import java.util.List;
 import com.google.gson.JsonObject;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.enactables.local.utility.conditions.ConditionEvaluator;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.objects.Condition;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCondition;
+import io.vertx.core.Future;
 import net.sf.opendse.model.Task;
 
 /**
@@ -36,11 +36,11 @@ public class ConditionEvaluation extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
+  public Future<JsonObject> processInput(final JsonObject input){
     final ConditionEvaluator evaluator = new ConditionEvaluator();
     final boolean result = evaluator.evaluate(conditions, input);
     final JsonObject jsonResult = new JsonObject();
     jsonResult.addProperty(ConstantsEEModel.JsonKeyIfDecision, result);
-    return jsonResult;
+    return Future.succeededFuture(jsonResult);
   }
 }

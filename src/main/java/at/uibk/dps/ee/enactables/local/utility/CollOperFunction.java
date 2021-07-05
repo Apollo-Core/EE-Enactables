@@ -5,10 +5,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections.CollectionOperation;
+import io.vertx.core.Future;
 import net.sf.opendse.model.Task;
 
 /**
@@ -37,7 +37,7 @@ public class CollOperFunction extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
+  public Future<JsonObject> processInput(final JsonObject input) {
     // get the collection
     final String collectionKey = UtilsCollections.getCollectionKey(input)
         .orElseThrow(() -> new IllegalArgumentException("Key for collection not found."));
@@ -46,7 +46,7 @@ public class CollOperFunction extends LocalFunctionAbstract {
     final JsonElement resultElement = subCollectionOperation.transformCollection(jsonArray);
     final JsonObject jsonResult = new JsonObject();
     jsonResult.add(collectionKey, resultElement);
-    return jsonResult;
+    return Future.succeededFuture(jsonResult);
   }
 
   /**

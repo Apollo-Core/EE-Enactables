@@ -4,9 +4,9 @@ import java.util.HashSet;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
+import io.vertx.core.Future;
 
 /**
  * The {@link EarliestArrival} function simply forwards its input (which is set
@@ -27,7 +27,7 @@ public class EarliestArrival extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
+  public Future<JsonObject> processInput(final JsonObject input){
     final String key = ConstantsEEModel.EarliestArrivalJsonKey;
     // Get the input object
     checkInputEntry(input, key);
@@ -35,6 +35,6 @@ public class EarliestArrival extends LocalFunctionAbstract {
     // Put it into the output
     final JsonObject result = new JsonObject();
     result.add(key, element);
-    return result;
+    return Future.succeededFuture(result);
   }
 }

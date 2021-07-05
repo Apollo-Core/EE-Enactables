@@ -2,9 +2,9 @@ package at.uibk.dps.ee.enactables.local.dataflow;
 
 import java.util.Set;
 import com.google.inject.Inject;
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.FunctionFactory;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
+import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlow;

@@ -1,11 +1,11 @@
 package at.uibk.dps.ee.enactables.logging;
 
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
 
 import java.time.Instant;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Objects;
 import java.util.Set;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
 
 /**
  * The {@link EnactmentLogEntry} contains the relevant information about an

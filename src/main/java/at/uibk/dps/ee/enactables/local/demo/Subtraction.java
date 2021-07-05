@@ -3,9 +3,9 @@ package at.uibk.dps.ee.enactables.local.demo;
 import java.util.HashSet;
 import com.google.gson.JsonObject;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import io.vertx.core.Future;
 
 /**
  * Simple substraction of 2 inputs with an option to wait for a given number of
@@ -27,7 +27,7 @@ public class Subtraction extends LocalFunctionAbstract {
   }
 
   @Override
-  public JsonObject processInput(final JsonObject input) throws StopException {
+  public Future<JsonObject> processInput(final JsonObject input) {
     final int minuend = readIntInput(input, ConstantsLocal.inputSubtractionMinuend);
     final int subtrahend = readIntInput(input, ConstantsLocal.inputSubtractionSubtrahend);
     final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
@@ -35,6 +35,6 @@ public class Subtraction extends LocalFunctionAbstract {
     final JsonObject result = new JsonObject();
     result.addProperty(ConstantsLocal.outputSubstractionResult, difference);
     waitMilliseconds(waitTime);
-    return result;
+    return Future.succeededFuture(result);
   }
 }

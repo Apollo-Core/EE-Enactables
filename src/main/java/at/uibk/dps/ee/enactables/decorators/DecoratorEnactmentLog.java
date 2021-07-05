@@ -1,9 +1,10 @@
 package at.uibk.dps.ee.enactables.decorators;
 
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.enactable.EnactmentFunctionDecorator;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
+import at.uibk.dps.ee.core.function.EnactmentFunctionDecorator;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
+import io.vertx.core.Future;
 import com.google.gson.JsonObject;
 
 import java.time.Duration;
@@ -34,20 +35,20 @@ public class DecoratorEnactmentLog extends EnactmentFunctionDecorator {
   }
 
   @Override
-  protected JsonObject preprocess(final JsonObject input) {
+  protected Future<JsonObject> preprocess(final JsonObject input) {
     start = Instant.now();
-
-    return input;
+    return Future.succeededFuture(input);
   }
 
   @Override
-  protected JsonObject postprocess(final JsonObject result) {
+  protected Future<JsonObject> postprocess(final JsonObject result) {
+    System.err.println("This one should be done asynchronously");
     final Instant now = Instant.now();
     final EnactmentLogEntry entry =
         new EnactmentLogEntry(now, decoratedFunction, Duration.between(start, now).toMillis(), true,
             0);
     enactmentLogger.logEnactment(entry);
 
-    return result;
+    return Future.succeededFuture(result);
   }
 }
