@@ -6,7 +6,6 @@ import at.uibk.dps.ee.enactables.FunctionFactory;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.EnactmentMode;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlow;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlow.DataFlowType;
@@ -19,7 +18,7 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public class FunctionFactoryDataFlow extends FunctionFactory {
+public class FunctionFactoryDataFlow extends FunctionFactory<Task, EnactmentFunction> {
 
   /**
    * The injection constructor
@@ -32,26 +31,8 @@ public class FunctionFactoryDataFlow extends FunctionFactory {
     super(decoratorFactories);
   }
 
-  /**
-   * Returns the data flow function modeled by the given task, wrapped in
-   * decorators according to the configuration.
-   * 
-   * @param task the task modeling the function
-   * @return the data flow function modeled by the given task, wrapped in
-   *         decorators according to the configuration
-   */
-  public EnactmentFunction getDataFlowFunction(final Task task) {
-    final EnactmentFunction original = getOriginalFunction(task);
-    return decorate(original);
-  }
-
-  /**
-   * Returns the actual function modeled by the given task.
-   * 
-   * @param task the given task
-   * @return the actual function modeled by the given task
-   */
-  protected LocalFunctionAbstract getOriginalFunction(final Task task) {
+  @Override
+  protected EnactmentFunction makeActualFunction(Task task) {
     final DataFlowType dfType = PropertyServiceFunctionDataFlow.getDataFlowType(task);
     if (dfType.equals(DataFlowType.EarliestInput)) {
       return new EarliestArrival(DataFlowType.EarliestInput.name(), EnactmentMode.DataFlow.name());

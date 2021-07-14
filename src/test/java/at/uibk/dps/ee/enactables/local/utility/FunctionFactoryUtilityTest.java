@@ -21,7 +21,7 @@ public class FunctionFactoryUtilityTest {
         PropertyServiceFunctionUtilityCondition.createConditionEvaluation("bla", conditions);
     Task collectionTask = PropertyServiceFunctionUtilityCollections.createCollectionOperation("bla",
         "blabla", CollectionOperation.Block);
-    assertTrue(tested.getUtilityFunction(collectionTask) instanceof CollOperFunction);
-    assertTrue(tested.getUtilityFunction(conditionTask) instanceof ConditionEvaluation);
+    assertTrue(tested.makeFunction(collectionTask) instanceof CollOperFunction);
+    assertTrue(tested.makeFunction(conditionTask) instanceof ConditionEvaluation);
   }
 }

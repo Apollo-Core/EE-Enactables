@@ -30,7 +30,7 @@ public class FunctionFactoryServerlessTest {
     Task task = PropertyServiceFunctionUser.createUserTask("task", "addition");
     Mapping<Task, Resource> mapping =
         PropertyServiceMapping.createMapping(task, slRes, EnactmentMode.Serverless, "link");
-    EnactmentFunction result = tested.createServerlessFunction(mapping);
+    EnactmentFunction result = tested.makeFunction(mapping);
     assertTrue(result instanceof ServerlessFunction);
     ServerlessFunction slResult = (ServerlessFunction) result;
     assertEquals("link", slResult.url);

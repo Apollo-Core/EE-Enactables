@@ -22,9 +22,9 @@ public class FunctionFactoryDataFlowTest {
         OperationType.Distribution, "scope");
     Task muxerTask =
         PropertyServiceFunctionDataFlow.createDataFlowFunction("t1", DataFlowType.Multiplexer);
-    assertTrue(tested.getDataFlowFunction(earliestInTask) instanceof EarliestArrival);
-    assertTrue(tested.getDataFlowFunction(distTask) instanceof Distribution);
-    assertTrue(tested.getDataFlowFunction(aggrTask) instanceof Aggregation);
-    assertTrue(tested.getDataFlowFunction(muxerTask) instanceof Multiplexer);
+    assertTrue(tested.makeFunction(earliestInTask) instanceof EarliestArrival);
+    assertTrue(tested.makeFunction(distTask) instanceof Distribution);
+    assertTrue(tested.makeFunction(aggrTask) instanceof Aggregation);
+    assertTrue(tested.makeFunction(muxerTask) instanceof Multiplexer);
   }
 }

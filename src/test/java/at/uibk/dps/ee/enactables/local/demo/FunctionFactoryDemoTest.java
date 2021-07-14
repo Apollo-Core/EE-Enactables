@@ -21,18 +21,18 @@ public class FunctionFactoryDemoTest {
         PropertyServiceFunctionUser.createUserTask("task", LocalCalculations.Addition.name());
     Mapping<Task, Resource> additionMapping =
         PropertyServiceMapping.createMapping(task, res, EnactmentMode.Demo, "demo");
-    assertTrue(tested.getLocalFunction(additionMapping) instanceof Addition);
+    assertTrue(tested.makeFunction(additionMapping) instanceof Addition);
 
     Task taskSub =
         PropertyServiceFunctionUser.createUserTask("task", LocalCalculations.Subtraction.name());
     Mapping<Task, Resource> subtractionMapping =
         PropertyServiceMapping.createMapping(taskSub, res, EnactmentMode.Demo, "demo");
-    assertTrue(tested.getLocalFunction(subtractionMapping) instanceof Subtraction);
+    assertTrue(tested.makeFunction(subtractionMapping) instanceof Subtraction);
 
     Task taskSumCol =
         PropertyServiceFunctionUser.createUserTask("task", LocalCalculations.SumCollection.name());
     Mapping<Task, Resource> sumColMapping =
         PropertyServiceMapping.createMapping(taskSumCol, res, EnactmentMode.Demo, "demo");
-    assertTrue(tested.getLocalFunction(sumColMapping) instanceof SumCollection);
+    assertTrue(tested.makeFunction(sumColMapping) instanceof SumCollection);
   }
 }

@@ -15,7 +15,7 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public class FunctionFactoryUtility extends FunctionFactory {
+public class FunctionFactoryUtility extends FunctionFactory<Task, EnactmentFunction> {
 
   /**
    * The injection constructor.
@@ -28,26 +28,8 @@ public class FunctionFactoryUtility extends FunctionFactory {
     super(decoratorFactories);
   }
 
-  /**
-   * Returns the utility function for the given task, wrapped by the decorators
-   * following the configuration.
-   * 
-   * @param task the given task
-   * @return the utility function for the given task, wrapped by the decorators
-   *         following the configuration.
-   */
-  public EnactmentFunction getUtilityFunction(final Task task) {
-    final EnactmentFunction originalFunction = getOriginalFunction(task);
-    return decorate(originalFunction);
-  }
-
-  /**
-   * Returns the original utility function for the given task.
-   * 
-   * @param task the given task
-   * @return the original utility function for the given task.
-   */
-  protected EnactmentFunction getOriginalFunction(final Task task) {
+  @Override
+  protected EnactmentFunction makeActualFunction(Task task) {
     final UtilityType utilType = PropertyServiceFunctionUtility.getUtilityType(task);
     if (utilType.equals(UtilityType.Condition)) {
       return new ConditionEvaluation(task, task.getId(), EnactmentMode.Utility.name());

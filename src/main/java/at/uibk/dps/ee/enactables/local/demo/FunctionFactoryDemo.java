@@ -20,7 +20,8 @@ import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
  * @author Fedor Smirnov
  *
  */
-public class FunctionFactoryDemo extends FunctionFactory {
+public class FunctionFactoryDemo
+    extends FunctionFactory<Mapping<Task, Resource>, EnactmentFunction> {
 
   /**
    * Injection constructor.
@@ -33,20 +34,12 @@ public class FunctionFactoryDemo extends FunctionFactory {
     super(decoratorFactories);
   }
 
-  /**
-   * Returns the local function for the given enum, decorated with the injected
-   * decorators.
-   * 
-   * @param localFunction the local function enum
-   * @return the local function for the enum, decorated with the injected
-   *         decorators.
-   */
-  public EnactmentFunction getLocalFunction(final Mapping<Task, Resource> mapping) {
-    final Task task = mapping.getSource();
+  @Override
+  protected EnactmentFunction makeActualFunction(Mapping<Task, Resource> input) {
+    final Task task = input.getSource();
     final LocalCalculations localCalcs =
         LocalCalculations.valueOf(PropertyServiceFunctionUser.getTypeId(task));
-    final EnactmentFunction original = getOriginalFunction(localCalcs);
-    return decorate(original);
+    return getOriginalFunction(localCalcs);
   }
 
   /**

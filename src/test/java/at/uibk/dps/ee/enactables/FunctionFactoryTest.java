@@ -13,9 +13,14 @@ import static org.mockito.Mockito.verify;
 
 public class FunctionFactoryTest {
 
-  protected static class TestedFactory extends FunctionFactory{
+  protected static class TestedFactory extends FunctionFactory<Object, EnactmentFunction>{
     public TestedFactory(Set<FunctionDecoratorFactory> decoratorSet) {
       super(decoratorSet);
+    }
+    
+    @Override
+    protected EnactmentFunction makeActualFunction(Object input) {
+      return null;
     }
   }
   
@@ -38,7 +43,7 @@ public class FunctionFactoryTest {
     Set<FunctionDecoratorFactory> factories = new HashSet<>();
     factories.add(factoryOuter);
     factories.add(factoryInner);
-    FunctionFactory tested = new TestedFactory(factories);
+    TestedFactory tested = new TestedFactory(factories);
     
     assertEquals(factoryInner, tested.decoratorFactories.get(0));
     assertEquals(factoryOuter, tested.decoratorFactories.get(1));

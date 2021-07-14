@@ -17,10 +17,11 @@ import java.util.Set;
  *
  * @author Fedor Smirnov
  */
-public class FunctionFactoryServerless extends FunctionFactory {
+public class FunctionFactoryServerless
+    extends FunctionFactory<Mapping<Task, Resource>, EnactmentFunction> {
 
   protected final WebClient client;
-  
+
   /**
    * Injection constructor.
    *
@@ -28,21 +29,14 @@ public class FunctionFactoryServerless extends FunctionFactory {
    *        wrap the created functions
    */
   @Inject
-  public FunctionFactoryServerless(final Set<FunctionDecoratorFactory> decoratorFactories, VertxProvider vProv) {
+  public FunctionFactoryServerless(final Set<FunctionDecoratorFactory> decoratorFactories,
+      VertxProvider vProv) {
     super(decoratorFactories);
     this.client = vProv.getWebClient();
   }
 
-  /**
-   * Creates the {@link ServerlessFunction} which is modeled by the provided
-   * resource node, decorated with the injected decorators.
-   *
-   * @param mapping the provided mapping edge
-   * @return the {@link ServerlessFunction} which is modeled by the provided
-   *         resource node, decorated with the injected decorators
-   */
-  public EnactmentFunction createServerlessFunction(final Mapping<Task, Resource> mapping) {
-    final EnactmentFunction serverlessFunction = new ServerlessFunction(mapping, client);
-    return decorate(serverlessFunction);
+  @Override
+  protected EnactmentFunction makeActualFunction(Mapping<Task, Resource> input) {
+    return new ServerlessFunction(input, client);
   }
 }

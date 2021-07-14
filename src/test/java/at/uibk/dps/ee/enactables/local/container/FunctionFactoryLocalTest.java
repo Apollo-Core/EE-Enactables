@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.docker.manager.ContainerManager;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
@@ -32,7 +33,7 @@ public class FunctionFactoryLocalTest {
     Mapping<Task, Resource> map =
         PropertyServiceMappingLocal.createMappingLocal(task, res, "image");
 
-    ContainerFunction result = tested.getContainerFunction(map);
+    EnactmentFunction result = tested.makeFunction(map);
 
     assertEquals("addition", result.getTypeId());
     assertEquals(at.uibk.dps.ee.enactables.EnactmentMode.Local.name(), result.getEnactmentMode());
