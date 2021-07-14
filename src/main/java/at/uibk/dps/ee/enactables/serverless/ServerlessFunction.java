@@ -57,10 +57,10 @@ public class ServerlessFunction implements EnactmentFunction {
 
   @Override
   public Future<JsonObject> processInput(final JsonObject input) {
-    Promise<JsonObject> resultPromise = Promise.promise();
+    final Promise<JsonObject> resultPromise = Promise.promise();
     client.postAbs(url).sendJson(new io.vertx.core.json.JsonObject(input.toString()))
         .onSuccess(asyncRes -> {
-          JsonObject resultJson =
+          final JsonObject resultJson =
               JsonParser.parseString(asyncRes.body().toString()).getAsJsonObject();
           resultPromise.complete(resultJson);
         }).onFailure(failureThrowable -> {

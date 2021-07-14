@@ -29,7 +29,7 @@ public class FunctionFactoryUtility extends FunctionFactory<Task, EnactmentFunct
   }
 
   @Override
-  protected EnactmentFunction makeActualFunction(Task task) {
+  protected EnactmentFunction makeActualFunction(final Task task) {
     final UtilityType utilType = PropertyServiceFunctionUtility.getUtilityType(task);
     if (utilType.equals(UtilityType.Condition)) {
       return new ConditionEvaluation(task, task.getId(), EnactmentMode.Utility.name());

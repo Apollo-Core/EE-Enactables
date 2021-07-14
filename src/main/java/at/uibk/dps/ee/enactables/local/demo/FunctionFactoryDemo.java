@@ -35,7 +35,7 @@ public class FunctionFactoryDemo
   }
 
   @Override
-  protected EnactmentFunction makeActualFunction(Mapping<Task, Resource> input) {
+  protected EnactmentFunction makeActualFunction(final Mapping<Task, Resource> input) {
     final Task task = input.getSource();
     final LocalCalculations localCalcs =
         LocalCalculations.valueOf(PropertyServiceFunctionUser.getTypeId(task));

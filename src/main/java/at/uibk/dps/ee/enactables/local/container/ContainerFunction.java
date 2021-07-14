@@ -24,7 +24,7 @@ public class ContainerFunction implements EnactmentFunction {
 
   protected final ContainerManager containerManager;
   protected final String imageName;
-  
+
   protected final Vertx vertx;
 
   /**
@@ -39,7 +39,7 @@ public class ContainerFunction implements EnactmentFunction {
    */
   public ContainerFunction(final String typeId, final String implId,
       final Set<SimpleEntry<String, String>> additionalAttrubutes,
-      final ContainerManager containerManager, final String imageName, Vertx vertx) {
+      final ContainerManager containerManager, final String imageName, final Vertx vertx) {
     this.typeId = typeId;
     this.implId = implId;
     this.additionalAttributes = additionalAttrubutes;

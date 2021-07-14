@@ -21,7 +21,8 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public class FunctionFactoryLocal extends FunctionFactory<Mapping<Task, Resource>, ContainerFunction> {
+public class FunctionFactoryLocal
+    extends FunctionFactory<Mapping<Task, Resource>, ContainerFunction> {
 
   protected final ContainerManager containerManager;
   protected final Vertx vertx;
@@ -34,18 +35,19 @@ public class FunctionFactoryLocal extends FunctionFactory<Mapping<Task, Resource
    */
   @Inject
   public FunctionFactoryLocal(final Set<FunctionDecoratorFactory> decoratorFactories,
-      final ContainerManager containerManager, VertxProvider vProv) {
+      final ContainerManager containerManager, final VertxProvider vProv) {
     super(decoratorFactories);
     this.containerManager = containerManager;
     this.vertx = vProv.getVertx();
   }
-  
+
   @Override
-  protected ContainerFunction makeActualFunction(Mapping<Task, Resource> containerMapping) {
+  protected ContainerFunction makeActualFunction(final Mapping<Task, Resource> containerMapping) {
     final Task task = containerMapping.getSource();
     final String imageName = PropertyServiceMappingLocal.getImageName(containerMapping);
     final String typeId = PropertyServiceFunctionUser.getTypeId(task);
     final String implId = PropertyServiceMapping.getImplementationId(containerMapping);
-    return new ContainerFunction(typeId, implId, new HashSet<>(), containerManager, imageName, vertx);
+    return new ContainerFunction(typeId, implId, new HashSet<>(), containerManager, imageName,
+        vertx);
   }
 }

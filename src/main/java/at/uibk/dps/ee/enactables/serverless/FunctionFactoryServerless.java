@@ -30,13 +30,13 @@ public class FunctionFactoryServerless
    */
   @Inject
   public FunctionFactoryServerless(final Set<FunctionDecoratorFactory> decoratorFactories,
-      VertxProvider vProv) {
+      final VertxProvider vProv) {
     super(decoratorFactories);
     this.client = vProv.getWebClient();
   }
 
   @Override
-  protected EnactmentFunction makeActualFunction(Mapping<Task, Resource> input) {
+  protected EnactmentFunction makeActualFunction(final Mapping<Task, Resource> input) {
     return new ServerlessFunction(input, client);
   }
 }

@@ -32,7 +32,7 @@ public class FunctionFactoryDataFlow extends FunctionFactory<Task, EnactmentFunc
   }
 
   @Override
-  protected EnactmentFunction makeActualFunction(Task task) {
+  protected EnactmentFunction makeActualFunction(final Task task) {
     final DataFlowType dfType = PropertyServiceFunctionDataFlow.getDataFlowType(task);
     if (dfType.equals(DataFlowType.EarliestInput)) {
       return new EarliestArrival(DataFlowType.EarliestInput.name(), EnactmentMode.DataFlow.name());

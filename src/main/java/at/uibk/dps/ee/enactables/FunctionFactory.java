@@ -34,7 +34,7 @@ public abstract class FunctionFactory<I extends Object, F extends EnactmentFunct
    * @param input the production input
    * @return the produced function, decorated by the configured decorators
    */
-  public EnactmentFunction makeFunction(I input) {
+  public EnactmentFunction makeFunction(final I input) {
     final F actualFunction = makeActualFunction(input);
     return decorate(actualFunction);
   }
