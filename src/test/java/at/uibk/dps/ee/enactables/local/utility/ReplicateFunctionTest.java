@@ -9,7 +9,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections.CollectionOperation;
 import net.sf.opendse.model.Task;
@@ -37,23 +36,19 @@ public class ReplicateFunctionTest {
     JsonElement replNum = new JsonPrimitive(3);
     input.add(replKey, replNum);
     CollOperFunction tested = new CollOperFunction(task, "id", "type");
-    try {
-      JsonObject jsonResult = tested.processInput(input);
-      JsonElement result = jsonResult.get(someKey);
-      assertTrue(result.isJsonArray());
-      JsonArray resultArray = result.getAsJsonArray();
-      assertEquals(9, resultArray.size());
-      assertEquals(1, resultArray.get(0).getAsInt());
-      assertEquals(1, resultArray.get(1).getAsInt());
-      assertEquals(1, resultArray.get(2).getAsInt());
-      assertEquals(2, resultArray.get(3).getAsInt());
-      assertEquals(2, resultArray.get(4).getAsInt());
-      assertEquals(2, resultArray.get(5).getAsInt());
-      assertEquals(3, resultArray.get(6).getAsInt());
-      assertEquals(3, resultArray.get(7).getAsInt());
-      assertEquals(3, resultArray.get(8).getAsInt());
-    } catch (StopException e) {
-      fail();
-    }
+    JsonObject jsonResult = tested.processInput(input).result();
+    JsonElement result = jsonResult.get(someKey);
+    assertTrue(result.isJsonArray());
+    JsonArray resultArray = result.getAsJsonArray();
+    assertEquals(9, resultArray.size());
+    assertEquals(1, resultArray.get(0).getAsInt());
+    assertEquals(1, resultArray.get(1).getAsInt());
+    assertEquals(1, resultArray.get(2).getAsInt());
+    assertEquals(2, resultArray.get(3).getAsInt());
+    assertEquals(2, resultArray.get(4).getAsInt());
+    assertEquals(2, resultArray.get(5).getAsInt());
+    assertEquals(3, resultArray.get(6).getAsInt());
+    assertEquals(3, resultArray.get(7).getAsInt());
+    assertEquals(3, resultArray.get(8).getAsInt());
   }
 }

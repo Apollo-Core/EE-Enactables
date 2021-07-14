@@ -8,7 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections.OperationType;
@@ -23,11 +22,7 @@ public class DistributionTest {
     JsonObject jsonInput = new JsonObject();
     jsonInput.add(key, new JsonPrimitive("bla"));
     Distribution tested = new Distribution(funcNode, "id", "type");
-    try {
-      tested.processInput(jsonInput);
-    } catch (StopException e) {
-      fail();
-    }
+    tested.processInput(jsonInput);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -37,11 +32,7 @@ public class DistributionTest {
     JsonObject jsonInput = new JsonObject();
     jsonInput.add(key, new JsonPrimitive("bla"));
     Distribution tested = new Distribution(funcNode, "id", "type");
-    try {
-      tested.processInput(jsonInput);
-    } catch (StopException e) {
-      fail();
-    }
+    tested.processInput(jsonInput);
   }
 
   @Test
@@ -52,32 +43,23 @@ public class DistributionTest {
     JsonObject jsonInput = new JsonObject();
     jsonInput.add(key, new JsonPrimitive(5));
     Distribution tested = new Distribution(funcNode, "id", "type");
-    try {
-      JsonObject output = tested.processInput(jsonInput);
-      assertEquals(5, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
-      assertTrue(output
-          .get(
-              ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 0))
-          .getAsBoolean());
-      assertTrue(output
-          .get(
-              ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 1))
-          .getAsBoolean());
-      assertTrue(output
-          .get(
-              ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 2))
-          .getAsBoolean());
-      assertTrue(output
-          .get(
-              ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 3))
-          .getAsBoolean());
-      assertTrue(output
-          .get(
-              ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 4))
-          .getAsBoolean());
-    } catch (StopException e) {
-      fail();
-    }
+    JsonObject output = tested.processInput(jsonInput).result();
+    assertEquals(5, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
+    assertTrue(output
+        .get(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 0))
+        .getAsBoolean());
+    assertTrue(output
+        .get(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 1))
+        .getAsBoolean());
+    assertTrue(output
+        .get(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 2))
+        .getAsBoolean());
+    assertTrue(output
+        .get(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 3))
+        .getAsBoolean());
+    assertTrue(output
+        .get(ConstantsEEModel.getCollectionElementKey(ConstantsEEModel.JsonKeyConstantIterator, 4))
+        .getAsBoolean());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -93,11 +75,7 @@ public class DistributionTest {
     array1.add(3);
     jsonInput.add(key1, array1);
     Distribution tested = new Distribution(funcNode, "id", "type");
-    try {
-      tested.processInput(jsonInput);
-    } catch (StopException e) {
-      fail();
-    }
+    tested.processInput(jsonInput);
   }
 
   @Test
@@ -118,21 +96,17 @@ public class DistributionTest {
     jsonInput.add(key1, array1);
     jsonInput.add(key2, array2);
     Distribution tested = new Distribution(funcNode, "id", "type");
-    try {
-      JsonObject output = tested.processInput(jsonInput);
-      assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
-      assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
-      assertEquals(2, output.get(ConstantsEEModel.getCollectionElementKey(key1, 1)).getAsInt());
-      assertEquals(3, output.get(ConstantsEEModel.getCollectionElementKey(key1, 2)).getAsInt());
-      assertEquals("one",
-          output.get(ConstantsEEModel.getCollectionElementKey(key2, 0)).getAsString());
-      assertEquals("two",
-          output.get(ConstantsEEModel.getCollectionElementKey(key2, 1)).getAsString());
-      assertEquals("three",
-          output.get(ConstantsEEModel.getCollectionElementKey(key2, 2)).getAsString());
-    } catch (StopException e) {
-      fail();
-    }
+    JsonObject output = tested.processInput(jsonInput).result();
+    assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
+    assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
+    assertEquals(2, output.get(ConstantsEEModel.getCollectionElementKey(key1, 1)).getAsInt());
+    assertEquals(3, output.get(ConstantsEEModel.getCollectionElementKey(key1, 2)).getAsInt());
+    assertEquals("one",
+        output.get(ConstantsEEModel.getCollectionElementKey(key2, 0)).getAsString());
+    assertEquals("two",
+        output.get(ConstantsEEModel.getCollectionElementKey(key2, 1)).getAsString());
+    assertEquals("three",
+        output.get(ConstantsEEModel.getCollectionElementKey(key2, 2)).getAsString());
   }
 
   @Test
@@ -147,15 +121,11 @@ public class DistributionTest {
     array1.add(3);
     jsonInput.add(key1, array1);
     Distribution tested = new Distribution(funcNode, "id", "type");
-    try {
-      JsonObject output = tested.processInput(jsonInput);
-      assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
-      assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
-      assertEquals(2, output.get(ConstantsEEModel.getCollectionElementKey(key1, 1)).getAsInt());
-      assertEquals(3, output.get(ConstantsEEModel.getCollectionElementKey(key1, 2)).getAsInt());
-    } catch (StopException e) {
-      fail();
-    }
+    JsonObject output = tested.processInput(jsonInput).result();
+    assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
+    assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
+    assertEquals(2, output.get(ConstantsEEModel.getCollectionElementKey(key1, 1)).getAsInt());
+    assertEquals(3, output.get(ConstantsEEModel.getCollectionElementKey(key1, 2)).getAsInt());
   }
 
   @Test(expected = IllegalStateException.class)
@@ -176,10 +146,6 @@ public class DistributionTest {
     jsonInput.add(key1, array1);
     jsonInput.add(key2, array2);
     Distribution tested = new Distribution(funcNode, "id", "type");
-    try {
-      tested.processInput(jsonInput);
-    } catch (StopException e) {
-      fail();
-    }
+    tested.processInput(jsonInput);
   }
 }

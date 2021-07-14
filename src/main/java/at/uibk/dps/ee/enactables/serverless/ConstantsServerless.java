@@ -1,7 +1,5 @@
 package at.uibk.dps.ee.enactables.serverless;
 
-import okhttp3.MediaType;
-
 /**
  * Static container containing the constants used during the enactment of
  * serverless functions.
@@ -11,7 +9,6 @@ import okhttp3.MediaType;
 public final class ConstantsServerless {
 
   public static final int readWriteTimeoutSeconds = 30;
-  public static final MediaType MediaTypeJson = MediaType.get("application/json; charset=utf-8");
   
   // names for the additional attributes which are to be logged
   public static final String logAttrSlUrl = "url";

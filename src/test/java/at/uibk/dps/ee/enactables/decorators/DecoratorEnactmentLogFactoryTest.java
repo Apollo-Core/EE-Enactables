@@ -1,6 +1,6 @@
 package at.uibk.dps.ee.enactables.decorators;
 
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
 import org.junit.Test;
 

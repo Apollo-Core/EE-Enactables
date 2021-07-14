@@ -2,9 +2,9 @@ package at.uibk.dps.ee.enactables;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.enactable.EnactmentFunctionDecorator;
-import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
+import at.uibk.dps.ee.core.function.EnactmentFunctionDecorator;
+import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import java.util.HashSet;

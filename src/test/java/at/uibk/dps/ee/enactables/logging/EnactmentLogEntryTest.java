@@ -1,8 +1,8 @@
 package at.uibk.dps.ee.enactables.logging;
 
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.enactables.EnactmentMode;
+import io.vertx.core.Future;
 import com.google.gson.JsonObject;
 import org.junit.Test;
 
@@ -17,8 +17,8 @@ public class EnactmentLogEntryTest {
 
   protected static class MockFunction implements EnactmentFunction {
     @Override
-    public JsonObject processInput(JsonObject input) throws StopException {
-      return null;
+    public Future<JsonObject> processInput(JsonObject input) {
+      return Future.succeededFuture();
     }
 
     @Override
@@ -61,9 +61,8 @@ public class EnactmentLogEntryTest {
     attributes.add(new SimpleEntry<>("key1", "value1"));
     attributes.add(new SimpleEntry<>("key2", "value2"));
 
-    EnactmentLogEntry entry =
-        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, success, inputComplexity);
+    EnactmentLogEntry entry = new EnactmentLogEntry(timestamp, typeId, enactmentMode,
+        implementationId, attributes, executionTime, success, inputComplexity);
 
     assertEquals(typeId, entry.getTypeId());
     assertEquals(enactmentMode, entry.getEnactmentMode());
@@ -109,28 +108,21 @@ public class EnactmentLogEntryTest {
     double executionTime = 9.99;
     Instant timestamp = Instant.now();
 
-    EnactmentLogEntry entry1 =
-        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, true, 0.2);
+    EnactmentLogEntry entry1 = new EnactmentLogEntry(timestamp, typeId, enactmentMode,
+        implementationId, attributes, executionTime, true, 0.2);
 
-    EnactmentLogEntry entry2 =
-        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, true, 0.2);
-    EnactmentLogEntry entry3 =
-        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, true, 0.2);
-    EnactmentLogEntry entry4 =
-        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, true, 0.2);
-    EnactmentLogEntry entry5 =
-        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, true, 0.2);
-    EnactmentLogEntry entry6 =
-        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, true, 0.2);
-    EnactmentLogEntry entry7 =
-        new EnactmentLogEntry(timestamp, typeId, enactmentMode, implementationId, attributes,
-            executionTime, true, 0.2);
+    EnactmentLogEntry entry2 = new EnactmentLogEntry(timestamp, typeId, enactmentMode,
+        implementationId, attributes, executionTime, true, 0.2);
+    EnactmentLogEntry entry3 = new EnactmentLogEntry(timestamp, typeId, enactmentMode,
+        implementationId, attributes, executionTime, true, 0.2);
+    EnactmentLogEntry entry4 = new EnactmentLogEntry(timestamp, typeId, enactmentMode,
+        implementationId, attributes, executionTime, true, 0.2);
+    EnactmentLogEntry entry5 = new EnactmentLogEntry(timestamp, typeId, enactmentMode,
+        implementationId, attributes, executionTime, true, 0.2);
+    EnactmentLogEntry entry6 = new EnactmentLogEntry(timestamp, typeId, enactmentMode,
+        implementationId, attributes, executionTime, true, 0.2);
+    EnactmentLogEntry entry7 = new EnactmentLogEntry(timestamp, typeId, enactmentMode,
+        implementationId, attributes, executionTime, true, 0.2);
 
     assertEquals(entry1, entry1);
     assertNotEquals(entry1, "not_a_log_entry");

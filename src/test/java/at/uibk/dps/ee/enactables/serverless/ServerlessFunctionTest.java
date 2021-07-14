@@ -2,21 +2,22 @@ package at.uibk.dps.ee.enactables.serverless;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.concurrent.CountDownLatch;
 import org.junit.Test;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import at.uibk.dps.ee.core.exception.StopException;
-import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping.EnactmentMode;
 import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
+import io.vertx.core.Future;
+import io.vertx.core.Vertx;
+import io.vertx.ext.web.client.WebClient;
 import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
 import net.sf.opendse.model.Task;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -43,23 +44,32 @@ public class ServerlessFunctionTest {
       Mapping<Task, Resource> mapping = PropertyServiceMapping.createMapping(task, serverless,
           EnactmentMode.Serverless, serverUrl);
 
-      // build the web client
-      final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-      builder.connectTimeout(ConstantsEEModel.defaultFaaSTimeoutSeconds, TimeUnit.SECONDS);
-      builder.readTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
-      builder.writeTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
-      OkHttpClient client = builder.build();
+      Vertx vertx = Vertx.vertx();
+      WebClient client = WebClient.create(vertx);
 
       ServerlessFunction tested = new ServerlessFunction(mapping, client);
       JsonObject input = new JsonObject();
+      assertEquals(serverUrl, tested.getImplementationId());
+      assertEquals("addition", tested.getTypeId());
+      SimpleEntry<String, String> expected = new SimpleEntry<String, String>("url", serverUrl);
+      assertTrue(tested.getAdditionalAttributes().contains(expected));
+      assertEquals(EnactmentMode.Serverless.name(), tested.getEnactmentMode());
       input.add(inputKey, new JsonPrimitive(inputString));
+      CountDownLatch latch = new CountDownLatch(1);
+      Future<JsonObject> futureResult = tested.processInput(input);
+      futureResult.onComplete(res -> {
+        latch.countDown();
+      });
       try {
-        JsonObject result = tested.processInput(input);
-        assertEquals(output, result);
-        RecordedRequest request = serverMock.takeRequest();
-        assertEquals("[text=" + input.toString() + "]", request.getBody().toString());
-      } catch (StopException e) {
+        latch.await();
+      } catch (InterruptedException e1) {
         fail();
+      }
+      assertEquals(output, futureResult.result());
+      RecordedRequest request;
+      try {
+        request = serverMock.takeRequest();
+        assertEquals("[text=" + input.toString() + "]", request.getBody().toString());
       } catch (InterruptedException e) {
         fail();
       }

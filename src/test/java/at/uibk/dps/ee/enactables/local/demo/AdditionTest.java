@@ -6,7 +6,6 @@ import java.time.Instant;
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 
 public class AdditionTest {
@@ -22,13 +21,9 @@ public class AdditionTest {
 
     Instant before = Instant.now();
     JsonObject result;
-    try {
-      result = tested.processInput(input);
-      Instant after = Instant.now();
-      assertEquals(13, result.get(ConstantsLocal.outputAdditionResult).getAsLong());
-      assertTrue(Duration.between(before, after).toMillis() >= 150);
-    } catch (StopException e) {
-      fail();
-    }
+    result = tested.processInput(input).result();
+    Instant after = Instant.now();
+    assertEquals(13, result.get(ConstantsLocal.outputAdditionResult).getAsLong());
+    assertTrue(Duration.between(before, after).toMillis() >= 150);
   }
 }

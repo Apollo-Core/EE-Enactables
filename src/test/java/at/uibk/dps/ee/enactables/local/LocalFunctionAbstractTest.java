@@ -9,7 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import at.uibk.dps.ee.core.exception.StopException;
+import io.vertx.core.Future;
 
 public class LocalFunctionAbstractTest {
 
@@ -20,20 +20,16 @@ public class LocalFunctionAbstractTest {
     }
 
     @Override
-    public JsonObject processInput(JsonObject input) throws StopException {
-      return input;
+    public Future<JsonObject> processInput(JsonObject input) {
+      return Future.succeededFuture(input);
     }
 
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testCheckInputEntryTest() {
     FunctionMock tested = new FunctionMock();
-    try {
-      tested.checkInputEntry(new JsonObject(), "key");
-      fail();
-    } catch (StopException e) {
-    }
+    tested.checkInputEntry(new JsonObject(), "key");
   }
 
   @Test
@@ -41,11 +37,7 @@ public class LocalFunctionAbstractTest {
     FunctionMock tested = new FunctionMock();
     JsonObject input = new JsonObject();
     input.addProperty("key", 42);
-    try {
-      assertEquals(42, (long) tested.readIntInput(input, "key"));
-    } catch (StopException e) {
-      fail();
-    }
+    assertEquals(42, (long) tested.readIntInput(input, "key"));
   }
 
   @Test
@@ -54,11 +46,7 @@ public class LocalFunctionAbstractTest {
     JsonObject input = new JsonObject();
     JsonElement value = new JsonPrimitive("string");
     input.add("key", value);
-    try {
-      assertEquals(value, tested.readEntry(input, "key"));
-    } catch (StopException e) {
-      fail();
-    }
+    assertEquals(value, tested.readEntry(input, "key"));
   }
 
   @Test
@@ -77,11 +65,7 @@ public class LocalFunctionAbstractTest {
     String key = "key";
     JsonObject input = new JsonObject();
     input.add(key, array);
-    try {
-      assertEquals(array, tested.readCollectionInput(input, key));
-    } catch (StopException e) {
-      fail();
-    }
+    assertEquals(array, tested.readCollectionInput(input, key));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -91,10 +75,6 @@ public class LocalFunctionAbstractTest {
     String key = "key";
     JsonObject input = new JsonObject();
     input.add(key, primitive);
-    try {
-      assertEquals(primitive, tested.readCollectionInput(input, key));
-    } catch (StopException e) {
-      fail();
-    }
+    assertEquals(primitive, tested.readCollectionInput(input, key));
   }
 }

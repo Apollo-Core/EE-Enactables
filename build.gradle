@@ -33,10 +33,10 @@ dependencies {
     implementation project (':EE-Model')    
     implementation project (':EE-Docker')
   }else {
-    implementation 'com.github.Apollo-Core:EE-Model:main-SNAPSHOT'
-    implementation 'com.github.Apollo-Core:EE-Guice:main-SNAPSHOT'
-    implementation 'com.github.Apollo-Core:EE-Core:master-SNAPSHOT'
-    implementation 'com.github.Apollo-Core:EE-Docker:master-SNAPSHOT'
+    implementation 'com.github.Apollo-Core:EE-Model:vertex-SNAPSHOT'
+    implementation 'com.github.Apollo-Core:EE-Guice:vertex-SNAPSHOT'
+    implementation 'com.github.Apollo-Core:EE-Core:vertx-SNAPSHOT'
+    implementation 'com.github.Apollo-Core:EE-Docker:vertx-SNAPSHOT'
   }
 
   // dependency to Opt4J
@@ -49,12 +49,11 @@ dependencies {
 
   // gson to define the format of the exchanged messages
   implementation 'com.google.code.gson:gson:2.8.6'
-
-  // dependency to the lib for http requests
-  implementation 'com.squareup.okhttp3:okhttp:4.9.0'
-
+  
   // VertX
-  implementation 'io.vertx:vertx-core:4.1.0'
+  implementation 'io.vertx:vertx-core:4.1.1'
+  implementation 'io.vertx:vertx-web:4.1.1'
+  implementation 'io.vertx:vertx-web-client:4.1.1'
   
   
   // test dependencies

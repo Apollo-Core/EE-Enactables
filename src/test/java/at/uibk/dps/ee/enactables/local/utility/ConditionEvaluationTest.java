@@ -9,7 +9,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.objects.Condition;
 import at.uibk.dps.ee.model.objects.Condition.CombinedWith;
@@ -47,12 +46,8 @@ public class ConditionEvaluationTest {
     ConditionEvaluation tested = new ConditionEvaluation(funcNode, "id", "type");
     String expectedKey = ConstantsEEModel.JsonKeyIfDecision;
 
-    try {
-      JsonObject jsonResult = tested.processInput(input);
-      boolean result = jsonResult.get(expectedKey).getAsBoolean();
-      assertFalse(result);
-    } catch (StopException e) {
-      fail();
-    }
+    JsonObject jsonResult = tested.processInput(input).result();
+    boolean result = jsonResult.get(expectedKey).getAsBoolean();
+    assertFalse(result);
   }
 }

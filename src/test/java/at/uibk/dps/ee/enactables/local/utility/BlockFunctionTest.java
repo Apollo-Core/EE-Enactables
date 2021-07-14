@@ -9,7 +9,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections.CollectionOperation;
 import net.sf.opendse.model.Task;
@@ -50,11 +49,7 @@ public class BlockFunctionTest {
     JsonElement strideNum = new JsonPrimitive(0);
     input.add(strideKey, strideNum);
     CollOperFunction tested = new CollOperFunction(task, "id", "type");
-    try {
-      tested.processInput(input);
-    } catch (StopException e) {
-      fail();
-    }
+    tested.processInput(input);
   }
 
   @Test
@@ -79,27 +74,23 @@ public class BlockFunctionTest {
     JsonElement strideNum = new JsonPrimitive(2);
     input.add(strideKey, strideNum);
     CollOperFunction tested = new CollOperFunction(task, "id", "type");
-    try {
-      JsonObject jsonResult = tested.processInput(input);
-      JsonElement result = jsonResult.get(someKey);
-      assertTrue(result.isJsonArray());
-      JsonArray resultArray = result.getAsJsonArray();
-      assertEquals(3, resultArray.size());
-      assertTrue(resultArray.get(0).isJsonArray());
-      assertTrue(resultArray.get(1).isJsonArray());
-      assertTrue(resultArray.get(2).isJsonArray());
-      JsonArray array0 = resultArray.get(0).getAsJsonArray();
-      assertEquals(1, array0.get(0).getAsInt());
-      assertEquals(2, array0.get(1).getAsInt());
-      JsonArray array1 = resultArray.get(1).getAsJsonArray();
-      assertEquals(2, array1.get(0).getAsInt());
-      assertEquals(3, array1.get(1).getAsInt());
-      JsonArray array2 = resultArray.get(2).getAsJsonArray();
-      assertEquals(3, array2.get(0).getAsInt());
-      assertEquals(4, array2.get(1).getAsInt());
-    } catch (StopException e) {
-      fail();
-    }
+    JsonObject jsonResult = tested.processInput(input).result();
+    JsonElement result = jsonResult.get(someKey);
+    assertTrue(result.isJsonArray());
+    JsonArray resultArray = result.getAsJsonArray();
+    assertEquals(3, resultArray.size());
+    assertTrue(resultArray.get(0).isJsonArray());
+    assertTrue(resultArray.get(1).isJsonArray());
+    assertTrue(resultArray.get(2).isJsonArray());
+    JsonArray array0 = resultArray.get(0).getAsJsonArray();
+    assertEquals(1, array0.get(0).getAsInt());
+    assertEquals(2, array0.get(1).getAsInt());
+    JsonArray array1 = resultArray.get(1).getAsJsonArray();
+    assertEquals(2, array1.get(0).getAsInt());
+    assertEquals(3, array1.get(1).getAsInt());
+    JsonArray array2 = resultArray.get(2).getAsJsonArray();
+    assertEquals(3, array2.get(0).getAsInt());
+    assertEquals(4, array2.get(1).getAsInt());
   }
 
   @Test
@@ -124,23 +115,19 @@ public class BlockFunctionTest {
     JsonElement strideNum = new JsonPrimitive(3);
     input.add(strideKey, strideNum);
     CollOperFunction tested = new CollOperFunction(task, "id", "type");
-    try {
-      JsonObject jsonResult = tested.processInput(input);
-      JsonElement result = jsonResult.get(someKey);
-      assertTrue(result.isJsonArray());
-      JsonArray resultArray = result.getAsJsonArray();
-      assertEquals(2, resultArray.size());
-      assertTrue(resultArray.get(0).isJsonArray());
-      assertTrue(resultArray.get(1).isJsonArray());
-      JsonArray array0 = resultArray.get(0).getAsJsonArray();
-      assertEquals(1, array0.get(0).getAsInt());
-      assertEquals(2, array0.get(1).getAsInt());
-      assertEquals(3, array0.get(2).getAsInt());
-      JsonArray array1 = resultArray.get(1).getAsJsonArray();
-      assertEquals(3, array1.get(0).getAsInt());
-      assertEquals(4, array1.get(1).getAsInt());
-    } catch (StopException e) {
-      fail();
-    }
+    JsonObject jsonResult = tested.processInput(input).result();
+    JsonElement result = jsonResult.get(someKey);
+    assertTrue(result.isJsonArray());
+    JsonArray resultArray = result.getAsJsonArray();
+    assertEquals(2, resultArray.size());
+    assertTrue(resultArray.get(0).isJsonArray());
+    assertTrue(resultArray.get(1).isJsonArray());
+    JsonArray array0 = resultArray.get(0).getAsJsonArray();
+    assertEquals(1, array0.get(0).getAsInt());
+    assertEquals(2, array0.get(1).getAsInt());
+    assertEquals(3, array0.get(2).getAsInt());
+    JsonArray array1 = resultArray.get(1).getAsJsonArray();
+    assertEquals(3, array1.get(0).getAsInt());
+    assertEquals(4, array1.get(1).getAsInt());
   }
 }

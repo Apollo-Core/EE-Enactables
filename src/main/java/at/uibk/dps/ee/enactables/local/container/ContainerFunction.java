@@ -7,7 +7,6 @@ import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.docker.manager.ContainerManager;
 import at.uibk.dps.ee.enactables.EnactmentMode;
 import io.vertx.core.Future;
-import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 
 /**
@@ -52,14 +51,7 @@ public class ContainerFunction implements EnactmentFunction {
 
   @Override
   public Future<JsonObject> processInput(final JsonObject input) {
-    Promise<JsonObject> containerResult = Promise.promise();
-    vertx.executeBlocking(promise -> {
-      JsonObject result = containerManager.runImage(imageName, input);
-      promise.complete(result);
-    }, false, asyncResult ->{
-      containerResult.complete((JsonObject) asyncResult.result());
-    });
-    return containerResult.future();
+    return containerManager.runImage(imageName, input);
   }
 
   @Override

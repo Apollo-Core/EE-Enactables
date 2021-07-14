@@ -1,10 +1,10 @@
 package at.uibk.dps.ee.enactables.decorators;
 
-import at.uibk.dps.ee.core.enactable.EnactmentFunction;
-import at.uibk.dps.ee.core.exception.StopException;
+import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
+import io.vertx.core.Future;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.junit.Test;
@@ -34,13 +34,13 @@ public class DecoratorEnactmentLogTest {
     }
 
     @Override
-    public JsonObject processInput(JsonObject input) throws StopException {
+    public Future<JsonObject> processInput(JsonObject input) {
       try {
         Thread.sleep(timeMillisecs);
       } catch (InterruptedException e) {
         fail();
       }
-      return input;
+      return Future.succeededFuture(input);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class DecoratorEnactmentLogTest {
     jsonObject.add("testProp", new JsonPrimitive("testValue"));
 
     assertNull(enactmentLog.start);
-    JsonObject returnedJsonObject = enactmentLog.preprocess(jsonObject);
+    JsonObject returnedJsonObject = enactmentLog.preprocess(jsonObject).result();
 
     assertEquals(jsonObject, returnedJsonObject);
     assertNotNull(enactmentLog.start);
@@ -112,7 +112,7 @@ public class DecoratorEnactmentLogTest {
     } catch (InterruptedException e) {
       fail();
     }
-    JsonObject returnedJsonObject = enactmentLog.postprocess(jsonObject);
+    JsonObject returnedJsonObject = enactmentLog.postprocess(jsonObject).result();
 
     ArgumentCaptor<EnactmentLogEntry> acEntry = ArgumentCaptor.forClass(EnactmentLogEntry.class);
 

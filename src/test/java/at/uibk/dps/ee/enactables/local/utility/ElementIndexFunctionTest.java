@@ -9,7 +9,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections.CollectionOperation;
 import net.sf.opendse.model.Task;
@@ -39,17 +38,13 @@ public class ElementIndexFunctionTest {
     input.add(strideKey, strideNum);
     // create the object
     CollOperFunction tested = new CollOperFunction(task, "id", "type");
-    try {
-      JsonObject jsonResult = tested.processInput(input);
-      JsonElement result = jsonResult.get(someKey);
-      assertTrue(result.isJsonArray());
-      JsonArray resultArray = result.getAsJsonArray();
-      assertEquals(3, resultArray.size());
-      assertEquals(1, resultArray.get(0).getAsInt());
-      assertEquals(2, resultArray.get(1).getAsInt());
-      assertEquals(4, resultArray.get(2).getAsInt());
-    } catch (StopException e) {
-      fail();
-    }
+    JsonObject jsonResult = tested.processInput(input).result();
+    JsonElement result = jsonResult.get(someKey);
+    assertTrue(result.isJsonArray());
+    JsonArray resultArray = result.getAsJsonArray();
+    assertEquals(3, resultArray.size());
+    assertEquals(1, resultArray.get(0).getAsInt());
+    assertEquals(2, resultArray.get(1).getAsInt());
+    assertEquals(4, resultArray.get(2).getAsInt());
   }
 }

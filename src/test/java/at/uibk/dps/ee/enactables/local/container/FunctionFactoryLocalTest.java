@@ -4,14 +4,17 @@ import static org.junit.Assert.*;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
-import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
+import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.docker.manager.ContainerManager;
+import at.uibk.dps.ee.guice.starter.VertxProvider;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMappingLocal;
+import io.vertx.core.Vertx;
 import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
 import net.sf.opendse.model.Task;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class FunctionFactoryLocalTest {
 
@@ -19,7 +22,10 @@ public class FunctionFactoryLocalTest {
   public void test() {
     Set<FunctionDecoratorFactory> decorators = new HashSet<>();
     ContainerManager mockManager = mock(ContainerManager.class);
-    FunctionFactoryLocal tested = new FunctionFactoryLocal(decorators, mockManager);
+    Vertx mockVertx = mock(Vertx.class);
+    VertxProvider vProv = mock(VertxProvider.class);
+    when(vProv.getVertx()).thenReturn(mockVertx);
+    FunctionFactoryLocal tested = new FunctionFactoryLocal(decorators, mockManager, vProv);
 
     Task task = PropertyServiceFunctionUser.createUserTask("task", "addition");
     Resource res = new Resource("r");

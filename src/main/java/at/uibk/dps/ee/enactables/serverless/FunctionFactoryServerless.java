@@ -3,14 +3,13 @@ package at.uibk.dps.ee.enactables.serverless;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.FunctionFactory;
-import at.uibk.dps.ee.model.constants.ConstantsEEModel;
+import at.uibk.dps.ee.guice.starter.VertxProvider;
+import io.vertx.ext.web.client.WebClient;
 import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
 import net.sf.opendse.model.Task;
-import okhttp3.OkHttpClient;
 import javax.inject.Inject;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The {@link FunctionFactoryServerless} creates the {@link EnactmentFunction}s
@@ -20,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class FunctionFactoryServerless extends FunctionFactory {
 
-  protected final OkHttpClient client;
+  protected final WebClient client;
   
   /**
    * Injection constructor.
@@ -29,14 +28,9 @@ public class FunctionFactoryServerless extends FunctionFactory {
    *        wrap the created functions
    */
   @Inject
-  public FunctionFactoryServerless(final Set<FunctionDecoratorFactory> decoratorFactories) {
+  public FunctionFactoryServerless(final Set<FunctionDecoratorFactory> decoratorFactories, VertxProvider vProv) {
     super(decoratorFactories);
-    final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-    builder.connectTimeout(ConstantsEEModel.defaultFaaSTimeoutSeconds,
-        TimeUnit.SECONDS);
-    builder.readTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
-    builder.writeTimeout(ConstantsServerless.readWriteTimeoutSeconds, TimeUnit.SECONDS);
-    client = builder.build();
+    this.client = vProv.getWebClient();
   }
 
   /**

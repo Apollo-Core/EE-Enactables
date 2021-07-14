@@ -10,7 +10,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import at.uibk.dps.ee.core.exception.StopException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 
 public class SumCollectionTest {
@@ -35,13 +34,9 @@ public class SumCollectionTest {
 
     Instant before = Instant.now();
     JsonObject result;
-    try {
-      result = tested.processInput(input);
-      Instant after = Instant.now();
-      assertEquals(9, result.get(ConstantsLocal.outputSumCollection).getAsLong());
-      assertTrue(Duration.between(before, after).toMillis() >= 150);
-    } catch (StopException e) {
-      fail();
-    }
+    result = tested.processInput(input).result();
+    Instant after = Instant.now();
+    assertEquals(9, result.get(ConstantsLocal.outputSumCollection).getAsLong());
+    assertTrue(Duration.between(before, after).toMillis() >= 150);
   }
 }
