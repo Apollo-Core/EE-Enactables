@@ -1,10 +1,9 @@
 package at.uibk.dps.ee.enactables.local.demo;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
 import java.time.Instant;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -29,9 +28,7 @@ public class SumCollectionTest {
     JsonElement waitTime = new JsonPrimitive(150);
     input.add(ConstantsLocal.inputWaitTime, waitTime);
 
-
     SumCollection tested = new SumCollection("id", "type");
-
     Instant before = Instant.now();
     JsonObject result;
     result = tested.processInput(input).result();

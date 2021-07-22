@@ -1,7 +1,6 @@
 package at.uibk.dps.ee.enactables.local.container;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import com.google.gson.JsonObject;
 import at.uibk.dps.ee.docker.manager.ContainerManager;
 import at.uibk.dps.ee.enactables.EnactmentMode;
@@ -11,7 +10,7 @@ import static org.mockito.Mockito.mock;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashSet;
 import java.util.Set;
-
+import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,11 +35,10 @@ public class ContainerFunctionTest {
     JsonObject expectedResult = new JsonObject();
     Future<JsonObject> expected = Future.succeededFuture(expectedResult);
     JsonObject input = new JsonObject();
-    when(mockManager.runImage(imageName, input))
-        .thenReturn(expected);
-    
+    when(mockManager.runImage(imageName, input)).thenReturn(expected);
+
     tested.processInput(input);
-    
+
     verify(mockManager).runImage(imageName, input);
   }
 }

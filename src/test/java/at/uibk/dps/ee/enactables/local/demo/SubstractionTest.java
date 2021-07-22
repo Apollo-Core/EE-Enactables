@@ -1,10 +1,9 @@
 package at.uibk.dps.ee.enactables.local.demo;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
 import java.time.Instant;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonObject;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 

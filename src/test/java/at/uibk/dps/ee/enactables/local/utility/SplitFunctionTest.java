@@ -1,9 +1,7 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.local.utility.conditions;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 
@@ -31,27 +31,35 @@ public class ConditionCheckerStringTest {
     assertFalse(tested.endsWith("abcd", "ab"));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testLess() {
-    ConditionCheckerString tested = new ConditionCheckerString();
-    tested.less("abc", "ABC");
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerString tested = new ConditionCheckerString();
+      tested.less("abc", "ABC");
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testLessEqual() {
-    ConditionCheckerString tested = new ConditionCheckerString();
-    tested.lessEqual("abc", "ABC");
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerString tested = new ConditionCheckerString();
+      tested.lessEqual("abc", "ABC");
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGreater() {
-    ConditionCheckerString tested = new ConditionCheckerString();
-    tested.greater("abc", "ABC");
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerString tested = new ConditionCheckerString();
+      tested.greater("abc", "ABC");
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGreaterEqual() {
-    ConditionCheckerString tested = new ConditionCheckerString();
-    tested.greaterEqual("abc", "ABC");
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerString tested = new ConditionCheckerString();
+      tested.greaterEqual("abc", "ABC");
+    });
   }
 }

@@ -1,7 +1,6 @@
 package at.uibk.dps.ee.enactables.serverless;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
@@ -17,6 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
+import org.junit.jupiter.api.Test;
 
 public class FunctionFactoryServerlessTest {
 

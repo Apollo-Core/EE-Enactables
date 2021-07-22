@@ -1,9 +1,7 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -27,29 +25,31 @@ public class BlockFunctionTest {
     assertEquals(3, tested.getResultEntryNumber(6, 3, 1));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testBlockOneZero() {
-    JsonObject input = new JsonObject();
-    // create the input collection
-    JsonArray array = new JsonArray();
-    array.add(new JsonPrimitive(1));
-    array.add(new JsonPrimitive(2));
-    array.add(new JsonPrimitive(3));
-    array.add(new JsonPrimitive(4));
-    String someKey = "someKey";
-    input.add(someKey, array);
-    // create the task and annotate it with the subcollection
-    String overlapSrc = "producer/output";
-    String subCollString = "1," + overlapSrc;
-    String dataId = "dataId";
-    Task task = PropertyServiceFunctionUtilityCollections.createCollectionOperation(dataId,
-        subCollString, CollectionOperation.Block);
-    // enter the info on the stride into the input object
-    String strideKey = overlapSrc;
-    JsonElement strideNum = new JsonPrimitive(0);
-    input.add(strideKey, strideNum);
-    CollOperFunction tested = new CollOperFunction(task, "id", "type");
-    tested.processInput(input);
+    assertThrows(IllegalArgumentException.class, () -> {
+      JsonObject input = new JsonObject();
+      // create the input collection
+      JsonArray array = new JsonArray();
+      array.add(new JsonPrimitive(1));
+      array.add(new JsonPrimitive(2));
+      array.add(new JsonPrimitive(3));
+      array.add(new JsonPrimitive(4));
+      String someKey = "someKey";
+      input.add(someKey, array);
+      // create the task and annotate it with the subcollection
+      String overlapSrc = "producer/output";
+      String subCollString = "1," + overlapSrc;
+      String dataId = "dataId";
+      Task task = PropertyServiceFunctionUtilityCollections.createCollectionOperation(dataId,
+          subCollString, CollectionOperation.Block);
+      // enter the info on the stride into the input object
+      String strideKey = overlapSrc;
+      JsonElement strideNum = new JsonPrimitive(0);
+      input.add(strideKey, strideNum);
+      CollOperFunction tested = new CollOperFunction(task, "id", "type");
+      tested.processInput(input);
+    });
   }
 
   @Test

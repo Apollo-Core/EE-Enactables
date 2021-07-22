@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.local.utility.conditions;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 
@@ -17,7 +17,7 @@ public class ConditionCheckerNumberTest {
     assertEquals(num1, tested.extractArgument(element1).longValue());
     assertEquals(num2, tested.extractArgument(element2).doubleValue(), 0.000000000001);
   }
-  
+
   @Test
   public void testCorrect() {
     ConditionCheckerNumber tested = new ConditionCheckerNumber();
@@ -29,22 +29,28 @@ public class ConditionCheckerNumberTest {
     assertTrue(tested.greaterEqual(42, 41));
     assertTrue(tested.greaterEqual(0.1000000001, 0.1000000002));
   }
-  
-  @Test(expected = IllegalArgumentException.class)
+
+  @Test
   public void testContains() {
-    ConditionCheckerNumber tested = new ConditionCheckerNumber();
-    tested.contains(42, 41);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerNumber tested = new ConditionCheckerNumber();
+      tested.contains(42, 41);
+    });
   }
-  
-  @Test(expected = IllegalArgumentException.class)
+
+  @Test
   public void testStartsWith() {
-    ConditionCheckerNumber tested = new ConditionCheckerNumber();
-    tested.startsWith(42, 41);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerNumber tested = new ConditionCheckerNumber();
+      tested.startsWith(42, 41);
+    });
   }
-  
-  @Test(expected = IllegalArgumentException.class)
+
+  @Test
   public void testEndsWith() {
-    ConditionCheckerNumber tested = new ConditionCheckerNumber();
-    tested.endsWith(42, 41);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerNumber tested = new ConditionCheckerNumber();
+      tested.endsWith(42, 41);
+    });
   }
 }

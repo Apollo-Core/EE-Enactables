@@ -1,10 +1,10 @@
 package at.uibk.dps.ee.enactables.serverless;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.concurrent.CountDownLatch;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;

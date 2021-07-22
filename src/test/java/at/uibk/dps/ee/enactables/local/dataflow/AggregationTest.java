@@ -1,9 +1,7 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -37,15 +35,17 @@ public class AggregationTest {
     assertEquals(3, array.get(3).getAsInt());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testInCorrect() {
-    Aggregation tested = new Aggregation("id", "type");
-    String key = ConstantsEEModel.JsonKeyAggregation;
-    JsonObject input = new JsonObject();
-    input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(0));
-    input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(1));
-    input.add("randomOtherKey", new JsonPrimitive(2));
-    input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(3));
-    tested.processInput(input);
+    assertThrows(IllegalArgumentException.class, () -> {
+      Aggregation tested = new Aggregation("id", "type");
+      String key = ConstantsEEModel.JsonKeyAggregation;
+      JsonObject input = new JsonObject();
+      input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(0));
+      input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(1));
+      input.add("randomOtherKey", new JsonPrimitive(2));
+      input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(3));
+      tested.processInput(input);
+    });
   }
 }

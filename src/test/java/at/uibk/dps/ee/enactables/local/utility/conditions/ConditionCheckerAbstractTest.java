@@ -1,11 +1,11 @@
 package at.uibk.dps.ee.enactables.local.utility.conditions;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import at.uibk.dps.ee.model.objects.Condition.Operator;
 import static org.mockito.Mockito.verify;
+import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.spy;
 

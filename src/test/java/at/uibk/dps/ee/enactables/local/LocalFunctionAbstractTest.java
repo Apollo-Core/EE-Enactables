@@ -1,10 +1,10 @@
 package at.uibk.dps.ee.enactables.local;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -26,10 +26,12 @@ public class LocalFunctionAbstractTest {
 
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testCheckInputEntryTest() {
-    FunctionMock tested = new FunctionMock();
-    tested.checkInputEntry(new JsonObject(), "key");
+    assertThrows(IllegalArgumentException.class, () -> {
+      FunctionMock tested = new FunctionMock();
+      tested.checkInputEntry(new JsonObject(), "key");
+    });
   }
 
   @Test
@@ -68,13 +70,15 @@ public class LocalFunctionAbstractTest {
     assertEquals(array, tested.readCollectionInput(input, key));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testReadCollectionInputIncorrect() {
-    FunctionMock tested = new FunctionMock();
-    JsonPrimitive primitive = new JsonPrimitive(42);
-    String key = "key";
-    JsonObject input = new JsonObject();
-    input.add(key, primitive);
-    assertEquals(primitive, tested.readCollectionInput(input, key));
+    assertThrows(IllegalArgumentException.class, () -> {
+      FunctionMock tested = new FunctionMock();
+      JsonPrimitive primitive = new JsonPrimitive(42);
+      String key = "key";
+      JsonObject input = new JsonObject();
+      input.add(key, primitive);
+      assertEquals(primitive, tested.readCollectionInput(input, key));
+    });
   }
 }

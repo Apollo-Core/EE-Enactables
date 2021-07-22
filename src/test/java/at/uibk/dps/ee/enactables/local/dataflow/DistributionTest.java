@@ -1,9 +1,7 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -15,24 +13,28 @@ import net.sf.opendse.model.Task;
 
 public class DistributionTest {
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIncorrectIterator() {
-    Task funcNode = new Task("t");
-    String key = ConstantsEEModel.JsonKeyConstantIterator;
-    JsonObject jsonInput = new JsonObject();
-    jsonInput.add(key, new JsonPrimitive("bla"));
-    Distribution tested = new Distribution(funcNode, "id", "type");
-    tested.processInput(jsonInput);
+    assertThrows(IllegalArgumentException.class, () -> {
+      Task funcNode = new Task("t");
+      String key = ConstantsEEModel.JsonKeyConstantIterator;
+      JsonObject jsonInput = new JsonObject();
+      jsonInput.add(key, new JsonPrimitive("bla"));
+      Distribution tested = new Distribution(funcNode, "id", "type");
+      tested.processInput(jsonInput);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testInorrectIterator2() {
-    Task funcNode = new Task("t");
-    String key = "key";
-    JsonObject jsonInput = new JsonObject();
-    jsonInput.add(key, new JsonPrimitive("bla"));
-    Distribution tested = new Distribution(funcNode, "id", "type");
-    tested.processInput(jsonInput);
+    assertThrows(IllegalArgumentException.class, () -> {
+      Task funcNode = new Task("t");
+      String key = "key";
+      JsonObject jsonInput = new JsonObject();
+      jsonInput.add(key, new JsonPrimitive("bla"));
+      Distribution tested = new Distribution(funcNode, "id", "type");
+      tested.processInput(jsonInput);
+    });
   }
 
   @Test
@@ -62,20 +64,22 @@ public class DistributionTest {
         .getAsBoolean());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIntIteratorAndCollection() {
-    Task funcNode = new Task("t");
-    String key = ConstantsEEModel.JsonKeyConstantIterator;
-    String key1 = "coll1";
-    JsonObject jsonInput = new JsonObject();
-    jsonInput.add(key, new JsonPrimitive(5));
-    JsonArray array1 = new JsonArray();
-    array1.add(1);
-    array1.add(2);
-    array1.add(3);
-    jsonInput.add(key1, array1);
-    Distribution tested = new Distribution(funcNode, "id", "type");
-    tested.processInput(jsonInput);
+    assertThrows(IllegalArgumentException.class, () -> {
+      Task funcNode = new Task("t");
+      String key = ConstantsEEModel.JsonKeyConstantIterator;
+      String key1 = "coll1";
+      JsonObject jsonInput = new JsonObject();
+      jsonInput.add(key, new JsonPrimitive(5));
+      JsonArray array1 = new JsonArray();
+      array1.add(1);
+      array1.add(2);
+      array1.add(3);
+      jsonInput.add(key1, array1);
+      Distribution tested = new Distribution(funcNode, "id", "type");
+      tested.processInput(jsonInput);
+    });
   }
 
   @Test
@@ -128,24 +132,26 @@ public class DistributionTest {
     assertEquals(3, output.get(ConstantsEEModel.getCollectionElementKey(key1, 2)).getAsInt());
   }
 
-  @Test(expected = IllegalStateException.class)
+  @Test
   public void testUnequalCollections() {
-    Task funcNode = new Task("t");
-    String key1 = "coll1";
-    String key2 = "coll2";
-    JsonObject jsonInput = new JsonObject();
-    JsonArray array1 = new JsonArray();
-    array1.add(1);
-    array1.add(2);
-    array1.add(3);
-    JsonArray array2 = new JsonArray();
-    array2.add("one");
-    array2.add("two");
-    array2.add("three");
-    array2.add("four");
-    jsonInput.add(key1, array1);
-    jsonInput.add(key2, array2);
-    Distribution tested = new Distribution(funcNode, "id", "type");
-    tested.processInput(jsonInput);
+    assertThrows(IllegalStateException.class, () -> {
+      Task funcNode = new Task("t");
+      String key1 = "coll1";
+      String key2 = "coll2";
+      JsonObject jsonInput = new JsonObject();
+      JsonArray array1 = new JsonArray();
+      array1.add(1);
+      array1.add(2);
+      array1.add(3);
+      JsonArray array2 = new JsonArray();
+      array2.add("one");
+      array2.add("two");
+      array2.add("three");
+      array2.add("four");
+      jsonInput.add(key1, array1);
+      jsonInput.add(key2, array2);
+      Distribution tested = new Distribution(funcNode, "id", "type");
+      tested.processInput(jsonInput);
+    });
   }
 }

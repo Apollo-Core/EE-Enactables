@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.local.utility.conditions;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import at.uibk.dps.ee.model.properties.PropertyServiceData.DataType;
 
 public class ConditionEvaluatorTest {
@@ -15,10 +15,12 @@ public class ConditionEvaluatorTest {
     assertTrue(tested.getConditionChecker(DataType.Object) instanceof ConditionCheckerObject);
     assertTrue(tested.getConditionChecker(DataType.String) instanceof ConditionCheckerString);
   }
-  
-  @Test(expected = IllegalArgumentException.class)
+
+  @Test
   public void testExc() {
-    ConditionEvaluator tested = new ConditionEvaluator();
-    tested.getConditionChecker(DataType.Array);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionEvaluator tested = new ConditionEvaluator();
+      tested.getConditionChecker(DataType.Array);
+    });
   }
 }

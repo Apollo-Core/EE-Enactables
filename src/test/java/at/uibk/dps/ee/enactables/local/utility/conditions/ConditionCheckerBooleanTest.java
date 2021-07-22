@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.local.utility.conditions;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 
@@ -25,45 +25,59 @@ public class ConditionCheckerBooleanTest {
     assertEquals(false, tested.extractArgument(falseEl));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testLess() {
-    ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
-    tested.less(true, true);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
+      tested.less(true, true);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testLessEqual() {
-    ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
-    tested.lessEqual(true, true);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
+      tested.lessEqual(true, true);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGreater() {
-    ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
-    tested.greater(true, true);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
+      tested.greater(true, true);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testGreaterEqual() {
-    ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
-    tested.greaterEqual(true, true);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
+      tested.greaterEqual(true, true);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testContains() {
-    ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
-    tested.contains(true, true);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
+      tested.contains(true, true);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testStartsWith() {
-    ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
-    tested.startsWith(true, true);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
+      tested.startsWith(true, true);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testEndsWith() {
-    ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
-    tested.endsWith(true, true);
+    assertThrows(IllegalArgumentException.class, () -> {
+      ConditionCheckerBoolean tested = new ConditionCheckerBoolean();
+      tested.endsWith(true, true);
+    });
   }
 }

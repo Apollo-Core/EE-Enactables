@@ -4,14 +4,12 @@ import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.enactables.EnactmentMode;
 import io.vertx.core.Future;
 import com.google.gson.JsonObject;
-import org.junit.Test;
-
 import java.time.Instant;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EnactmentLogEntryTest {
 

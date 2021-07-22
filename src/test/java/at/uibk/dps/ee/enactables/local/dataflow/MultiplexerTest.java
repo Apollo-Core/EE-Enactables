@@ -1,7 +1,7 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
