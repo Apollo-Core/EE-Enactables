@@ -33,7 +33,7 @@ public class FunctionFactoryUtility extends FunctionFactory<Task, EnactmentFunct
     final UtilityType utilType = PropertyServiceFunctionUtility.getUtilityType(task);
     if (utilType.equals(UtilityType.Condition)) {
       return new ConditionEvaluation(task, task.getId(), EnactmentMode.Utility.name());
-    } else if (utilType.equals(UtilityType.While)) {
+    } else if (utilType.equals(UtilityType.While) || utilType.equals(UtilityType.Sequelizer)) {
       return new ForwardOperation();
     } else if (utilType.equals(UtilityType.CollectionOperation)) {
       return new CollOperFunction(task, task.getId(), EnactmentMode.Utility.name());
