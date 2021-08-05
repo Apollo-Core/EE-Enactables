@@ -2,6 +2,7 @@ package at.uibk.dps.ee.enactables.local.utility.conditions;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 
@@ -14,8 +15,12 @@ public class ConditionCheckerNumberTest {
     double num2 = 0.0001;
     JsonElement element1 = new JsonPrimitive(num1);
     JsonElement element2 = new JsonPrimitive(num2);
+    JsonArray array = new JsonArray();
+    array.add(element1);
+    array.add(element2);
     assertEquals(num1, tested.extractArgument(element1).longValue());
     assertEquals(num2, tested.extractArgument(element2).doubleValue(), 0.000000000001);
+    assertEquals(1, tested.extractArgument(array).longValue());
   }
 
   @Test

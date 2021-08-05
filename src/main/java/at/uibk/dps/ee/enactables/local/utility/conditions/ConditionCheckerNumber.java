@@ -63,6 +63,13 @@ public class ConditionCheckerNumber extends ConditionCheckerAbstract<Number> {
 
   @Override
   protected Number extractArgument(final JsonElement element) {
-    return element.getAsNumber();
+    if (element.isJsonPrimitive()) {
+      return element.getAsNumber();
+    } else if (element.isJsonArray()) {
+      return element.getAsJsonArray().size()-1;
+    } else {
+      throw new IllegalStateException(
+          "Cannot parse json element " + element.toString() + "as a number.");
+    }
   }
 }
