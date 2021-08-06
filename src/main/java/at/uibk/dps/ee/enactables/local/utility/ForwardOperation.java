@@ -14,6 +14,9 @@ import io.vertx.core.Future;
  */
 public class ForwardOperation extends LocalFunctionAbstract {
 
+  /**
+   * Construction method.
+   */
   public ForwardOperation() {
     super(UtilityType.While.name(), UtilityType.While.name(), new HashSet<>());
   }
@@ -22,7 +25,7 @@ public class ForwardOperation extends LocalFunctionAbstract {
    * Returns a future which resolved to the provided input.
    */
   @Override
-  public Future<JsonObject> processInput(JsonObject input) {
+  public Future<JsonObject> processInput(final JsonObject input) {
     return Future.succeededFuture(input);
   }
 }
