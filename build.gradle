@@ -36,7 +36,7 @@ dependencies {
     implementation 'com.github.Apollo-Core:EE-Model:seqFor-SNAPSHOT'
     implementation 'com.github.Apollo-Core:EE-Guice:main-SNAPSHOT'
     implementation 'com.github.Apollo-Core:EE-Core:master-SNAPSHOT'
-    implementation 'com.github.Apollo-Core:EE-Docker:vertx-SNAPSHOT'
+    implementation 'com.github.Apollo-Core:EE-Docker:seqFor-SNAPSHOT'
   }
 
   // dependency to Opt4J
@@ -64,6 +64,10 @@ dependencies {
 
   // dependency to local files
   // compile files('libs/lib.jar')
+}
+
+test {
+  useJUnitPlatform()
 }
 
 jacocoTestReport {
