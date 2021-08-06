@@ -33,10 +33,10 @@ dependencies {
     implementation project (':EE-Model')    
     implementation project (':EE-Docker')
   }else {
-    implementation 'com.github.Apollo-Core:EE-Model:seqFor-SNAPSHOT'
+    implementation 'com.github.Apollo-Core:EE-Model:main-SNAPSHOT'
     implementation 'com.github.Apollo-Core:EE-Guice:main-SNAPSHOT'
     implementation 'com.github.Apollo-Core:EE-Core:master-SNAPSHOT'
-    implementation 'com.github.Apollo-Core:EE-Docker:seqFor-SNAPSHOT'
+    implementation 'com.github.Apollo-Core:EE-Docker:vertx-SNAPSHOT'
   }
 
   // dependency to Opt4J
