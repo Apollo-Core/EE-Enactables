@@ -14,6 +14,8 @@ import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
 import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
@@ -58,14 +60,17 @@ public class ServerlessFunction implements EnactmentFunction {
   @Override
   public Future<JsonObject> processInput(final JsonObject input) {
     final Promise<JsonObject> resultPromise = Promise.promise();
-    client.postAbs(url).sendJson(new io.vertx.core.json.JsonObject(input.toString()))
-        .onSuccess(asyncRes -> {
-          final JsonObject resultJson =
-              JsonParser.parseString(asyncRes.body().toString()).getAsJsonObject();
-          resultPromise.complete(resultJson);
-        }).onFailure(failureThrowable -> {
-          System.err.println(failureThrowable.getMessage());
-        });
+    Future<HttpResponse<Buffer>> futureResponse =
+        client.postAbs(url).sendJson(new io.vertx.core.json.JsonObject(input.toString()));
+    logger.info("Serverless function {} triggerred.", url);
+    futureResponse.onSuccess(asyncRes -> {
+      logger.info("Serverless function {} finished", url);
+      final JsonObject resultJson =
+          JsonParser.parseString(asyncRes.body().toString()).getAsJsonObject();
+      resultPromise.complete(resultJson);
+    }).onFailure(failureThrowable -> {
+      System.err.println(failureThrowable.getMessage());
+    });
     return resultPromise.future();
   }
 

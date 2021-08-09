@@ -20,7 +20,7 @@ import java.util.Set;
 public class FunctionFactoryServerless
     extends FunctionFactory<Mapping<Task, Resource>, EnactmentFunction> {
 
-  protected final WebClient client;
+  protected final VertxProvider vProv;
 
   /**
    * Injection constructor.
@@ -32,11 +32,11 @@ public class FunctionFactoryServerless
   public FunctionFactoryServerless(final Set<FunctionDecoratorFactory> decoratorFactories,
       final VertxProvider vProv) {
     super(decoratorFactories);
-    this.client = vProv.getWebClient();
+    this.vProv = vProv;
   }
 
   @Override
   protected EnactmentFunction makeActualFunction(final Mapping<Task, Resource> input) {
-    return new ServerlessFunction(input, client);
+    return new ServerlessFunction(input, vProv.getWebClient());
   }
 }
