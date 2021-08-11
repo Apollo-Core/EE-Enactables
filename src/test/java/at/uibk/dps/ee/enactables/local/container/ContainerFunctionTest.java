@@ -2,7 +2,7 @@ package at.uibk.dps.ee.enactables.local.container;
 
 import static org.junit.jupiter.api.Assertions.*;
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.docker.manager.ContainerManager;
+import at.uibk.dps.ee.core.ContainerManager;
 import at.uibk.dps.ee.enactables.EnactmentMode;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;

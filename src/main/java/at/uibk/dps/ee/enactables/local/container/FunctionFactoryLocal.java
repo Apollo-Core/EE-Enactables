@@ -3,9 +3,10 @@ package at.uibk.dps.ee.enactables.local.container;
 import java.util.HashSet;
 import java.util.Set;
 import com.google.inject.Inject;
+import at.uibk.dps.ee.core.ContainerManager;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
-import at.uibk.dps.ee.docker.manager.ContainerManager;
 import at.uibk.dps.ee.enactables.FunctionFactory;
+import at.uibk.dps.ee.guice.container.ContainerManagerProvider;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
@@ -35,9 +36,9 @@ public class FunctionFactoryLocal
    */
   @Inject
   public FunctionFactoryLocal(final Set<FunctionDecoratorFactory> decoratorFactories,
-      final ContainerManager containerManager, final VertxProvider vProv) {
+      final ContainerManagerProvider containerManagerProvider, final VertxProvider vProv) {
     super(decoratorFactories);
-    this.containerManager = containerManager;
+    this.containerManager = containerManagerProvider.getContainerManager();
     this.vertx = vProv.getVertx();
   }
 
