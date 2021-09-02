@@ -5,6 +5,7 @@ import java.util.Set;
 import com.google.inject.Inject;
 import at.uibk.dps.ee.core.ContainerManager;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
+import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.FunctionFactory;
 import at.uibk.dps.ee.guice.container.ContainerManagerProvider;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
@@ -12,9 +13,6 @@ import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
 import at.uibk.dps.ee.model.properties.PropertyServiceMappingLocal;
 import io.vertx.core.Vertx;
-import net.sf.opendse.model.Mapping;
-import net.sf.opendse.model.Resource;
-import net.sf.opendse.model.Task;
 
 /**
  * The {@link FunctionFactoryLocal} provides the functions modeling function
@@ -22,8 +20,7 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public class FunctionFactoryLocal
-    extends FunctionFactory<Mapping<Task, Resource>, ContainerFunction> {
+public class FunctionFactoryLocal extends FunctionFactory<FactoryInputUser, ContainerFunction> {
 
   protected final ContainerManager containerManager;
   protected final Vertx vertx;
@@ -43,11 +40,10 @@ public class FunctionFactoryLocal
   }
 
   @Override
-  protected ContainerFunction makeActualFunction(final Mapping<Task, Resource> containerMapping) {
-    final Task task = containerMapping.getSource();
-    final String imageName = PropertyServiceMappingLocal.getImageName(containerMapping);
-    final String typeId = PropertyServiceFunctionUser.getTypeId(task);
-    final String implId = PropertyServiceMapping.getImplementationId(containerMapping);
+  protected ContainerFunction makeActualFunction(final FactoryInputUser input) {
+    final String imageName = PropertyServiceMappingLocal.getImageName(input.getMapping());
+    final String typeId = PropertyServiceFunctionUser.getTypeId(input.getTask());
+    final String implId = PropertyServiceMapping.getImplementationId(input.getMapping());
     return new ContainerFunction(typeId, implId, new HashSet<>(), containerManager, imageName,
         vertx);
   }

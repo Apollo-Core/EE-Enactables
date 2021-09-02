@@ -29,7 +29,7 @@ import net.sf.opendse.model.Task;
  */
 public class ServerlessFunction implements EnactmentFunction {
 
-  protected final String typeId;
+  protected String typeId;
   protected final String implementationId;
   protected final Set<SimpleEntry<String, String>> additionalAttributes;
 
@@ -41,12 +41,12 @@ public class ServerlessFunction implements EnactmentFunction {
   /**
    * Default constructor.
    * 
+   * @param task the task associated with the function
    * @param url the url to access the serverless function
    * @param client the http client used for the serverless requests
    */
-  public ServerlessFunction(final Mapping<Task, Resource> serverlessMapping,
+  public ServerlessFunction(final Task task, final Mapping<Task, Resource> serverlessMapping,
       final WebClient client) {
-    final Task task = serverlessMapping.getSource();
     final Resource res = serverlessMapping.getTarget();
     this.typeId = PropertyServiceFunctionUser.getTypeId(task);
     this.implementationId = PropertyServiceMapping.getImplementationId(serverlessMapping);
@@ -77,6 +77,10 @@ public class ServerlessFunction implements EnactmentFunction {
   @Override
   public String getTypeId() {
     return typeId;
+  }
+
+  public void setTypeId(String typeId) {
+    this.typeId = typeId;
   }
 
   @Override

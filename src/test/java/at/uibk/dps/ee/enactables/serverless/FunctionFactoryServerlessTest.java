@@ -2,6 +2,7 @@ package at.uibk.dps.ee.enactables.serverless;
 
 import static org.junit.jupiter.api.Assertions.*;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
+import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
@@ -30,7 +31,7 @@ public class FunctionFactoryServerlessTest {
     Task task = PropertyServiceFunctionUser.createUserTask("task", "addition");
     Mapping<Task, Resource> mapping =
         PropertyServiceMapping.createMapping(task, slRes, EnactmentMode.Serverless, "link");
-    EnactmentFunction result = tested.makeFunction(mapping);
+    EnactmentFunction result = tested.makeFunction(new FactoryInputUser(task, mapping));
     assertTrue(result instanceof ServerlessFunction);
     ServerlessFunction slResult = (ServerlessFunction) result;
     assertEquals("link", slResult.url);

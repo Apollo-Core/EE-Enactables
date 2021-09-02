@@ -2,8 +2,6 @@ package at.uibk.dps.ee.enactables.local.demo;
 
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
-import net.sf.opendse.model.Mapping;
-import net.sf.opendse.model.Resource;
 import net.sf.opendse.model.Task;
 import java.util.Set;
 import com.google.inject.Inject;
@@ -11,6 +9,7 @@ import at.uibk.dps.ee.enactables.FunctionFactory;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.EnactmentMode;
+import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
 
 /**
@@ -21,7 +20,7 @@ import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
  *
  */
 public class FunctionFactoryDemo
-    extends FunctionFactory<Mapping<Task, Resource>, EnactmentFunction> {
+    extends FunctionFactory<FactoryInputUser, EnactmentFunction> {
 
   /**
    * Injection constructor.
@@ -35,8 +34,8 @@ public class FunctionFactoryDemo
   }
 
   @Override
-  protected EnactmentFunction makeActualFunction(final Mapping<Task, Resource> input) {
-    final Task task = input.getSource();
+  protected EnactmentFunction makeActualFunction(final FactoryInputUser input) {
+    final Task task = input.getTask();
     final LocalCalculations localCalcs =
         LocalCalculations.valueOf(PropertyServiceFunctionUser.getTypeId(task));
     return getOriginalFunction(localCalcs);

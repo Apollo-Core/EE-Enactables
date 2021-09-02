@@ -2,11 +2,9 @@ package at.uibk.dps.ee.enactables.serverless;
 
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
+import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.FunctionFactory;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
-import net.sf.opendse.model.Mapping;
-import net.sf.opendse.model.Resource;
-import net.sf.opendse.model.Task;
 import javax.inject.Inject;
 import java.util.Set;
 
@@ -17,7 +15,7 @@ import java.util.Set;
  * @author Fedor Smirnov
  */
 public class FunctionFactoryServerless
-    extends FunctionFactory<Mapping<Task, Resource>, EnactmentFunction> {
+    extends FunctionFactory<FactoryInputUser, EnactmentFunction> {
 
   protected final VertxProvider vProv;
 
@@ -35,7 +33,7 @@ public class FunctionFactoryServerless
   }
 
   @Override
-  protected EnactmentFunction makeActualFunction(final Mapping<Task, Resource> input) {
-    return new ServerlessFunction(input, vProv.getWebClient());
+  protected EnactmentFunction makeActualFunction(final FactoryInputUser input) {
+    return new ServerlessFunction(input.getTask(), input.getMapping(), vProv.getWebClient());
   }
 }
