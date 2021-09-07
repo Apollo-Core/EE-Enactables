@@ -47,7 +47,7 @@ public class ServerlessFunctionTest {
       Vertx vertx = Vertx.vertx();
       WebClient client = WebClient.create(vertx);
 
-      ServerlessFunction tested = new ServerlessFunction(mapping, client);
+      ServerlessFunction tested = new ServerlessFunction(task, mapping, client);
       JsonObject input = new JsonObject();
       assertEquals(serverUrl, tested.getImplementationId());
       assertEquals("addition", tested.getTypeId());

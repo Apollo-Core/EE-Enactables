@@ -2,6 +2,7 @@ package at.uibk.dps.ee.enactables.local.utility;
 
 import java.util.HashSet;
 import com.google.gson.JsonObject;
+import at.uibk.dps.ee.enactables.local.InputMissingException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityType;
 import io.vertx.core.Future;
@@ -18,14 +19,16 @@ public class ForwardOperation extends LocalFunctionAbstract {
    * Construction method.
    */
   public ForwardOperation() {
-    super(UtilityType.While.name(), UtilityType.While.name(), new HashSet<>());
+    super(UtilityType.While.name(), UtilityType.While.name(), UtilityType.While.name(),
+        new HashSet<>());
   }
 
   /**
    * Returns a future which resolved to the provided input.
    */
   @Override
-  public Future<JsonObject> processInput(final JsonObject input) {
+  public Future<JsonObject> processVerifiedInput(final JsonObject input)
+      throws InputMissingException {
     return Future.succeededFuture(input);
   }
 }

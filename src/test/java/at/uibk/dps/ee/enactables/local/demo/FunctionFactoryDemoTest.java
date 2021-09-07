@@ -3,6 +3,7 @@ package at.uibk.dps.ee.enactables.local.demo;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashSet;
 import org.junit.jupiter.api.Test;
+import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
@@ -21,18 +22,21 @@ public class FunctionFactoryDemoTest {
         PropertyServiceFunctionUser.createUserTask("task", LocalCalculations.Addition.name());
     Mapping<Task, Resource> additionMapping =
         PropertyServiceMapping.createMapping(task, res, EnactmentMode.Demo, "demo");
-    assertTrue(tested.makeFunction(additionMapping) instanceof Addition);
+    assertTrue(
+        tested.makeFunction(new FactoryInputUser(task, additionMapping)) instanceof Addition);
 
     Task taskSub =
         PropertyServiceFunctionUser.createUserTask("task", LocalCalculations.Subtraction.name());
     Mapping<Task, Resource> subtractionMapping =
         PropertyServiceMapping.createMapping(taskSub, res, EnactmentMode.Demo, "demo");
-    assertTrue(tested.makeFunction(subtractionMapping) instanceof Subtraction);
+    assertTrue(tested
+        .makeFunction(new FactoryInputUser(taskSub, subtractionMapping)) instanceof Subtraction);
 
     Task taskSumCol =
         PropertyServiceFunctionUser.createUserTask("task", LocalCalculations.SumCollection.name());
     Mapping<Task, Resource> sumColMapping =
         PropertyServiceMapping.createMapping(taskSumCol, res, EnactmentMode.Demo, "demo");
-    assertTrue(tested.makeFunction(sumColMapping) instanceof SumCollection);
+    assertTrue(tested
+        .makeFunction(new FactoryInputUser(taskSumCol, sumColMapping)) instanceof SumCollection);
   }
 }

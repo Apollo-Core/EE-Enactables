@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import at.uibk.dps.ee.core.ContainerManager;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
+import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.guice.container.ContainerManagerProvider;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
@@ -36,7 +37,7 @@ public class FunctionFactoryLocalTest {
     Mapping<Task, Resource> map =
         PropertyServiceMappingLocal.createMappingLocal(task, res, "image");
 
-    EnactmentFunction result = tested.makeFunction(map);
+    EnactmentFunction result = tested.makeFunction(new FactoryInputUser(task, map));
 
     assertEquals("addition", result.getTypeId());
     assertEquals(at.uibk.dps.ee.enactables.EnactmentMode.Local.name(), result.getEnactmentMode());

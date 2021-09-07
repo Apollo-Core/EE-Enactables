@@ -4,6 +4,7 @@ import java.util.HashSet;
 import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
+import at.uibk.dps.ee.enactables.local.InputMissingException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import io.vertx.core.Future;
 
@@ -22,12 +23,13 @@ public class Subtraction extends LocalFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Subtraction(final String idString, final String type) {
-    super(idString, type, new HashSet<>());
+  public Subtraction(final String idString, final String type, final String functionId) {
+    super(idString, type, functionId, new HashSet<>());
   }
 
   @Override
-  public Future<JsonObject> processInput(final JsonObject input) {
+  public Future<JsonObject> processVerifiedInput(final JsonObject input)
+      throws InputMissingException {
     final int minuend = readIntInput(input, ConstantsLocal.inputSubtractionMinuend);
     final int subtrahend = readIntInput(input, ConstantsLocal.inputSubtractionSubtrahend);
     final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);

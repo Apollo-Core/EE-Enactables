@@ -35,13 +35,16 @@ public class FunctionFactoryDataFlow extends FunctionFactory<Task, EnactmentFunc
   protected EnactmentFunction makeActualFunction(final Task task) {
     final DataFlowType dfType = PropertyServiceFunctionDataFlow.getDataFlowType(task);
     if (dfType.equals(DataFlowType.EarliestInput)) {
-      return new EarliestArrival(DataFlowType.EarliestInput.name(), EnactmentMode.DataFlow.name());
+      return new EarliestArrival(DataFlowType.EarliestInput.name(), EnactmentMode.DataFlow.name(),
+          task.getId());
     } else if (dfType.equals(DataFlowType.Multiplexer)) {
-      return new Multiplexer(DataFlowType.Multiplexer.name(), EnactmentMode.DataFlow.name());
+      return new Multiplexer(DataFlowType.Multiplexer.name(), EnactmentMode.DataFlow.name(),
+          task.getId());
     } else if (dfType.equals(DataFlowType.Collections)) {
       final OperationType oType = PropertyServiceFunctionDataFlowCollections.getOperationType(task);
       if (oType.equals(OperationType.Aggregation)) {
-        return new Aggregation(OperationType.Aggregation.name(), EnactmentMode.DataFlow.name());
+        return new Aggregation(OperationType.Aggregation.name(), EnactmentMode.DataFlow.name(),
+            task.getId());
       } else if (oType.equals(OperationType.Distribution)) {
         return new Distribution(task, OperationType.Distribution.name(),
             EnactmentMode.DataFlow.name());

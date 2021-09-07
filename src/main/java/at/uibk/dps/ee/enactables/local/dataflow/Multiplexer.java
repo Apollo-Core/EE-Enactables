@@ -3,6 +3,7 @@ package at.uibk.dps.ee.enactables.local.dataflow;
 import java.util.HashSet;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import at.uibk.dps.ee.enactables.local.InputMissingException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import io.vertx.core.Future;
@@ -22,12 +23,13 @@ public class Multiplexer extends LocalFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Multiplexer(final String idString, final String type) {
-    super(idString, type, new HashSet<>());
+  public Multiplexer(final String idString, final String type, final String functionId) {
+    super(idString, type, functionId, new HashSet<>());
   }
 
   @Override
-  public Future<JsonObject> processInput(final JsonObject input) {
+  public Future<JsonObject> processVerifiedInput(final JsonObject input)
+      throws InputMissingException {
     // get the decision variable
     checkInputEntry(input, ConstantsEEModel.JsonKeyIfDecision);
     final boolean decVar = input.get(ConstantsEEModel.JsonKeyIfDecision).getAsBoolean();

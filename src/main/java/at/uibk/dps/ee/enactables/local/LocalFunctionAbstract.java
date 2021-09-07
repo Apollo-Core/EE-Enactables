@@ -7,19 +7,16 @@ import java.util.concurrent.TimeUnit;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.core.function.EnactmentFunction;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping.EnactmentMode;
+import io.vertx.core.Future;
 
 /**
  * Parent of all local function classes.
  * 
  * @author Fedor Smirnov
  */
-public abstract class LocalFunctionAbstract implements EnactmentFunction {
-
-  protected final String typeId;
-  protected final String implId;
-  protected final Set<SimpleEntry<String, String>> additionalAttr;
+public abstract class LocalFunctionAbstract extends FunctionAbstract {
 
   /**
    * Default constructor.
@@ -27,32 +24,30 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @param implId the identifier
    * @param typeId the function type
    */
-  public LocalFunctionAbstract(final String implId, final String typeId,
+  public LocalFunctionAbstract(final String implId, final String typeId, final String functionId,
       final Set<SimpleEntry<String, String>> additionalAttrs) {
-    this.typeId = typeId;
-    this.implId = implId;
-    this.additionalAttr = additionalAttrs;
+    super(typeId, implId, EnactmentMode.Local.name(), functionId, additionalAttrs);
   }
 
-  @Override
-  public String getTypeId() {
-    return typeId;
+  /**
+   * Wrapper method to handle missing inputs.
+   */
+  public Future<JsonObject> processInput(final JsonObject input) {
+    try {
+      return processVerifiedInput(input);
+    } catch (InputMissingException exc) {
+      return Future.failedFuture(exc.getMessage());
+    }
   }
 
-  @Override
-  public String getImplementationId() {
-    return implId;
-  }
-
-  @Override
-  public String getEnactmentMode() {
-    return EnactmentMode.Local.name();
-  }
-
-  @Override
-  public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
-    return additionalAttr;
-  }
+  /**
+   * Method defining the correct processing, assuming that all inputs are present.
+   * 
+   * @param input the json input
+   * @return the future result
+   */
+  protected abstract Future<JsonObject> processVerifiedInput(final JsonObject input)
+      throws InputMissingException;
 
   /**
    * Reads the int input with the provided member name. Throws an exception if no
@@ -62,7 +57,8 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @param memberName the String key for the json int element
    * @return the integer value stored with the provided key
    */
-  protected int readIntInput(final JsonObject jsonInput, final String memberName) {
+  protected int readIntInput(final JsonObject jsonInput, final String memberName)
+      throws InputMissingException {
     checkInputEntry(jsonInput, memberName);
     return jsonInput.get(memberName).getAsInt();
   }
@@ -75,7 +71,8 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @return the json arry
    * @throws StopException
    */
-  protected JsonArray readCollectionInput(final JsonObject jsonInput, final String memberName) {
+  protected JsonArray readCollectionInput(final JsonObject jsonInput, final String memberName)
+      throws InputMissingException {
     checkInputEntry(jsonInput, memberName);
     try {
       return jsonInput.getAsJsonArray(memberName);
@@ -106,7 +103,8 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @return the Json entry specified by the given key
    * @throws StopException thrown if the entry is not found
    */
-  protected JsonElement readEntry(final JsonObject jsonInput, final String key) {
+  protected JsonElement readEntry(final JsonObject jsonInput, final String key)
+      throws InputMissingException {
     checkInputEntry(jsonInput, key);
     return jsonInput.get(key);
   }
@@ -118,10 +116,12 @@ public abstract class LocalFunctionAbstract implements EnactmentFunction {
    * @param jsonInput the input of the local operation
    * @param key the key to check
    */
-  protected void checkInputEntry(final JsonObject jsonInput, final String key) {
+  protected void checkInputEntry(final JsonObject jsonInput, final String key)
+      throws InputMissingException {
     if (jsonInput.get(key) == null) {
-      final String message = "The key " + key + " is not part of the provided JsonObject";
-      throw new IllegalArgumentException(message);
+      final String message =
+          "The key " + key + " is not part of the provided JsonObject for function " + functionId;
+      throw new InputMissingException(message);
     }
   }
 }

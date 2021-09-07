@@ -3,7 +3,7 @@ package at.uibk.dps.ee.enactables.local.utility;
 import java.util.HashSet;
 import java.util.List;
 import com.google.gson.JsonObject;
-
+import at.uibk.dps.ee.enactables.local.InputMissingException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.enactables.local.utility.conditions.ConditionEvaluator;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
@@ -31,12 +31,13 @@ public class ConditionEvaluation extends LocalFunctionAbstract {
    * @param type the function type
    */
   public ConditionEvaluation(final Task functionNode, final String idString, final String type) {
-    super(idString, type, new HashSet<>());
+    super(idString, type, functionNode.getId(), new HashSet<>());
     this.conditions = PropertyServiceFunctionUtilityCondition.getConditions(functionNode);
   }
 
   @Override
-  public Future<JsonObject> processInput(final JsonObject input){
+  public Future<JsonObject> processVerifiedInput(final JsonObject input)
+      throws InputMissingException {
     final ConditionEvaluator evaluator = new ConditionEvaluator();
     final boolean result = evaluator.evaluate(conditions, input);
     final JsonObject jsonResult = new JsonObject();

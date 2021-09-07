@@ -16,11 +16,11 @@ public class LocalFunctionAbstractTest {
   protected static class FunctionMock extends LocalFunctionAbstract {
 
     public FunctionMock() {
-      super("id", "type", new HashSet<>());
+      super("id", "type", "funcID", new HashSet<>());
     }
 
     @Override
-    public Future<JsonObject> processInput(JsonObject input) {
+    public Future<JsonObject> processVerifiedInput(JsonObject input) throws InputMissingException {
       return Future.succeededFuture(input);
     }
 
@@ -28,14 +28,14 @@ public class LocalFunctionAbstractTest {
 
   @Test
   public void testCheckInputEntryTest() {
-    assertThrows(IllegalArgumentException.class, () -> {
+    assertThrows(InputMissingException.class, () -> {
       FunctionMock tested = new FunctionMock();
       tested.checkInputEntry(new JsonObject(), "key");
     });
   }
 
   @Test
-  public void testReadIntEntry() {
+  public void testReadIntEntry() throws InputMissingException {
     FunctionMock tested = new FunctionMock();
     JsonObject input = new JsonObject();
     input.addProperty("key", 42);
@@ -43,7 +43,7 @@ public class LocalFunctionAbstractTest {
   }
 
   @Test
-  public void testReadEntry() {
+  public void testReadEntry() throws InputMissingException {
     FunctionMock tested = new FunctionMock();
     JsonObject input = new JsonObject();
     JsonElement value = new JsonPrimitive("string");
@@ -61,7 +61,7 @@ public class LocalFunctionAbstractTest {
   }
 
   @Test
-  public void testReadCollectionInputCorrect() {
+  public void testReadCollectionInputCorrect() throws InputMissingException {
     FunctionMock tested = new FunctionMock();
     JsonArray array = new JsonArray();
     String key = "key";

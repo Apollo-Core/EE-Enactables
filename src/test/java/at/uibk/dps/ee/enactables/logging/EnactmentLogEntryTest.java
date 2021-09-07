@@ -35,6 +35,11 @@ public class EnactmentLogEntryTest {
     }
 
     @Override
+    public String getFunctionId() {
+      return "task";
+    }
+
+    @Override
     public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
       HashSet<SimpleEntry<String, String>> attributes = new HashSet<>();
       attributes.add(new SimpleEntry<>("key1", "value1"));
