@@ -63,13 +63,16 @@ public class ServerlessFunction extends FunctionAbstract {
       final JsonObject resultJson =
           JsonParser.parseString(asyncRes.body().toString()).getAsJsonObject();
       resultPromise.complete(resultJson);
-    }).onFailure(failureThrowable -> {
-      System.err.println(failureThrowable.getMessage());
-    });
+    }).onFailure(failureThrowable -> resultPromise.fail(failureThrowable));
     return resultPromise.future();
   }
 
-  public void setTypeId(String typeId) {
+  /**
+   * Method to set the type id after the function construction.
+   * 
+   * @param typeId the type id to set
+   */
+  public void setTypeId(final String typeId) {
     this.typeId = typeId;
   }
 }

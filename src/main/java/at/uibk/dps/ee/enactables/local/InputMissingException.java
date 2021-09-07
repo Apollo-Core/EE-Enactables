@@ -17,7 +17,7 @@ public class InputMissingException extends Exception{
    * 
    * @param message failure message
    */
-  public InputMissingException(String message) {
+  public InputMissingException(final String message) {
     super(message);
   }
 }

@@ -16,7 +16,13 @@ public class FactoryInputUser {
   protected final Task task;
   protected final Mapping<Task, Resource> mapping;
 
-  public FactoryInputUser(Task task, Mapping<Task, Resource> mapping) {
+  /**
+   * Standard constructor
+   * 
+   * @param task the task of the function
+   * @param mapping the mapping of the task
+   */
+  public FactoryInputUser(final Task task, final Mapping<Task, Resource> mapping) {
     this.task = task;
     this.mapping = mapping;
   }
@@ -40,23 +46,10 @@ public class FactoryInputUser {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
+    if (!(obj instanceof FactoryInputUser)) {
       return false;
-    if (getClass() != obj.getClass())
-      return false;
-    FactoryInputUser other = (FactoryInputUser) obj;
-    if (mapping == null) {
-      if (other.mapping != null)
-        return false;
-    } else if (!mapping.equals(other.mapping))
-      return false;
-    if (task == null) {
-      if (other.task != null)
-        return false;
-    } else if (!task.equals(other.task))
-      return false;
-    return true;
+    }
+    final FactoryInputUser other = (FactoryInputUser) obj;
+    return task.equals(other.task) && mapping.equals(other.mapping);
   }
 }
