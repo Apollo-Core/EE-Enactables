@@ -10,7 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-
+import at.uibk.dps.ee.enactables.local.InputMissingException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
@@ -34,12 +34,13 @@ public class Distribution extends LocalFunctionAbstract {
    *        with the iteration number by this function)
    */
   public Distribution(final Task functionNode, final String idString, final String type) {
-    super(idString, type, new HashSet<>());
+    super(idString, type, functionNode.getId(), new HashSet<>());
     this.functionNode = functionNode;
   }
 
   @Override
-  public Future<JsonObject> processInput(final JsonObject input) {
+  public Future<JsonObject> processVerifiedInput(final JsonObject input)
+      throws InputMissingException {
     Optional<JsonObject> operationResult;
     if (input.size() == 1) {
       final String key = input.keySet().iterator().next();

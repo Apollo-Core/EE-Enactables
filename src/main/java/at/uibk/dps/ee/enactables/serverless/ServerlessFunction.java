@@ -2,13 +2,12 @@ package at.uibk.dps.ee.enactables.serverless;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashSet;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.enactables.EnactmentMode;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
 import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
@@ -27,11 +26,7 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public class ServerlessFunction implements EnactmentFunction {
-
-  protected String typeId;
-  protected final String implementationId;
-  protected final Set<SimpleEntry<String, String>> additionalAttributes;
+public class ServerlessFunction extends FunctionAbstract {
 
   protected final String url;
   protected final WebClient client;
@@ -47,10 +42,10 @@ public class ServerlessFunction implements EnactmentFunction {
    */
   public ServerlessFunction(final Task task, final Mapping<Task, Resource> serverlessMapping,
       final WebClient client) {
+    super(PropertyServiceFunctionUser.getTypeId(task),
+        PropertyServiceMapping.getImplementationId(serverlessMapping),
+        EnactmentMode.Serverless.name(), task.getId(), new HashSet<>());
     final Resource res = serverlessMapping.getTarget();
-    this.typeId = PropertyServiceFunctionUser.getTypeId(task);
-    this.implementationId = PropertyServiceMapping.getImplementationId(serverlessMapping);
-    this.additionalAttributes = new HashSet<>();
     this.url = PropertyServiceResourceServerless.getUri(res);
     additionalAttributes
         .add(new SimpleEntry<String, String>(ConstantsServerless.logAttrSlUrl, url));
@@ -74,27 +69,7 @@ public class ServerlessFunction implements EnactmentFunction {
     return resultPromise.future();
   }
 
-  @Override
-  public String getTypeId() {
-    return typeId;
-  }
-
   public void setTypeId(String typeId) {
     this.typeId = typeId;
-  }
-
-  @Override
-  public String getEnactmentMode() {
-    return EnactmentMode.Serverless.name();
-  }
-
-  @Override
-  public String getImplementationId() {
-    return implementationId;
-  }
-
-  @Override
-  public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
-    return additionalAttributes;
   }
 }

@@ -20,12 +20,13 @@ public class ContainerFunctionTest {
   public void test() {
     String typeId = "funcType";
     String implId = "localComp";
+    String functionId = "task";
     Set<SimpleEntry<String, String>> additional = new HashSet<>();
     ContainerManager mockManager = mock(ContainerManager.class);
     Vertx mockVertx = mock(Vertx.class);
     String imageName = "image";
-    ContainerFunction tested =
-        new ContainerFunction(typeId, implId, additional, mockManager, imageName, mockVertx);
+    ContainerFunction tested = new ContainerFunction(typeId, implId, functionId, additional,
+        mockManager, imageName, mockVertx);
     // getters
     assertEquals(typeId, tested.getTypeId());
     assertEquals(implId, tested.getImplementationId());

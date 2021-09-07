@@ -1,6 +1,5 @@
 package at.uibk.dps.ee.enactables.local.demo;
 
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import net.sf.opendse.model.Task;
 import java.util.Set;
@@ -19,8 +18,7 @@ import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
  * @author Fedor Smirnov
  *
  */
-public class FunctionFactoryDemo
-    extends FunctionFactory<FactoryInputUser, EnactmentFunction> {
+public class FunctionFactoryDemo extends FunctionFactory<FactoryInputUser, EnactmentFunction> {
 
   /**
    * Injection constructor.
@@ -38,28 +36,22 @@ public class FunctionFactoryDemo
     final Task task = input.getTask();
     final LocalCalculations localCalcs =
         LocalCalculations.valueOf(PropertyServiceFunctionUser.getTypeId(task));
-    return getOriginalFunction(localCalcs);
-  }
-
-  /**
-   * Returns the local function for the given enum.
-   * 
-   * @param localFunction the local function enum
-   * @return the local function for the enum
-   */
-  protected LocalFunctionAbstract getOriginalFunction(final LocalCalculations localFunction) {
-    switch (localFunction) {
+    switch (localCalcs) {
       case Addition:
-        return new Addition(LocalCalculations.Addition.name(), EnactmentMode.Local.name());
+        return new Addition(LocalCalculations.Addition.name(), EnactmentMode.Local.name(),
+            task.getId());
       case Subtraction:
-        return new Subtraction(LocalCalculations.Subtraction.name(), EnactmentMode.Local.name());
+        return new Subtraction(LocalCalculations.Subtraction.name(), EnactmentMode.Local.name(),
+            task.getId());
       case SumCollection:
-        return new SumCollection(LocalCalculations.SumCollection.name(),
-            EnactmentMode.Local.name());
+        return new SumCollection(LocalCalculations.SumCollection.name(), EnactmentMode.Local.name(),
+            task.getId());
       case SplitArray:
-        return new SplitArray(LocalCalculations.SplitArray.name(), EnactmentMode.Local.name());
+        return new SplitArray(LocalCalculations.SplitArray.name(), EnactmentMode.Local.name(),
+            task.getId());
       default:
-        throw new IllegalArgumentException("Unknown local function " + localFunction.name());
+        throw new IllegalArgumentException("Unknown local function " + localCalcs.name()
+            + " specified for function " + task.getId());
     }
   }
 }

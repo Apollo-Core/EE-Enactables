@@ -44,7 +44,8 @@ public class FunctionFactoryLocal extends FunctionFactory<FactoryInputUser, Cont
     final String imageName = PropertyServiceMappingLocal.getImageName(input.getMapping());
     final String typeId = PropertyServiceFunctionUser.getTypeId(input.getTask());
     final String implId = PropertyServiceMapping.getImplementationId(input.getMapping());
-    return new ContainerFunction(typeId, implId, new HashSet<>(), containerManager, imageName,
-        vertx);
+    final String functionId = input.getTask().getId();
+    return new ContainerFunction(typeId, implId, functionId, new HashSet<>(), containerManager,
+        imageName, vertx);
   }
 }

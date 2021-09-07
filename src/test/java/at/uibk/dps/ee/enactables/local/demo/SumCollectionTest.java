@@ -28,7 +28,7 @@ public class SumCollectionTest {
     JsonElement waitTime = new JsonPrimitive(150);
     input.add(ConstantsLocal.inputWaitTime, waitTime);
 
-    SumCollection tested = new SumCollection("id", "type");
+    SumCollection tested = new SumCollection("id", "type", "task");
     Instant before = Instant.now();
     JsonObject result;
     result = tested.processInput(input).result();

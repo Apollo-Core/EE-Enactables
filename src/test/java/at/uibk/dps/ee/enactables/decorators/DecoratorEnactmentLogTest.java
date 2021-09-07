@@ -25,11 +25,13 @@ public class DecoratorEnactmentLogTest {
 
     protected final String typeId;
     protected final String implId;
+    protected final String functionId;
     protected final int timeMillisecs;
 
-    public MockFunction(String typeId, String implId, int timeMillisecs) {
+    public MockFunction(String typeId, String implId, String functionId, int timeMillisecs) {
       this.typeId = typeId;
       this.implId = implId;
+      this.functionId = functionId;
       this.timeMillisecs = timeMillisecs;
     }
 
@@ -46,6 +48,11 @@ public class DecoratorEnactmentLogTest {
     @Override
     public String getTypeId() {
       return typeId;
+    }
+
+    @Override
+    public String getFunctionId() {
+      return functionId;
     }
 
     @Override
@@ -71,10 +78,11 @@ public class DecoratorEnactmentLogTest {
   public void testPreprocess() {
     String id = "id";
     String type = "type";
+    String funcId = "funcId";
     int waitTime = 50;
 
     DecoratorEnactmentLogTest.MockFunction original =
-        new DecoratorEnactmentLogTest.MockFunction(id, type, waitTime);
+        new DecoratorEnactmentLogTest.MockFunction(id, type, funcId, waitTime);
     EnactmentLogger enactmentLogger = mock(EnactmentLogger.class);
 
     DecoratorEnactmentLog enactmentLog = new DecoratorEnactmentLog(original, enactmentLogger);
@@ -93,10 +101,11 @@ public class DecoratorEnactmentLogTest {
   public void testPostprocess() {
     String typeId = "typeId";
     String implId = "implementationId";
+    String funcId = "funcId";
     int waitTime = 50;
 
     DecoratorEnactmentLogTest.MockFunction original =
-        new DecoratorEnactmentLogTest.MockFunction(typeId, implId, waitTime);
+        new DecoratorEnactmentLogTest.MockFunction(typeId, implId, funcId, waitTime);
     EnactmentLogger enactmentLogger = mock(EnactmentLogger.class);
 
     DecoratorEnactmentLog enactmentLog = new DecoratorEnactmentLog(original, enactmentLogger);

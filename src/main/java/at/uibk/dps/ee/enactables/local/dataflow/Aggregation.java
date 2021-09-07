@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
+import at.uibk.dps.ee.enactables.local.InputMissingException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import io.vertx.core.Future;
@@ -25,12 +25,13 @@ public class Aggregation extends LocalFunctionAbstract {
    * @param idString the id string
    * @param type the function type
    */
-  public Aggregation(final String idString, final String type) {
-    super(idString, type, new HashSet<>());
+  public Aggregation(final String idString, final String type, final String functionId) {
+    super(idString, type, functionId, new HashSet<>());
   }
 
   @Override
-  public Future<JsonObject> processInput(final JsonObject input){
+  public Future<JsonObject> processVerifiedInput(final JsonObject input)
+      throws InputMissingException {
     final JsonArray array = new JsonArray();
     // fill the array, so that we can set indices
     for (int i = 0; i < input.size(); i++) {

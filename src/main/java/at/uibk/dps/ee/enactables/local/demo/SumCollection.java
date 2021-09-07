@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
+import at.uibk.dps.ee.enactables.local.InputMissingException;
 import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import io.vertx.core.Future;
 
@@ -23,12 +24,13 @@ public class SumCollection extends LocalFunctionAbstract {
    * @param idString the func id
    * @param type the function type
    */
-  public SumCollection(final String idString, final String type) {
-    super(idString, type, new HashSet<>());
+  public SumCollection(final String idString, final String type, final String functionID) {
+    super(idString, type, functionID, new HashSet<>());
   }
 
   @Override
-  public Future<JsonObject> processInput(final JsonObject input) {
+  public Future<JsonObject> processVerifiedInput(final JsonObject input)
+      throws InputMissingException {
     final JsonArray jsonArray = readCollectionInput(input, ConstantsLocal.inputSumCollection);
     final int waitTime = readIntInput(input, ConstantsLocal.inputWaitTime);
     int result = 0;
