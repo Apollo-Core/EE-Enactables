@@ -31,7 +31,7 @@ public class DecoratorTimeout extends EnactmentFunctionDecorator {
    * @param timeOutMilliSeconds the timeout in milliseconds
    * @param vProv the vertx provider
    */
-  public DecoratorTimeout(final EnactmentFunction decoratedFunction, int timeOutMilliSeconds,
+  public DecoratorTimeout(final EnactmentFunction decoratedFunction, final int timeOutMilliSeconds,
       final VertxProvider vProv) {
     super(decoratedFunction);
     this.timeOutMilliSeconds = timeOutMilliSeconds;
@@ -40,7 +40,7 @@ public class DecoratorTimeout extends EnactmentFunctionDecorator {
   }
 
   @Override
-  public Future<JsonObject> processInput(JsonObject input) {
+  public Future<JsonObject> processInput(final JsonObject input) {
     // case where we run into the timeout
     vertx.setTimer(timeOutMilliSeconds, timerId -> {
       if (resultPromise.tryFail("Time out exception of function " + getFunctionId())) {
@@ -60,12 +60,12 @@ public class DecoratorTimeout extends EnactmentFunctionDecorator {
   }
 
   @Override
-  protected Future<JsonObject> preprocess(JsonObject input) {
+  protected Future<JsonObject> preprocess(final JsonObject input) {
     return Future.succeededFuture(input);
   }
 
   @Override
-  protected Future<JsonObject> postprocess(JsonObject result) {
+  protected Future<JsonObject> postprocess(final JsonObject result) {
     return Future.succeededFuture(result);
   }
 }

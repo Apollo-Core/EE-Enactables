@@ -14,10 +14,10 @@ import io.vertx.core.Vertx;
  * 
  * @author Fedor Smirnov
  */
-public abstract class DemoFunctionAbstract extends LocalFunctionAbstract{
+public abstract class DemoFunctionAbstract extends LocalFunctionAbstract {
 
   protected final Vertx vertx;
-  
+
   /**
    * Constructor: Same as parent, but also get the vertx context to set timers.
    * 
@@ -27,12 +27,12 @@ public abstract class DemoFunctionAbstract extends LocalFunctionAbstract{
    * @param additionalAttrs
    * @param vertx
    */
-  public DemoFunctionAbstract(String implId, String typeId, String functionId,
-      Set<SimpleEntry<String, String>> additionalAttrs, Vertx vertx) {
+  public DemoFunctionAbstract(final String implId, final String typeId, final String functionId,
+      final Set<SimpleEntry<String, String>> additionalAttrs, final Vertx vertx) {
     super(implId, typeId, functionId, additionalAttrs);
     this.vertx = vertx;
   }
-  
+
   /**
    * Returns a future which is completed with the given result after the given
    * amount of time.
@@ -43,7 +43,7 @@ public abstract class DemoFunctionAbstract extends LocalFunctionAbstract{
    *         amount of time
    */
   protected Future<JsonObject> waitMilliseconds(final JsonObject result, final int milliseconds) {
-    Promise<JsonObject> resultPromise = Promise.promise();
+    final Promise<JsonObject> resultPromise = Promise.promise();
     vertx.setTimer(milliseconds, timerId -> {
       resultPromise.complete(result);
     });

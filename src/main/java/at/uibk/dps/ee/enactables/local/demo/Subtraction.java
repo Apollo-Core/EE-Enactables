@@ -23,7 +23,8 @@ public class Subtraction extends DemoFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Subtraction(final String idString, final String type, final String functionId, Vertx vertx) {
+  public Subtraction(final String idString, final String type, final String functionId,
+      final Vertx vertx) {
     super(idString, type, functionId, new HashSet<>(), vertx);
   }
 

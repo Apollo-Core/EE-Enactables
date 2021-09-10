@@ -6,6 +6,12 @@ import org.opt4j.core.start.Constant;
 import at.uibk.dps.ee.enactables.decorators.timeout.DecoratorTimeoutFactory;
 import at.uibk.dps.ee.guice.modules.FunctionModule;
 
+/**
+ * Module for the configuration of the timeout decorator.
+ * 
+ * @author Fedor Smirnov
+ *
+ */
 public class FunctionTimeoutModule extends FunctionModule {
 
   @Order(1)
@@ -22,7 +28,7 @@ public class FunctionTimeoutModule extends FunctionModule {
     return timeOutMilliSeconds;
   }
 
-  public void setTimeOutMilliSeconds(int timeOutMilliSeconds) {
+  public void setTimeOutMilliSeconds(final int timeOutMilliSeconds) {
     this.timeOutMilliSeconds = timeOutMilliSeconds;
   }
 }

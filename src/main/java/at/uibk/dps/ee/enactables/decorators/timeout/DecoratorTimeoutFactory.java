@@ -23,14 +23,14 @@ public class DecoratorTimeoutFactory extends FunctionDecoratorFactory {
    * @param timeOutSeconds the timeout in seconds
    */
   @Inject
-  public DecoratorTimeoutFactory(VertxProvider vProv, @Constant(value = "timeoutMilliSeconds",
-      namespace = DecoratorTimeoutFactory.class) int timeOutSeconds) {
+  public DecoratorTimeoutFactory(final VertxProvider vProv, @Constant(value = "timeoutMilliSeconds",
+      namespace = DecoratorTimeoutFactory.class) final int timeOutSeconds) {
     this.vProv = vProv;
     this.timeOutSeconds = timeOutSeconds;
   }
 
   @Override
-  public EnactmentFunction decorateFunction(EnactmentFunction function) {
+  public EnactmentFunction decorateFunction(final EnactmentFunction function) {
     return new DecoratorTimeout(function, timeOutSeconds, vProv);
   }
 
