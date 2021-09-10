@@ -55,7 +55,7 @@ public class ServerlessFunction extends FunctionAbstract {
   @Override
   public Future<JsonObject> processInput(final JsonObject input) {
     final Promise<JsonObject> resultPromise = Promise.promise();
-    Future<HttpResponse<Buffer>> futureResponse =
+    final Future<HttpResponse<Buffer>> futureResponse =
         client.postAbs(url).sendJson(new io.vertx.core.json.JsonObject(input.toString()));
     logger.info("Serverless function {} triggerred.", url);
     futureResponse.onSuccess(asyncRes -> {

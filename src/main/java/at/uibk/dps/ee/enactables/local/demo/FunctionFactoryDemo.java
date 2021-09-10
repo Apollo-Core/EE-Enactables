@@ -1,6 +1,7 @@
 package at.uibk.dps.ee.enactables.local.demo;
 
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
+import io.vertx.core.Vertx;
 import net.sf.opendse.model.Task;
 import java.util.Set;
 import com.google.inject.Inject;
@@ -10,6 +11,7 @@ import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
+import at.uibk.dps.ee.guice.starter.VertxProvider;
 
 /**
  * The {@link FunctionFactoryDemo} provides the enactment functions modeling
@@ -20,6 +22,8 @@ import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
  */
 public class FunctionFactoryDemo extends FunctionFactory<FactoryInputUser, EnactmentFunction> {
 
+  protected final Vertx vertx;
+
   /**
    * Injection constructor.
    * 
@@ -27,8 +31,10 @@ public class FunctionFactoryDemo extends FunctionFactory<FactoryInputUser, Enact
    *        wrap the created functions
    */
   @Inject
-  public FunctionFactoryDemo(final Set<FunctionDecoratorFactory> decoratorFactories) {
+  public FunctionFactoryDemo(final Set<FunctionDecoratorFactory> decoratorFactories,
+      final VertxProvider vProv) {
     super(decoratorFactories);
+    this.vertx = vProv.getVertx();
   }
 
   @Override
@@ -39,13 +45,13 @@ public class FunctionFactoryDemo extends FunctionFactory<FactoryInputUser, Enact
     switch (localCalcs) {
       case Addition:
         return new Addition(LocalCalculations.Addition.name(), EnactmentMode.Local.name(),
-            task.getId());
+            task.getId(), vertx);
       case Subtraction:
         return new Subtraction(LocalCalculations.Subtraction.name(), EnactmentMode.Local.name(),
-            task.getId());
+            task.getId(), vertx);
       case SumCollection:
         return new SumCollection(LocalCalculations.SumCollection.name(), EnactmentMode.Local.name(),
-            task.getId());
+            task.getId(), vertx);
       case SplitArray:
         return new SplitArray(LocalCalculations.SplitArray.name(), EnactmentMode.Local.name(),
             task.getId());

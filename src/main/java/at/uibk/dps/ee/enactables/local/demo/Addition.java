@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import io.vertx.core.Future;
+import io.vertx.core.Vertx;
 
 /**
  * Simple Addition of 2 inputs and an option to wait for a given number of
@@ -15,7 +15,7 @@ import io.vertx.core.Future;
  * @author Fedor Smirnov
  *
  */
-public class Addition extends LocalFunctionAbstract {
+public class Addition extends DemoFunctionAbstract {
 
   /**
    * Default constructor
@@ -23,8 +23,9 @@ public class Addition extends LocalFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Addition(final String idString, final String type, final String functionId) {
-    super(idString, type, functionId, new HashSet<>());
+  public Addition(final String idString, final String type, final String functionId,
+      final Vertx vertx) {
+    super(idString, type, functionId, new HashSet<>(), vertx);
   }
 
   @Override
@@ -36,8 +37,7 @@ public class Addition extends LocalFunctionAbstract {
     final int sum = firstSummand + secondSummand;
     final JsonObject result = new JsonObject();
     result.addProperty(ConstantsLocal.outputAdditionResult, sum);
-    waitMilliseconds(waitTime);
-    return Future.succeededFuture(result);
+    return waitMilliseconds(result, waitTime);
   }
 }
 
