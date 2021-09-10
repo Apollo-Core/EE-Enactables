@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.decorators;
+package at.uibk.dps.ee.enactables.decorators.logging;
 
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.EnactmentFunctionDecorator;

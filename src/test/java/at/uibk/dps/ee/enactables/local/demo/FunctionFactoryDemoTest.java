@@ -5,6 +5,7 @@ import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
+import at.uibk.dps.ee.guice.starter.VertxProvider;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping.EnactmentMode;
@@ -12,11 +13,14 @@ import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
 import net.sf.opendse.model.Task;
 
+import static org.mockito.Mockito.mock;
+
 public class FunctionFactoryDemoTest {
 
   @Test
   public void test() {
-    FunctionFactoryDemo tested = new FunctionFactoryDemo(new HashSet<>());
+    VertxProvider vProv = mock(VertxProvider.class);
+    FunctionFactoryDemo tested = new FunctionFactoryDemo(new HashSet<>(), vProv);
     Resource res = new Resource("res");
     Task task =
         PropertyServiceFunctionUser.createUserTask("task", LocalCalculations.Addition.name());

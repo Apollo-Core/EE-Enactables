@@ -2,8 +2,6 @@ package at.uibk.dps.ee.enactables.local;
 
 import java.util.Set;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.concurrent.TimeUnit;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -23,6 +21,7 @@ public abstract class LocalFunctionAbstract extends FunctionAbstract {
    * 
    * @param implId the identifier
    * @param typeId the function type
+   * @param vProv the vertx provider
    */
   public LocalFunctionAbstract(final String implId, final String typeId, final String functionId,
       final Set<SimpleEntry<String, String>> additionalAttrs) {
@@ -79,19 +78,6 @@ public abstract class LocalFunctionAbstract extends FunctionAbstract {
     } catch (ClassCastException exc) {
       throw new IllegalArgumentException(
           "The entry saved as " + memberName + " cannot be read as json array.", exc);
-    }
-  }
-
-  /**
-   * Waits for the given number of milliseconds.
-   * 
-   * @param milliseconds the wait time in milliseconds
-   */
-  protected void waitMilliseconds(final int milliseconds) {
-    try {
-      TimeUnit.MILLISECONDS.sleep(milliseconds);
-    } catch (InterruptedException exc) {
-      throw new IllegalStateException("Interrupted while sleeping.", exc);
     }
   }
 

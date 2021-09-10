@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import io.vertx.core.Future;
+import io.vertx.core.Vertx;
 
 /**
  * Simple substraction of 2 inputs with an option to wait for a given number of
@@ -15,7 +15,7 @@ import io.vertx.core.Future;
  * @author Fedor Smirnov
  *
  */
-public class Subtraction extends LocalFunctionAbstract {
+public class Subtraction extends DemoFunctionAbstract {
 
   /**
    * Default constructor
@@ -23,8 +23,8 @@ public class Subtraction extends LocalFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Subtraction(final String idString, final String type, final String functionId) {
-    super(idString, type, functionId, new HashSet<>());
+  public Subtraction(final String idString, final String type, final String functionId, Vertx vertx) {
+    super(idString, type, functionId, new HashSet<>(), vertx);
   }
 
   @Override
@@ -36,7 +36,6 @@ public class Subtraction extends LocalFunctionAbstract {
     final int difference = minuend - subtrahend;
     final JsonObject result = new JsonObject();
     result.addProperty(ConstantsLocal.outputSubstractionResult, difference);
-    waitMilliseconds(waitTime);
-    return Future.succeededFuture(result);
+    return waitMilliseconds(result, waitTime);
   }
 }

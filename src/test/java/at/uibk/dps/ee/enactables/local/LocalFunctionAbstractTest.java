@@ -1,8 +1,6 @@
 package at.uibk.dps.ee.enactables.local;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 import com.google.gson.JsonArray;
@@ -49,15 +47,6 @@ public class LocalFunctionAbstractTest {
     JsonElement value = new JsonPrimitive("string");
     input.add("key", value);
     assertEquals(value, tested.readEntry(input, "key"));
-  }
-
-  @Test
-  public void testWait() {
-    FunctionMock tested = new FunctionMock();
-    Instant before = Instant.now();
-    tested.waitMilliseconds(250);
-    Instant after = Instant.now();
-    assertTrue(Duration.between(before, after).toMillis() >= 250);
   }
 
   @Test
