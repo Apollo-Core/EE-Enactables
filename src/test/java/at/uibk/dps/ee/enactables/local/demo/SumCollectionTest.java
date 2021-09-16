@@ -18,7 +18,7 @@ import io.vertx.core.Vertx;
 public class SumCollectionTest {
 
   @Test
-  @Timeout(value = 1, unit = TimeUnit.SECONDS)
+  @Timeout(value = 2, unit = TimeUnit.SECONDS)
   public void test() throws InterruptedException {
     JsonArray collection = new JsonArray();
     JsonElement first = new JsonPrimitive(1);
