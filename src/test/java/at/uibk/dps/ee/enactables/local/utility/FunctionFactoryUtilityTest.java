@@ -34,7 +34,7 @@ public class FunctionFactoryUtilityTest {
     Communication comm = new Communication("c1");
     Communication comm2 = new Communication("c2");
     EnactmentGraph graph = new EnactmentGraph();
-    Task sequelizer = PropertyServiceFunctionUtility.addSequelizerNode(comm, comm2, graph);
+    Task sequelizer = (Task) PropertyServiceFunctionUtility.enforceSequentiality(comm, comm2, graph);
 
     assertTrue(tested.makeFunction(collectionTask) instanceof CollOperFunction);
     assertTrue(tested.makeFunction(conditionTask) instanceof ConditionEvaluation);
