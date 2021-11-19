@@ -1,8 +1,6 @@
 package at.uibk.dps.ee.enactables.decorators.timeout;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,32 +92,5 @@ class DecoratorTimeoutTest {
       });
       return resultPromise.future();
     }
-
-    @Override
-    public String getTypeId() {
-      return null;
-    }
-
-    @Override
-    public String getFunctionId() {
-      return null;
-    }
-
-    @Override
-    public String getEnactmentMode() {
-      return null;
-    }
-
-    @Override
-    public String getImplementationId() {
-      return null;
-    }
-
-    @Override
-    public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
-      return null;
-    }
-
   }
-
 }

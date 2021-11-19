@@ -8,12 +8,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
+import net.sf.opendse.model.Task;
 
 public class AggregationTest {
 
   @Test
   public void testCorrect() {
-    Aggregation tested = new Aggregation("id", "type", "task");
+    Task task = new Task("task");
+    Aggregation tested = new Aggregation(task);
     String key = ConstantsEEModel.JsonKeyAggregation;
 
     JsonObject input = new JsonObject();
@@ -38,7 +40,8 @@ public class AggregationTest {
   @Test
   public void testInCorrect() {
     assertThrows(IllegalArgumentException.class, () -> {
-      Aggregation tested = new Aggregation("id", "type", "task");
+      Task task = new Task("task");
+      Aggregation tested = new Aggregation(task);
       String key = ConstantsEEModel.JsonKeyAggregation;
       JsonObject input = new JsonObject();
       input.add(ConstantsEEModel.getCollectionElementKey(key, 0), new JsonPrimitive(0));

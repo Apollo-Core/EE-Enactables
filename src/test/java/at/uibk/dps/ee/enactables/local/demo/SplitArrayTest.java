@@ -6,7 +6,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
+import net.sf.opendse.model.Mapping;
+import net.sf.opendse.model.Resource;
+import net.sf.opendse.model.Task;
 
 public class SplitArrayTest {
 
@@ -22,7 +26,11 @@ public class SplitArrayTest {
     input.add(ConstantsLocal.inputSplitArrayArray, array);
     input.add(ConstantsLocal.inputSplitArrayNumber, new JsonPrimitive(2));
 
-    SplitArray tested = new SplitArray("id", "type", "task");
+    Task task = new Task("task");
+    Resource res = new Resource("res");
+    Mapping<Task, Resource> mapping = new Mapping<>("map", task, res);
+    FactoryInputUser finput = new FactoryInputUser(task, mapping);
+    SplitArray tested = new SplitArray(finput);
     JsonObject result = tested.processInput(input).result();
     assertTrue(result.get(ConstantsLocal.outputSplitArray).isJsonArray());
     JsonArray resultArray = result.get(ConstantsLocal.outputSplitArray).getAsJsonArray();

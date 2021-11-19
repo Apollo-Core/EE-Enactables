@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local;
+package at.uibk.dps.ee.enactables;
 
 /**
  * Thrown when an input of a function executed by Apollo itself is not present.

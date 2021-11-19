@@ -1,13 +1,12 @@
 package at.uibk.dps.ee.enactables.local.demo;
 
-import java.util.HashSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-
+import at.uibk.dps.ee.enactables.FactoryInputUser;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 
@@ -24,9 +23,8 @@ public class SumCollection extends DemoFunctionAbstract {
    * @param idString the func id
    * @param type the function type
    */
-  public SumCollection(final String idString, final String type, final String functionID,
-      final Vertx vertx) {
-    super(idString, type, functionID, new HashSet<>(), vertx);
+  public SumCollection(FactoryInputUser input, final Vertx vertx) {
+    super(input.getTask(), input.getMapping(), vertx);
   }
 
   @Override

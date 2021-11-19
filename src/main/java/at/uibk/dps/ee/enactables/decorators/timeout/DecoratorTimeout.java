@@ -43,8 +43,8 @@ public class DecoratorTimeout extends EnactmentFunctionDecorator {
   public Future<JsonObject> processInput(final JsonObject input) {
     // case where we run into the timeout
     vertx.setTimer(timeOutMilliSeconds, timerId -> {
-      if (resultPromise.tryFail("Time out exception of function " + getFunctionId())) {
-        logger.error("Timeout of the function {}", getFunctionId());
+      if (resultPromise.tryFail("Time out exception of a function")) {
+        logger.error("Timeout of the a function");
       }
     });
     // case where we get the result from the decorated function

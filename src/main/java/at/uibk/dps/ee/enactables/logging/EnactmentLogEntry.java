@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Objects;
 import java.util.Set;
-import at.uibk.dps.ee.core.function.EnactmentFunction;
 
 /**
  * The {@link EnactmentLogEntry} contains the relevant information about an
@@ -46,23 +45,6 @@ public class EnactmentLogEntry {
     this.timestamp = timestamp;
     this.success = success;
     this.inputComplexity = inputComplexity;
-  }
-
-  /**
-   * Additional convenience constructor to provide the enactment function
-   * directly.
-   *
-   * @param timestamp         the timestamp of the enactment
-   * @param enactmentFunction the enactment function
-   * @param executionTime     the execution time
-   * @param success           the success status
-   * @param inputComplexity   the complexity of the input values
-   */
-  public EnactmentLogEntry(final Instant timestamp, final EnactmentFunction enactmentFunction,
-      final double executionTime, final boolean success, final double inputComplexity) {
-    this(timestamp, enactmentFunction.getTypeId(), enactmentFunction.getEnactmentMode(),
-        enactmentFunction.getImplementationId(), enactmentFunction.getAdditionalAttributes(),
-        executionTime, success, inputComplexity);
   }
 
   public String getImplementationId() {

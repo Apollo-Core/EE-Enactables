@@ -47,7 +47,7 @@ public class BlockFunctionTest {
       String strideKey = overlapSrc;
       JsonElement strideNum = new JsonPrimitive(0);
       input.add(strideKey, strideNum);
-      CollOperFunction tested = new CollOperFunction(task, "id", "type");
+      CollOperFunction tested = new CollOperFunction(task);
       tested.processInput(input);
     });
   }
@@ -73,7 +73,7 @@ public class BlockFunctionTest {
     String strideKey = sizeSrc;
     JsonElement strideNum = new JsonPrimitive(2);
     input.add(strideKey, strideNum);
-    CollOperFunction tested = new CollOperFunction(task, "id", "type");
+    CollOperFunction tested = new CollOperFunction(task);
     JsonObject jsonResult = tested.processInput(input).result();
     JsonElement result = jsonResult.get(someKey);
     assertTrue(result.isJsonArray());
@@ -114,7 +114,7 @@ public class BlockFunctionTest {
     String strideKey = sizeSrc;
     JsonElement strideNum = new JsonPrimitive(3);
     input.add(strideKey, strideNum);
-    CollOperFunction tested = new CollOperFunction(task, "id", "type");
+    CollOperFunction tested = new CollOperFunction(task);
     JsonObject jsonResult = tested.processInput(input).result();
     JsonElement result = jsonResult.get(someKey);
     assertTrue(result.isJsonArray());

@@ -1,20 +1,20 @@
-package at.uibk.dps.ee.enactables.local;
+package at.uibk.dps.ee.enactables;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import io.vertx.core.Future;
+import net.sf.opendse.model.Task;
 
-public class LocalFunctionAbstractTest {
+public class FunctionAbstractTest {
 
-  protected static class FunctionMock extends LocalFunctionAbstract {
+  protected static class FunctionMock extends FunctionAbstract {
 
     public FunctionMock() {
-      super("id", "type", "funcID", new HashSet<>());
+      super(new Task("task"));
     }
 
     @Override

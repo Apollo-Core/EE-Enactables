@@ -1,11 +1,10 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
-import java.util.HashSet;
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtility.UtilityType;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import io.vertx.core.Future;
+import net.sf.opendse.model.Task;
 
 /**
  * The {@link ForwardOperation} directly forwards the input to the output.
@@ -13,14 +12,13 @@ import io.vertx.core.Future;
  * @author Fedor Smirnov
  *
  */
-public class ForwardOperation extends LocalFunctionAbstract {
+public class ForwardOperation extends FunctionAbstract {
 
   /**
    * Construction method.
    */
-  public ForwardOperation() {
-    super(UtilityType.While.name(), UtilityType.While.name(), UtilityType.While.name(),
-        new HashSet<>());
+  public ForwardOperation(Task task) {
+    super(task);
   }
 
   /**

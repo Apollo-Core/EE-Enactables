@@ -1,10 +1,9 @@
 package at.uibk.dps.ee.enactables.local.demo;
 
-import java.util.HashSet;
 import com.google.gson.JsonObject;
-
+import at.uibk.dps.ee.enactables.FactoryInputUser;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 
@@ -23,9 +22,8 @@ public class Subtraction extends DemoFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Subtraction(final String idString, final String type, final String functionId,
-      final Vertx vertx) {
-    super(idString, type, functionId, new HashSet<>(), vertx);
+  public Subtraction(final FactoryInputUser input, final Vertx vertx) {
+    super(input.getTask(), input.getMapping(), vertx);
   }
 
   @Override

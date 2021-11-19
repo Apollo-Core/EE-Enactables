@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
+import net.sf.opendse.model.Task;
 
 public class MultiplexerTest {
 
   @Test
   public void test() {
-    Multiplexer tested = new Multiplexer("id", "type", "task");
+    Task task = new Task("Task");
+    Multiplexer tested = new Multiplexer(task);
     JsonObject inputTrue = new JsonObject();
     inputTrue.add(ConstantsEEModel.JsonKeyIfDecision, new JsonPrimitive(true));
     inputTrue.add(ConstantsEEModel.JsonKeyThen, new JsonPrimitive(42));

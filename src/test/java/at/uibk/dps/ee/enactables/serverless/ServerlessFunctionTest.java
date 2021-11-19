@@ -2,7 +2,6 @@ package at.uibk.dps.ee.enactables.serverless;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.concurrent.CountDownLatch;
 import org.junit.jupiter.api.Test;
 import com.google.gson.JsonObject;
@@ -49,11 +48,6 @@ public class ServerlessFunctionTest {
 
       ServerlessFunction tested = new ServerlessFunction(task, mapping, client);
       JsonObject input = new JsonObject();
-      assertEquals(serverUrl, tested.getImplementationId());
-      assertEquals("addition", tested.getTypeId());
-      SimpleEntry<String, String> expected = new SimpleEntry<String, String>("url", serverUrl);
-      assertTrue(tested.getAdditionalAttributes().contains(expected));
-      assertEquals(EnactmentMode.Serverless.name(), tested.getEnactmentMode());
       input.add(inputKey, new JsonPrimitive(inputString));
       CountDownLatch latch = new CountDownLatch(1);
       Future<JsonObject> futureResult = tested.processInput(input);

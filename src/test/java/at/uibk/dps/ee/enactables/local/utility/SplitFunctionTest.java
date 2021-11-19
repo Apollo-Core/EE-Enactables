@@ -37,7 +37,7 @@ public class SplitFunctionTest {
     String splitKey = overlapSrc;
     JsonElement replNum = new JsonPrimitive(3);
     input.add(splitKey, replNum);
-    CollOperFunction tested = new CollOperFunction(task, "id", "type");
+    CollOperFunction tested = new CollOperFunction(task);
     JsonObject jsonResult = tested.processInput(input).result();
     JsonElement result = jsonResult.get(someKey);
     assertTrue(result.isJsonArray());
@@ -87,7 +87,7 @@ public class SplitFunctionTest {
     String splitKey = overlapSrc;
     JsonElement replNum = new JsonPrimitive(3);
     input.add(splitKey, replNum);
-    CollOperFunction tested = new CollOperFunction(task, "id", "type");
+    CollOperFunction tested = new CollOperFunction(task);
     JsonObject jsonResult = tested.processInput(input).result();
     JsonElement result = jsonResult.get(someKey);
     assertTrue(result.isJsonArray());

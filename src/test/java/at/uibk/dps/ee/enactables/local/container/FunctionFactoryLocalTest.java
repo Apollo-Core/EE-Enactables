@@ -38,9 +38,6 @@ public class FunctionFactoryLocalTest {
         PropertyServiceMappingLocal.createMappingLocal(task, res, "image");
 
     EnactmentFunction result = tested.makeFunction(new FactoryInputUser(task, map));
-
-    assertEquals("addition", result.getTypeId());
-    assertEquals(at.uibk.dps.ee.enactables.EnactmentMode.Local.name(), result.getEnactmentMode());
-    assertTrue(result.getAdditionalAttributes().isEmpty());
+    assertTrue(result instanceof ContainerFunction);
   }
 }

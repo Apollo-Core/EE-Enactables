@@ -1,7 +1,6 @@
 package at.uibk.dps.ee.enactables.logging;
 
 import at.uibk.dps.ee.core.function.EnactmentFunction;
-import at.uibk.dps.ee.enactables.EnactmentMode;
 import io.vertx.core.Future;
 import com.google.gson.JsonObject;
 import java.time.Instant;
@@ -17,35 +16,6 @@ public class EnactmentLogEntryTest {
     @Override
     public Future<JsonObject> processInput(JsonObject input) {
       return Future.succeededFuture();
-    }
-
-    @Override
-    public String getTypeId() {
-      return "typeId2";
-    }
-
-    @Override
-    public String getEnactmentMode() {
-      return EnactmentMode.Serverless.name();
-    }
-
-    @Override
-    public String getImplementationId() {
-      return "implementationId2";
-    }
-
-    @Override
-    public String getFunctionId() {
-      return "task";
-    }
-
-    @Override
-    public Set<SimpleEntry<String, String>> getAdditionalAttributes() {
-      HashSet<SimpleEntry<String, String>> attributes = new HashSet<>();
-      attributes.add(new SimpleEntry<>("key1", "value1"));
-      attributes.add(new SimpleEntry<>("key2", "value2"));
-
-      return attributes;
     }
   }
 
@@ -74,29 +44,6 @@ public class EnactmentLogEntryTest {
     assertNotNull(entry.getTimestamp());
     assertEquals(0.0, entry.getInputComplexity(), 0.001);
     assertEquals(success, entry.isSuccess());
-    assertTrue(entry.getAdditionalAttributes().contains(new SimpleEntry<>("key1", "value1")));
-    assertTrue(entry.getAdditionalAttributes().contains(new SimpleEntry<>("key2", "value2")));
-    assertFalse(entry.getAdditionalAttributes().contains(new SimpleEntry<>("key3", "value2")));
-  }
-
-  @Test
-  public void testSecondConstructor() {
-    double executionTime2 = 90.01;
-    Instant timestamp2 = Instant.now();
-    boolean success2 = true;
-    double inputComplexity2 = 0.8;
-
-    MockFunction function = new MockFunction();
-    EnactmentLogEntry entry =
-        new EnactmentLogEntry(timestamp2, function, executionTime2, success2, inputComplexity2);
-
-    assertEquals(timestamp2, entry.getTimestamp());
-    assertEquals("typeId2", entry.getTypeId());
-    assertEquals(EnactmentMode.Serverless.name(), entry.getEnactmentMode());
-    assertEquals("implementationId2", entry.getImplementationId());
-    assertEquals(executionTime2, entry.getExecutionTime(), 0.001);
-    assertEquals(inputComplexity2, entry.getInputComplexity(), 0.001);
-    assertEquals(success2, entry.isSuccess());
     assertTrue(entry.getAdditionalAttributes().contains(new SimpleEntry<>("key1", "value1")));
     assertTrue(entry.getAdditionalAttributes().contains(new SimpleEntry<>("key2", "value2")));
     assertFalse(entry.getAdditionalAttributes().contains(new SimpleEntry<>("key3", "value2")));

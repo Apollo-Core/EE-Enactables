@@ -11,9 +11,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-
+import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import io.vertx.core.Vertx;
+import net.sf.opendse.model.Mapping;
+import net.sf.opendse.model.Resource;
+import net.sf.opendse.model.Task;
 
 public class SumCollectionTest {
 
@@ -34,7 +37,11 @@ public class SumCollectionTest {
     input.add(ConstantsLocal.inputWaitTime, waitTime);
     Vertx vertx = Vertx.vertx();
 
-    SumCollection tested = new SumCollection("id", "type", "task", vertx);
+    Task task = new Task("task");
+    Resource res = new Resource("res");
+    Mapping<Task, Resource> mapping = new Mapping<>("map", task, res);
+    FactoryInputUser finput = new FactoryInputUser(task, mapping);
+    SumCollection tested = new SumCollection(finput, vertx);
     Instant before = Instant.now();
     CountDownLatch cd = new CountDownLatch(1);
     tested.processInput(input).onComplete(asyncRes -> {

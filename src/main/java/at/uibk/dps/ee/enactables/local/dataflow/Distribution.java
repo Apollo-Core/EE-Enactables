@@ -1,6 +1,5 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -10,8 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
 import io.vertx.core.Future;
@@ -23,9 +22,7 @@ import net.sf.opendse.model.Task;
  * 
  * @author Fedor Smirnov
  */
-public class Distribution extends LocalFunctionAbstract {
-
-  protected final Task functionNode;
+public class Distribution extends FunctionAbstract {
 
   /**
    * Default constructor.
@@ -33,9 +30,8 @@ public class Distribution extends LocalFunctionAbstract {
    * @param functionNode the node modeling the distribution operation (annotated
    *        with the iteration number by this function)
    */
-  public Distribution(final Task functionNode, final String idString, final String type) {
-    super(idString, type, functionNode.getId(), new HashSet<>());
-    this.functionNode = functionNode;
+  public Distribution(final Task functionNode) {
+    super(functionNode);
   }
 
   @Override
@@ -71,7 +67,7 @@ public class Distribution extends LocalFunctionAbstract {
     if (element.isJsonArray()) {
       final JsonObject result = new JsonObject();
       processCollection(key, element.getAsJsonArray(), result);
-      PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode,
+      PropertyServiceFunctionDataFlowCollections.setIterationNumber(task,
           element.getAsJsonArray().size());
       return result;
     } else {
@@ -108,7 +104,7 @@ public class Distribution extends LocalFunctionAbstract {
     if (collSize == -1) {
       throw new IllegalStateException("Empty json input distribution");
     }
-    PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode, collSize);
+    PropertyServiceFunctionDataFlowCollections.setIterationNumber(task, collSize);
     return result;
   }
 
@@ -137,7 +133,7 @@ public class Distribution extends LocalFunctionAbstract {
       final JsonPrimitive primitive = element.getAsJsonPrimitive();
       if (primitive.isNumber()) {
         final int iterationNum = primitive.getAsInt();
-        PropertyServiceFunctionDataFlowCollections.setIterationNumber(functionNode, iterationNum);
+        PropertyServiceFunctionDataFlowCollections.setIterationNumber(task, iterationNum);
         final JsonObject result = new JsonObject();
         final List<String> keyList = Stream.iterate(0, i -> i + 1).limit(iterationNum)
             .map(i -> ConstantsEEModel

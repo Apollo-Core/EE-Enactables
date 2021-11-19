@@ -1,14 +1,14 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import java.util.HashSet;
 import java.util.Map.Entry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import io.vertx.core.Future;
+import net.sf.opendse.model.Task;
 
 /**
  * Performs the operation of aggregating multiple elements into a single
@@ -17,16 +17,14 @@ import io.vertx.core.Future;
  * @author Fedor Smirnov
  *
  */
-public class Aggregation extends LocalFunctionAbstract {
+public class Aggregation extends FunctionAbstract {
 
   /**
    * Default constructor
    * 
-   * @param idString the id string
-   * @param type the function type
    */
-  public Aggregation(final String idString, final String type, final String functionId) {
-    super(idString, type, functionId, new HashSet<>());
+  public Aggregation(final Task task) {
+    super(task);
   }
 
   @Override

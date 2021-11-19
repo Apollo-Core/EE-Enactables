@@ -1,12 +1,13 @@
 package at.uibk.dps.ee.enactables.local.demo;
 
-import java.util.AbstractMap.SimpleEntry;
 import com.google.gson.JsonObject;
-import java.util.Set;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
+import net.sf.opendse.model.Mapping;
+import net.sf.opendse.model.Resource;
+import net.sf.opendse.model.Task;
 
 /**
  * Parent class for the user functions which are executed natively by Apollo
@@ -14,22 +15,17 @@ import io.vertx.core.Vertx;
  * 
  * @author Fedor Smirnov
  */
-public abstract class DemoFunctionAbstract extends LocalFunctionAbstract {
+public abstract class DemoFunctionAbstract extends FunctionAbstract {
 
   protected final Vertx vertx;
 
   /**
    * Constructor: Same as parent, but also get the vertx context to set timers.
    * 
-   * @param implId
-   * @param typeId
-   * @param functionId
-   * @param additionalAttrs
    * @param vertx
    */
-  public DemoFunctionAbstract(final String implId, final String typeId, final String functionId,
-      final Set<SimpleEntry<String, String>> additionalAttrs, final Vertx vertx) {
-    super(implId, typeId, functionId, additionalAttrs);
+  public DemoFunctionAbstract(final Task task, final Mapping<Task, Resource> mapping, final Vertx vertx) {
+    super(task, mapping);
     this.vertx = vertx;
   }
 

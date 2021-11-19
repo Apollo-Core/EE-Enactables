@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import at.uibk.dps.ee.enactables.FunctionFactory;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
-import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlow;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlowCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionDataFlow.DataFlowType;
@@ -35,19 +34,15 @@ public class FunctionFactoryDataFlow extends FunctionFactory<Task, EnactmentFunc
   protected EnactmentFunction makeActualFunction(final Task task) {
     final DataFlowType dfType = PropertyServiceFunctionDataFlow.getDataFlowType(task);
     if (dfType.equals(DataFlowType.EarliestInput)) {
-      return new EarliestArrival(DataFlowType.EarliestInput.name(), EnactmentMode.DataFlow.name(),
-          task.getId());
+      return new EarliestArrival(task);
     } else if (dfType.equals(DataFlowType.Multiplexer)) {
-      return new Multiplexer(DataFlowType.Multiplexer.name(), EnactmentMode.DataFlow.name(),
-          task.getId());
+      return new Multiplexer(task);
     } else if (dfType.equals(DataFlowType.Collections)) {
       final OperationType oType = PropertyServiceFunctionDataFlowCollections.getOperationType(task);
       if (oType.equals(OperationType.Aggregation)) {
-        return new Aggregation(OperationType.Aggregation.name(), EnactmentMode.DataFlow.name(),
-            task.getId());
+        return new Aggregation(task);
       } else if (oType.equals(OperationType.Distribution)) {
-        return new Distribution(task, OperationType.Distribution.name(),
-            EnactmentMode.DataFlow.name());
+        return new Distribution(task);
       } else {
         throw new IllegalArgumentException("Unknown coll operation type: " + oType.name());
       }

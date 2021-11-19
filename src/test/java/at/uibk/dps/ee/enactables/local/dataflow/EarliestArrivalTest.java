@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
+import net.sf.opendse.model.Task;
 
 public class EarliestArrivalTest {
 
@@ -14,7 +15,8 @@ public class EarliestArrivalTest {
     String content = "myInput";
     JsonObject input = new JsonObject();
     input.add(ConstantsEEModel.EarliestArrivalJsonKey, JsonParser.parseString(content));
-    EarliestArrival tested = new EarliestArrival("id", "type", "task");
+    Task task = new Task("task");
+    EarliestArrival tested = new EarliestArrival(task);
     JsonObject result = tested.processInput(input).result();
     assertEquals(content, result.get(ConstantsEEModel.EarliestArrivalJsonKey).getAsString());
   }

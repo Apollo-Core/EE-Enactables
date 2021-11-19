@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.google.gson.JsonObject;
 import io.vertx.core.Future;
+import net.sf.opendse.model.Task;
 
 class ForwardOperationTest {
 
@@ -25,7 +26,8 @@ class ForwardOperationTest {
   
   @BeforeEach
   void setup() {
-    tested = new ForwardOperation();
+    Task task = new Task("task");
+    tested = new ForwardOperation(task);
     input = new JsonObject();
   }
 

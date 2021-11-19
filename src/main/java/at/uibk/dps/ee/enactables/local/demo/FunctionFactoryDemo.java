@@ -8,7 +8,6 @@ import com.google.inject.Inject;
 import at.uibk.dps.ee.enactables.FunctionFactory;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
-import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
@@ -44,17 +43,13 @@ public class FunctionFactoryDemo extends FunctionFactory<FactoryInputUser, Enact
         LocalCalculations.valueOf(PropertyServiceFunctionUser.getTypeId(task));
     switch (localCalcs) {
       case Addition:
-        return new Addition(LocalCalculations.Addition.name(), EnactmentMode.Local.name(),
-            task.getId(), vertx);
+        return new Addition(input, vertx);
       case Subtraction:
-        return new Subtraction(LocalCalculations.Subtraction.name(), EnactmentMode.Local.name(),
-            task.getId(), vertx);
+        return new Subtraction(input, vertx);
       case SumCollection:
-        return new SumCollection(LocalCalculations.SumCollection.name(), EnactmentMode.Local.name(),
-            task.getId(), vertx);
+        return new SumCollection(input, vertx);
       case SplitArray:
-        return new SplitArray(LocalCalculations.SplitArray.name(), EnactmentMode.Local.name(),
-            task.getId());
+        return new SplitArray(input);
       default:
         throw new IllegalArgumentException("Unknown local function " + localCalcs.name()
             + " specified for function " + task.getId());

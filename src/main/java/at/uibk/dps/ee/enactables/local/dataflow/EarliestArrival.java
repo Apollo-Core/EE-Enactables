@@ -1,12 +1,12 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import java.util.HashSet;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import io.vertx.core.Future;
+import net.sf.opendse.model.Task;
 
 /**
  * The {@link EarliestArrival} function simply forwards its input (which is set
@@ -14,7 +14,7 @@ import io.vertx.core.Future;
  * 
  * @author Fedor Smirnov
  */
-public class EarliestArrival extends LocalFunctionAbstract {
+public class EarliestArrival extends FunctionAbstract {
 
   /**
    * Default constructor
@@ -22,8 +22,8 @@ public class EarliestArrival extends LocalFunctionAbstract {
    * @param idString the func id
    * @param type the func type
    */
-  public EarliestArrival(final String idString, final String type, final String functionId) {
-    super(idString, type, functionId, new HashSet<>());
+  public EarliestArrival(Task task) {
+    super(task);
   }
 
   @Override

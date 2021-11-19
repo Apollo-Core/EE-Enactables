@@ -1,11 +1,10 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
-import java.util.HashSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUtilityCollections.CollectionOperation;
 import io.vertx.core.Future;
@@ -18,7 +17,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
-public class CollOperFunction extends LocalFunctionAbstract {
+public class CollOperFunction extends FunctionAbstract {
 
   protected final String subCollectionString;
   protected final CollectionOperation collectionOperation;
@@ -28,8 +27,8 @@ public class CollOperFunction extends LocalFunctionAbstract {
    * 
    * @param functionNode the function node modeling the collection operation
    */
-  public CollOperFunction(final Task functionNode, final String idString, final String type) {
-    super(idString, type, functionNode.getId(), new HashSet<>());
+  public CollOperFunction(final Task functionNode) {
+    super(functionNode);
     this.subCollectionString =
         PropertyServiceFunctionUtilityCollections.getSubCollectionsString(functionNode);
     this.collectionOperation =

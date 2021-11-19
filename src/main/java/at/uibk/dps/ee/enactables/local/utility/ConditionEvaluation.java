@@ -1,10 +1,9 @@
 package at.uibk.dps.ee.enactables.local.utility;
 
-import java.util.HashSet;
 import java.util.List;
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.enactables.local.utility.conditions.ConditionEvaluator;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import at.uibk.dps.ee.model.objects.Condition;
@@ -19,7 +18,7 @@ import net.sf.opendse.model.Task;
  * @author Fedor Smirnov
  *
  */
-public class ConditionEvaluation extends LocalFunctionAbstract {
+public class ConditionEvaluation extends FunctionAbstract {
 
   protected final List<Condition> conditions;
 
@@ -30,8 +29,8 @@ public class ConditionEvaluation extends LocalFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public ConditionEvaluation(final Task functionNode, final String idString, final String type) {
-    super(idString, type, functionNode.getId(), new HashSet<>());
+  public ConditionEvaluation(final Task functionNode) {
+    super(functionNode);
     this.conditions = PropertyServiceFunctionUtilityCondition.getConditions(functionNode);
   }
 

@@ -1,12 +1,12 @@
 package at.uibk.dps.ee.enactables.local.dataflow;
 
-import java.util.HashSet;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.model.constants.ConstantsEEModel;
 import io.vertx.core.Future;
+import net.sf.opendse.model.Task;
 
 /**
  * The {@link Multiplexer} forwards one of two inputs based on a decision
@@ -15,7 +15,7 @@ import io.vertx.core.Future;
  * @author Fedor Smirnov
  *
  */
-public class Multiplexer extends LocalFunctionAbstract {
+public class Multiplexer extends FunctionAbstract {
 
   /**
    * The default constructor.
@@ -23,8 +23,8 @@ public class Multiplexer extends LocalFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Multiplexer(final String idString, final String type, final String functionId) {
-    super(idString, type, functionId, new HashSet<>());
+  public Multiplexer(Task task) {
+    super(task);
   }
 
   @Override

@@ -20,7 +20,7 @@ public class DistributionTest {
       String key = ConstantsEEModel.JsonKeyConstantIterator;
       JsonObject jsonInput = new JsonObject();
       jsonInput.add(key, new JsonPrimitive("bla"));
-      Distribution tested = new Distribution(funcNode, "id", "type");
+      Distribution tested = new Distribution(funcNode);
       tested.processInput(jsonInput);
     });
   }
@@ -32,7 +32,7 @@ public class DistributionTest {
       String key = "key";
       JsonObject jsonInput = new JsonObject();
       jsonInput.add(key, new JsonPrimitive("bla"));
-      Distribution tested = new Distribution(funcNode, "id", "type");
+      Distribution tested = new Distribution(funcNode);
       tested.processInput(jsonInput);
     });
   }
@@ -44,7 +44,7 @@ public class DistributionTest {
     String key = ConstantsEEModel.JsonKeyConstantIterator;
     JsonObject jsonInput = new JsonObject();
     jsonInput.add(key, new JsonPrimitive(5));
-    Distribution tested = new Distribution(funcNode, "id", "type");
+    Distribution tested = new Distribution(funcNode);
     JsonObject output = tested.processInput(jsonInput).result();
     assertEquals(5, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
     assertTrue(output
@@ -77,7 +77,7 @@ public class DistributionTest {
       array1.add(2);
       array1.add(3);
       jsonInput.add(key1, array1);
-      Distribution tested = new Distribution(funcNode, "id", "type");
+      Distribution tested = new Distribution(funcNode);
       tested.processInput(jsonInput);
     });
   }
@@ -99,7 +99,7 @@ public class DistributionTest {
     array2.add("three");
     jsonInput.add(key1, array1);
     jsonInput.add(key2, array2);
-    Distribution tested = new Distribution(funcNode, "id", "type");
+    Distribution tested = new Distribution(funcNode);
     JsonObject output = tested.processInput(jsonInput).result();
     assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
     assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
@@ -124,7 +124,7 @@ public class DistributionTest {
     array1.add(2);
     array1.add(3);
     jsonInput.add(key1, array1);
-    Distribution tested = new Distribution(funcNode, "id", "type");
+    Distribution tested = new Distribution(funcNode);
     JsonObject output = tested.processInput(jsonInput).result();
     assertEquals(3, PropertyServiceFunctionDataFlowCollections.getIterationNumber(funcNode));
     assertEquals(1, output.get(ConstantsEEModel.getCollectionElementKey(key1, 0)).getAsInt());
@@ -150,7 +150,7 @@ public class DistributionTest {
       array2.add("four");
       jsonInput.add(key1, array1);
       jsonInput.add(key2, array2);
-      Distribution tested = new Distribution(funcNode, "id", "type");
+      Distribution tested = new Distribution(funcNode);
       tested.processInput(jsonInput);
     });
   }

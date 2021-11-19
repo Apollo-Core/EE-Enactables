@@ -1,15 +1,10 @@
 package at.uibk.dps.ee.enactables.serverless;
 
-import java.util.AbstractMap.SimpleEntry;
-import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import at.uibk.dps.ee.enactables.EnactmentMode;
 import at.uibk.dps.ee.enactables.FunctionAbstract;
-import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
-import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
 import at.uibk.dps.ee.model.properties.PropertyServiceResourceServerless;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -42,18 +37,24 @@ public class ServerlessFunction extends FunctionAbstract {
    */
   public ServerlessFunction(final Task task, final Mapping<Task, Resource> serverlessMapping,
       final WebClient client) {
-    super(PropertyServiceFunctionUser.getTypeId(task),
-        PropertyServiceMapping.getImplementationId(serverlessMapping),
-        EnactmentMode.Serverless.name(), task.getId(), new HashSet<>());
-    final Resource res = serverlessMapping.getTarget();
-    this.url = PropertyServiceResourceServerless.getUri(res);
-    additionalAttributes
-        .add(new SimpleEntry<String, String>(ConstantsServerless.logAttrSlUrl, url));
+    super(task, serverlessMapping);
+    this.url = getFaaSUrl();
     this.client = client;
+  }
+  
+  /**
+   * Method defining the way to retrieve the Url used to trigger the function execution.
+   * 
+   * @return Url used to trigger the function execution
+   */
+  protected final String getFaaSUrl() {
+    Mapping<Task, Resource> mappingEdge = getMappingOptional().get();
+    Resource mappingTarget = mappingEdge.getTarget();
+    return PropertyServiceResourceServerless.getUri(mappingTarget);
   }
 
   @Override
-  public Future<JsonObject> processInput(final JsonObject input) {
+  public Future<JsonObject> processVerifiedInput(final JsonObject input) {
     final Promise<JsonObject> resultPromise = Promise.promise();
     final Future<HttpResponse<Buffer>> futureResponse =
         client.postAbs(url).sendJson(new io.vertx.core.json.JsonObject(input.toString()));
@@ -65,14 +66,5 @@ public class ServerlessFunction extends FunctionAbstract {
       resultPromise.complete(resultJson);
     }).onFailure(failureThrowable -> resultPromise.fail(failureThrowable));
     return resultPromise.future();
-  }
-
-  /**
-   * Method to set the type id after the function construction.
-   * 
-   * @param typeId the type id to set
-   */
-  public void setTypeId(final String typeId) {
-    this.typeId = typeId;
-  }
+  }  
 }

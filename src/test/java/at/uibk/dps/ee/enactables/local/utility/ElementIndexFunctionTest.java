@@ -35,7 +35,7 @@ public class ElementIndexFunctionTest {
     JsonElement strideNum = new JsonPrimitive(2);
     input.add(strideKey, strideNum);
     // create the object
-    CollOperFunction tested = new CollOperFunction(task, "id", "type");
+    CollOperFunction tested = new CollOperFunction(task);
     JsonObject jsonResult = tested.processInput(input).result();
     JsonElement result = jsonResult.get(someKey);
     assertTrue(result.isJsonArray());

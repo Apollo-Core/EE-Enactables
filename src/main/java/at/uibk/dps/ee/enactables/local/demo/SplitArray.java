@@ -1,12 +1,12 @@
 package at.uibk.dps.ee.enactables.local.demo;
 
-import java.util.HashSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import at.uibk.dps.ee.enactables.FactoryInputUser;
+import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.InputMissingException;
 import at.uibk.dps.ee.enactables.local.ConstantsLocal;
-import at.uibk.dps.ee.enactables.local.InputMissingException;
-import at.uibk.dps.ee.enactables.local.LocalFunctionAbstract;
 import at.uibk.dps.ee.enactables.local.utility.CollOperSplit;
 import io.vertx.core.Future;
 
@@ -16,7 +16,7 @@ import io.vertx.core.Future;
  * @author Fedor Smirnov
  *
  */
-public class SplitArray extends LocalFunctionAbstract {
+public class SplitArray extends FunctionAbstract {
 
   /**
    * Default constructor
@@ -24,8 +24,8 @@ public class SplitArray extends LocalFunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public SplitArray(final String idString, final String type, final String functionId) {
-    super(idString, type, functionId, new HashSet<>());
+  public SplitArray(FactoryInputUser input) {
+    super(input.getTask(), input.getMapping());
   }
 
   @Override
