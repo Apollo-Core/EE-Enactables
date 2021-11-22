@@ -47,7 +47,7 @@ public class DecoratorEnactmentLog extends EnactmentFunctionDecorator {
   protected Future<JsonObject> postprocess(final JsonObject result) {
     System.err.println("This one should be done asynchronously");
     final Instant now = Instant.now();
-    double execTime = Duration.between(start, now).toMillis();
+    final double execTime = Duration.between(start, now).toMillis();
     // TODO this one has to be adjusted
     final EnactmentLogEntry entry = parametersExtractor
         .extractLogEntry((FunctionAbstract) decoratedFunction, now, execTime, true, 1.0);

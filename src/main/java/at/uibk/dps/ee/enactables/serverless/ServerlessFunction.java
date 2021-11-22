@@ -47,8 +47,8 @@ public class ServerlessFunction extends FunctionAbstract {
    * @return Url used to trigger the function execution
    */
   protected String getFaaSUrl() {
-    Mapping<Task, Resource> mappingEdge = getMappingOptional().get();
-    Resource mappingTarget = mappingEdge.getTarget();
+    final Mapping<Task, Resource> mappingEdge = getMappingOptional().get();
+    final Resource mappingTarget = mappingEdge.getTarget();
     return PropertyServiceResourceServerless.getUri(mappingTarget);
   }
 

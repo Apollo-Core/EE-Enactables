@@ -22,7 +22,7 @@ public class EarliestArrival extends FunctionAbstract {
    * @param idString the func id
    * @param type the func type
    */
-  public EarliestArrival(Task task) {
+  public EarliestArrival(final Task task) {
     super(task);
   }
 

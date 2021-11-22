@@ -48,7 +48,7 @@ public class DecoratorTimeout extends EnactmentFunctionDecorator {
       }
     });
     // case where we get the result from the decorated function
-    Future<JsonObject> decoratedResult = super.processInput(input);
+    final Future<JsonObject> decoratedResult = super.processInput(input);
     decoratedResult.onComplete(asyncRes -> {
       if (asyncRes.succeeded()) {
         resultPromise.tryComplete(asyncRes.result());

@@ -24,7 +24,7 @@ public class SplitArray extends FunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public SplitArray(FactoryInputUser input) {
+  public SplitArray(final FactoryInputUser input) {
     super(input.getTask(), input.getMapping());
   }
 

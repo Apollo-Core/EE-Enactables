@@ -17,7 +17,7 @@ public class ForwardOperation extends FunctionAbstract {
   /**
    * Construction method.
    */
-  public ForwardOperation(Task task) {
+  public ForwardOperation(final Task task) {
     super(task);
   }
 

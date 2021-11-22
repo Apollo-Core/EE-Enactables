@@ -16,10 +16,15 @@ import at.uibk.dps.ee.model.graph.SpecificationProvider;
 @Singleton
 public class LoggingParamsExtractor {
 
-  final EnactmentSpecification spec;
+  protected final EnactmentSpecification spec;
 
+  /**
+   * Injection constructor
+   * 
+   * @param specProvider provider for the spec
+   */
   @Inject
-  public LoggingParamsExtractor(SpecificationProvider specProvider) {
+  public LoggingParamsExtractor(final SpecificationProvider specProvider) {
     this.spec = specProvider.getSpecification();
   }
 
@@ -30,9 +35,8 @@ public class LoggingParamsExtractor {
    * @param function the given function
    * @return the log entry to create for the function call
    */
-  public EnactmentLogEntry extractLogEntry(FunctionAbstract function, Instant timeStamp,
-      double execTime, boolean success, double inputComplexity) {
+  public EnactmentLogEntry extractLogEntry(final FunctionAbstract function, final Instant timeStamp,
+      final double execTime, final boolean success, final double inputComplexity) {
     throw new IllegalStateException("Not yet implemented");
   }
-
 }

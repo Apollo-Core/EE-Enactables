@@ -23,7 +23,7 @@ public class Multiplexer extends FunctionAbstract {
    * @param idString the function id
    * @param type the function type
    */
-  public Multiplexer(Task task) {
+  public Multiplexer(final Task task) {
     super(task);
   }
 

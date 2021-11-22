@@ -23,7 +23,7 @@ public class SumCollection extends DemoFunctionAbstract {
    * @param idString the func id
    * @param type the function type
    */
-  public SumCollection(FactoryInputUser input, final Vertx vertx) {
+  public SumCollection(final FactoryInputUser input, final Vertx vertx) {
     super(input.getTask(), input.getMapping(), vertx);
   }
 

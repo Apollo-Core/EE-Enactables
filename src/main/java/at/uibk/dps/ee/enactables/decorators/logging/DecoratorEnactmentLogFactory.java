@@ -29,7 +29,7 @@ public class DecoratorEnactmentLogFactory extends FunctionDecoratorFactory {
   @Inject
   public DecoratorEnactmentLogFactory(
       @Constant(value = "prio", namespace = DecoratorEnactmentLogFactory.class) final int priority,
-      final EnactmentLogger enactmentLogger, LoggingParamsExtractor paramsExtractor) {
+      final EnactmentLogger enactmentLogger, final LoggingParamsExtractor paramsExtractor) {
     this.priority = priority;
     this.enactmentLogger = enactmentLogger;
     this.paramsExtractor = paramsExtractor;
