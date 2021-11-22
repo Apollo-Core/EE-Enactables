@@ -23,7 +23,6 @@ import net.sf.opendse.model.Task;
  */
 public class ServerlessFunction extends FunctionAbstract {
 
-  protected final String url;
   protected final WebClient client;
 
   protected final Logger logger = LoggerFactory.getLogger(ServerlessFunction.class);
@@ -38,16 +37,16 @@ public class ServerlessFunction extends FunctionAbstract {
   public ServerlessFunction(final Task task, final Mapping<Task, Resource> serverlessMapping,
       final WebClient client) {
     super(task, serverlessMapping);
-    this.url = getFaaSUrl();
     this.client = client;
   }
-  
+
   /**
-   * Method defining the way to retrieve the Url used to trigger the function execution.
+   * Method defining the way to retrieve the Url used to trigger the function
+   * execution.
    * 
    * @return Url used to trigger the function execution
    */
-  protected final String getFaaSUrl() {
+  protected String getFaaSUrl() {
     Mapping<Task, Resource> mappingEdge = getMappingOptional().get();
     Resource mappingTarget = mappingEdge.getTarget();
     return PropertyServiceResourceServerless.getUri(mappingTarget);
@@ -55,6 +54,7 @@ public class ServerlessFunction extends FunctionAbstract {
 
   @Override
   public Future<JsonObject> processVerifiedInput(final JsonObject input) {
+    final String url = getFaaSUrl();
     final Promise<JsonObject> resultPromise = Promise.promise();
     final Future<HttpResponse<Buffer>> futureResponse =
         client.postAbs(url).sendJson(new io.vertx.core.json.JsonObject(input.toString()));
@@ -66,5 +66,5 @@ public class ServerlessFunction extends FunctionAbstract {
       resultPromise.complete(resultJson);
     }).onFailure(failureThrowable -> resultPromise.fail(failureThrowable));
     return resultPromise.future();
-  }  
+  }
 }

@@ -34,6 +34,6 @@ public class FunctionFactoryServerlessTest {
     EnactmentFunction result = tested.makeFunction(new FactoryInputUser(task, mapping));
     assertTrue(result instanceof ServerlessFunction);
     ServerlessFunction slResult = (ServerlessFunction) result;
-    assertEquals("link", slResult.url);
+    assertEquals("link", slResult.getFaaSUrl());
   }
 }
