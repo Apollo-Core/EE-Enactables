@@ -31,9 +31,9 @@ dependencies {
   }
 
   // dependency to Opt4J
-  implementation 'com.github.FedorSmirnov89:opt4j:-SNAPSHOT'
+  implementation 'com.github.FedorSmirnov89:opt4j:master-SNAPSHOT'
   // dependency to opendse
-  implementation 'com.github.FedorSmirnov89:opendse:-SNAPSHOT'
+  implementation 'com.github.FedorSmirnov89:opendse:master-SNAPSHOT'
 
   // SLF4J and Logback for logging
   implementation group: "ch.qos.logback", name: "logback-classic", version: "1.2.3"
