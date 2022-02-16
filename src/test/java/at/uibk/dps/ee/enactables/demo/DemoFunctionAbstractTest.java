@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.demo;
+package at.uibk.dps.ee.enactables.demo;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;

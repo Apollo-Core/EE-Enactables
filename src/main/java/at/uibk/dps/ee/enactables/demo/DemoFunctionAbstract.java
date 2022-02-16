@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.demo;
+package at.uibk.dps.ee.enactables.demo;
 
 import com.google.gson.JsonObject;
 import at.uibk.dps.ee.enactables.FunctionAbstract;

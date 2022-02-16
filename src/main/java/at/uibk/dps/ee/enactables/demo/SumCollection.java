@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.demo;
+package at.uibk.dps.ee.enactables.demo;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.InputMissingException;
-import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 

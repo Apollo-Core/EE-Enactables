@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.demo;
+package at.uibk.dps.ee.enactables.demo;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
@@ -7,35 +7,45 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import at.uibk.dps.ee.enactables.FactoryInputUser;
-import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import io.vertx.core.Vertx;
 import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;
 import net.sf.opendse.model.Task;
 
-public class SubstractionTest {
+public class SumCollectionTest {
 
   @Test
-  @Timeout(value = 1, unit = TimeUnit.SECONDS)
+  @Timeout(value = 2, unit = TimeUnit.SECONDS)
   public void test() throws InterruptedException {
+    JsonArray collection = new JsonArray();
+    JsonElement first = new JsonPrimitive(1);
+    JsonElement second = new JsonPrimitive(3);
+    JsonElement third = new JsonPrimitive(5);
+    collection.add(first);
+    collection.add(second);
+    collection.add(third);
+
+    JsonObject input = new JsonObject();
+    input.add(ConstantsLocal.inputSumCollection, collection);
+    JsonElement waitTime = new JsonPrimitive(150);
+    input.add(ConstantsLocal.inputWaitTime, waitTime);
     Vertx vertx = Vertx.vertx();
+
     Task task = new Task("task");
     Resource res = new Resource("res");
     Mapping<Task, Resource> mapping = new Mapping<>("map", task, res);
     FactoryInputUser finput = new FactoryInputUser(task, mapping);
-    Subtraction tested = new Subtraction(finput, vertx);
-    JsonObject input = new JsonObject();
-    input.addProperty(ConstantsLocal.inputSubtractionMinuend, 6);
-    input.addProperty(ConstantsLocal.inputSubtractionSubtrahend, 7);
-    input.addProperty(ConstantsLocal.inputWaitTime, 150);
-
+    SumCollection tested = new SumCollection(finput, vertx);
     Instant before = Instant.now();
     CountDownLatch cd = new CountDownLatch(1);
     tested.processInput(input).onComplete(asyncRes -> {
       assertTrue(asyncRes.succeeded());
-      assertEquals(-1, asyncRes.result().get(ConstantsLocal.outputSubstractionResult).getAsLong());
+      assertEquals(9, asyncRes.result().get(ConstantsLocal.outputSumCollection).getAsLong());
       cd.countDown();
     });
     cd.await();

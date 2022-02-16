@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local;
+package at.uibk.dps.ee.enactables.demo;
 
 /**
  * Static constants for the local enactables.

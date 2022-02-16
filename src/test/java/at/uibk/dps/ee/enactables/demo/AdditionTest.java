@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.enactables.local.demo;
+package at.uibk.dps.ee.enactables.demo;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import com.google.gson.JsonObject;
 import at.uibk.dps.ee.enactables.FactoryInputUser;
-import at.uibk.dps.ee.enactables.local.ConstantsLocal;
 import io.vertx.core.Vertx;
 import net.sf.opendse.model.Mapping;
 import net.sf.opendse.model.Resource;

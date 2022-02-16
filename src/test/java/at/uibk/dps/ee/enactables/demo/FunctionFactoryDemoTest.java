@@ -1,10 +1,10 @@
-package at.uibk.dps.ee.enactables.local.demo;
+package at.uibk.dps.ee.enactables.demo;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 import at.uibk.dps.ee.enactables.FactoryInputUser;
-import at.uibk.dps.ee.enactables.local.ConstantsLocal.LocalCalculations;
+import at.uibk.dps.ee.enactables.demo.ConstantsLocal.LocalCalculations;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
 import at.uibk.dps.ee.model.properties.PropertyServiceFunctionUser;
 import at.uibk.dps.ee.model.properties.PropertyServiceMapping;
