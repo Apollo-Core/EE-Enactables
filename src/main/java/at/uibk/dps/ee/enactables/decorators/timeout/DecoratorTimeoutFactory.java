@@ -3,7 +3,7 @@ package at.uibk.dps.ee.enactables.decorators.timeout;
 import org.opt4j.core.start.Constant;
 import com.google.inject.Inject;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
-import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
+import at.uibk.dps.ee.enactables.decorators.FunctionDecoratorFactory;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
 
 /**

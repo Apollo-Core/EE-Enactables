@@ -2,8 +2,8 @@ package at.uibk.dps.ee.enactables;
 
 import static org.junit.jupiter.api.Assertions.*;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
-import at.uibk.dps.ee.core.function.EnactmentFunctionDecorator;
-import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
+import at.uibk.dps.ee.enactables.decorators.EnactmentFunctionDecorator;
+import at.uibk.dps.ee.enactables.decorators.FunctionDecoratorFactory;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import java.util.HashSet;

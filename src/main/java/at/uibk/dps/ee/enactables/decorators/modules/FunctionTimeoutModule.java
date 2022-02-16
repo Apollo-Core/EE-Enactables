@@ -4,7 +4,7 @@ import org.opt4j.core.config.annotations.Info;
 import org.opt4j.core.config.annotations.Order;
 import org.opt4j.core.start.Constant;
 import at.uibk.dps.ee.enactables.decorators.timeout.DecoratorTimeoutFactory;
-import at.uibk.dps.ee.guice.modules.FunctionModule;
+import at.uibk.dps.ee.enactables.modules.FunctionModule;
 
 /**
  * Module for the configuration of the timeout decorator.

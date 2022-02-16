@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import at.uibk.dps.ee.core.function.EnactmentFunction;
-import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
+import at.uibk.dps.ee.enactables.decorators.FunctionDecoratorFactory;
 
 /**
  * The {@link FunctionFactory} enables the injection of function decorators to

@@ -1,8 +1,8 @@
 package at.uibk.dps.ee.enactables.decorators.logging;
 
 import at.uibk.dps.ee.core.function.EnactmentFunction;
-import at.uibk.dps.ee.core.function.EnactmentFunctionDecorator;
 import at.uibk.dps.ee.enactables.FunctionAbstract;
+import at.uibk.dps.ee.enactables.decorators.EnactmentFunctionDecorator;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogEntry;
 import at.uibk.dps.ee.enactables.logging.EnactmentLogger;
 import at.uibk.dps.ee.enactables.logging.LoggingParamsExtractor;

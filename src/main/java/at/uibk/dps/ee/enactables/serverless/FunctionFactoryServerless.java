@@ -1,9 +1,9 @@
 package at.uibk.dps.ee.enactables.serverless;
 
 import at.uibk.dps.ee.core.function.EnactmentFunction;
-import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.enactables.FactoryInputUser;
 import at.uibk.dps.ee.enactables.FunctionFactory;
+import at.uibk.dps.ee.enactables.decorators.FunctionDecoratorFactory;
 import at.uibk.dps.ee.guice.starter.VertxProvider;
 import javax.inject.Inject;
 import java.util.Set;
