@@ -17,7 +17,7 @@ public abstract class FunctionFactoryUser
   /**
    * Same as the parent constructor.
    */
-  public FunctionFactoryUser(Set<FunctionDecoratorFactory> decoratorFactories) {
+  public FunctionFactoryUser(final Set<FunctionDecoratorFactory> decoratorFactories) {
     super(decoratorFactories);
   }
 

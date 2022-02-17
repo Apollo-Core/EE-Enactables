@@ -39,7 +39,7 @@ public class FunctionFactoryServerless extends FunctionFactoryUser {
   }
 
   @Override
-  public boolean isApplicable(FactoryInputUser factoryInput) {
+  public boolean isApplicable(final FactoryInputUser factoryInput) {
     return PropertyServiceMapping.getEnactmentMode(factoryInput.getMapping())
         .equals(EnactmentMode.Serverless);
   }

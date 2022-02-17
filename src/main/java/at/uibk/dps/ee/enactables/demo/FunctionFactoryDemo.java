@@ -59,7 +59,7 @@ public class FunctionFactoryDemo extends FunctionFactoryUser {
   }
 
   @Override
-  public boolean isApplicable(FactoryInputUser factoryInput) {
+  public boolean isApplicable(final FactoryInputUser factoryInput) {
     return PropertyServiceMapping.getEnactmentMode(factoryInput.getMapping())
         .equals(EnactmentMode.Demo);
   }
