@@ -58,9 +58,9 @@ public class ServerlessFunction extends FunctionAbstract {
     final Promise<JsonObject> resultPromise = Promise.promise();
     final Future<HttpResponse<Buffer>> futureResponse =
         client.postAbs(url).sendJson(new io.vertx.core.json.JsonObject(input.toString()));
-    logger.info("Serverless function {} triggerred.", url);
+    logger.info("Serverless function {} ({}) triggered.", this.task.getId(), url);
     futureResponse.onSuccess(asyncRes -> {
-      logger.info("Serverless function {} finished", url);
+      logger.info("Serverless function {} ({}) finished.", this.task.getId(), url);
       final JsonObject resultJson =
           JsonParser.parseString(asyncRes.body().toString()).getAsJsonObject();
       resultPromise.complete(resultJson);
